@@ -339,5 +339,5 @@ export function encode(mode: Mode) {
     continue
   }
 
-  return inflate(final.bytes)
+  return inflate(final.bytes) // TODO add padding
 }
