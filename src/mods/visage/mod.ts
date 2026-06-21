@@ -49,8 +49,6 @@ export const codewordsByVersion: Record<Version, [number, number, number, number
   40: [2956, 2334, 1666, 1276]
 } as const
 
-
-
 export namespace Mode {
 
   export class Numeric {
@@ -61,20 +59,30 @@ export namespace Mode {
       readonly correct: Correct
     ) { }
 
+    size() {
+      const { version, correct } = this
+
+      const codewords = codewordsByVersion[version][correct]
+
+      return codewords * 8
+    }
+
     write(cursor: Cursor) {
+      const { content, version, correct } = this
+
       const start = cursor.offset
 
       new Bitset(0b001, 4).write(cursor)
 
-      if (this.version < 10)
-        new Bitset(this.content.length, 10).write(cursor)
-      else if (this.version < 27)
-        new Bitset(this.content.length, 12).write(cursor)
+      if (version < 10)
+        new Bitset(content.length, 10).write(cursor)
+      else if (version < 27)
+        new Bitset(content.length, 12).write(cursor)
       else
-        new Bitset(this.content.length, 14).write(cursor)
+        new Bitset(content.length, 14).write(cursor)
 
-      for (let i = 0; i < this.content.length; i += 3) {
-        const chunk = this.content.slice(i, i + 3)
+      for (let i = 0; i < content.length; i += 3) {
+        const chunk = content.slice(i, i + 3)
 
         if (chunk.length === 3) {
           new Bitset(parseInt(chunk), 10).write(cursor)
@@ -94,7 +102,7 @@ export namespace Mode {
         break
       }
 
-      const codewords = codewordsByVersion[this.version][this.correct]
+      const codewords = codewordsByVersion[version][correct]
       const remaining = (codewords * 8) - (cursor.offset - start)
 
       cursor.offset += Math.min(remaining, 4)
@@ -102,7 +110,7 @@ export namespace Mode {
 
       new Bitset(0xEC, 8).write(cursor)
 
-      while (cursor.offset < codewords * 8)
+      while (cursor.offset < (codewords * 8))
         new Bitset(0x11, 8).write(cursor)
 
       return
