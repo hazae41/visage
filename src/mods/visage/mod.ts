@@ -3,6 +3,7 @@
 import { Bitset } from "@/libs/bitset/mod.ts";
 import { ReedSolomon } from "@/libs/correct/mod.ts";
 import { deflate } from "@/libs/deflate/mod.ts";
+import { inflate } from "@/libs/inflate/mod.ts";
 import { Version } from "@/mods/versions/mod.ts";
 import { Writable } from "@hazae41/binary";
 import { Cursor } from "@hazae41/cursor";
@@ -338,5 +339,5 @@ export function encode(mode: Mode) {
     continue
   }
 
-  return final.bytes
+  return inflate(final.bytes)
 }
