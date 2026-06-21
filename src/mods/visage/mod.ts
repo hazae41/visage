@@ -296,15 +296,6 @@ export namespace Mode {
 
       for (let i = 0; i < content.length; i++) {
         const c = content[i]
-
-        if (c < 0x8140)
-          throw new Error()
-        if (c > 0x9FFC)
-          throw new Error()
-
-        if (c > 0xE040 && c < 0xEBBF)
-          throw new Error()
-
         const r = c - (c < 0xE040 ? 0x8140 : 0xC140)
 
         const h = r >> 8
