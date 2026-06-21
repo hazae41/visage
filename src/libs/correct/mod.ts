@@ -41,10 +41,10 @@ export namespace GF256 {
 export namespace ReedSolomon {
 
   /**
-   * Generate Reed-Solomon error correction codewords for the given data
-   * @param data Data to generate error correction codewords for
-   * @param size Number of error correction codewords to generate
-   * @returns Generated error correction codewords
+   * Generate Reed-Solomon error correction bytes for the given data
+   * @param data Bytes to generate error correction bytes for
+   * @param size Number of error correction bytes to generate
+   * @returns Generated error correction bytes
    */
   export function generate(data: Uint8Array, size: number) {
     let generator = new Uint8Array([1])

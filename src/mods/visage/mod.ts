@@ -1,53 +1,17 @@
 // deno-lint-ignore-file no-namespace
 
 import { Bitset } from "@/libs/bitset/mod.ts";
+import { ReedSolomon } from "@/libs/correct/mod.ts";
+import { deflate } from "@/libs/deflate/mod.ts";
+import { Version } from "@/mods/versions/mod.ts";
+import { Writable } from "@hazae41/binary";
 import { Cursor } from "@hazae41/cursor";
 
-export type Version = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40
-export type Correct = 0 | 1 | 2 | 3
-
-export const codewordsByVersion: Record<Version, [number, number, number, number]> = {
-  1: [19, 16, 13, 9],
-  2: [34, 28, 22, 16],
-  3: [55, 44, 34, 26],
-  4: [80, 64, 48, 36],
-  5: [108, 86, 62, 46],
-  6: [136, 108, 76, 60],
-  7: [156, 124, 88, 66],
-  8: [194, 154, 110, 86],
-  9: [232, 182, 132, 100],
-  10: [274, 216, 154, 122],
-  11: [324, 254, 180, 140],
-  12: [370, 290, 206, 158],
-  13: [428, 334, 244, 180],
-  14: [461, 365, 261, 197],
-  15: [523, 415, 295, 223],
-  16: [589, 453, 325, 253],
-  17: [647, 507, 367, 283],
-  18: [721, 563, 397, 313],
-  19: [795, 627, 445, 341],
-  20: [861, 669, 485, 385],
-  21: [932, 714, 512, 406],
-  22: [1006, 782, 568, 442],
-  23: [1094, 860, 614, 464],
-  24: [1174, 914, 664, 514],
-  25: [1276, 1000, 718, 538],
-  26: [1370, 1062, 754, 596],
-  27: [1468, 1128, 808, 628],
-  28: [1531, 1193, 871, 661],
-  29: [1631, 1267, 911, 701],
-  30: [1735, 1373, 985, 745],
-  31: [1843, 1455, 1033, 793],
-  32: [1955, 1541, 1115, 845],
-  33: [2071, 1631, 1171, 901],
-  34: [2191, 1725, 1231, 961],
-  35: [2306, 1812, 1286, 986],
-  36: [2434, 1914, 1354, 1054],
-  37: [2566, 1992, 1426, 1096],
-  38: [2702, 2102, 1502, 1142],
-  39: [2812, 2216, 1582, 1222],
-  40: [2956, 2334, 1666, 1276]
-} as const
+export type Mode =
+  | Mode.Numeric
+  | Mode.Alphanumeric
+  | Mode.Byte
+  | Mode.Kanji
 
 export namespace Mode {
 
@@ -56,13 +20,13 @@ export namespace Mode {
     constructor(
       readonly content: string,
       readonly version: Version,
-      readonly correct: Correct
+      readonly correct: 0 | 1 | 2 | 3
     ) { }
 
     size() {
       const { version, correct } = this
 
-      const codewords = codewordsByVersion[version][correct]
+      const codewords = version.levels[correct].words
 
       return codewords * 8
     }
@@ -74,9 +38,9 @@ export namespace Mode {
 
       new Bitset(0b0001, 4).write(cursor)
 
-      if (version < 10)
+      if (version.number < 10)
         new Bitset(content.length, 10).write(cursor)
-      else if (version < 27)
+      else if (version.number < 27)
         new Bitset(content.length, 12).write(cursor)
       else
         new Bitset(content.length, 14).write(cursor)
@@ -120,7 +84,7 @@ export namespace Mode {
         break
       }
 
-      const codewords = codewordsByVersion[version][correct]
+      const codewords = version.levels[correct].words
       const remaining = (codewords * 8) - (cursor.offset - start)
 
       cursor.offset += Math.min(remaining, 4)
@@ -143,13 +107,13 @@ export namespace Mode {
     constructor(
       readonly content: string,
       readonly version: Version,
-      readonly correct: Correct
+      readonly correct: 0 | 1 | 2 | 3
     ) { }
 
     size() {
       const { version, correct } = this
 
-      const codewords = codewordsByVersion[version][correct]
+      const codewords = version.levels[correct].words
 
       return codewords * 8
     }
@@ -161,9 +125,9 @@ export namespace Mode {
 
       new Bitset(0b0010, 4).write(cursor)
 
-      if (version < 10)
+      if (version.number < 10)
         new Bitset(content.length, 9).write(cursor)
-      else if (version < 27)
+      else if (version.number < 27)
         new Bitset(content.length, 11).write(cursor)
       else
         new Bitset(content.length, 13).write(cursor)
@@ -199,7 +163,7 @@ export namespace Mode {
         break
       }
 
-      const codewords = codewordsByVersion[version][correct]
+      const codewords = version.levels[correct].words
       const remaining = (codewords * 8) - (cursor.offset - start)
 
       cursor.offset += Math.min(remaining, 4)
@@ -220,13 +184,13 @@ export namespace Mode {
     constructor(
       readonly content: Uint8Array,
       readonly version: Version,
-      readonly correct: Correct
+      readonly correct: 0 | 1 | 2 | 3
     ) { }
 
     size() {
       const { version, correct } = this
 
-      const codewords = codewordsByVersion[version][correct]
+      const codewords = version.levels[correct].words
 
       return codewords * 8
     }
@@ -238,9 +202,9 @@ export namespace Mode {
 
       new Bitset(0b0100, 4).write(cursor)
 
-      if (version < 10)
+      if (version.number < 10)
         new Bitset(content.length, 8).write(cursor)
-      else if (version < 27)
+      else if (version.number < 27)
         new Bitset(content.length, 16).write(cursor)
       else
         new Bitset(content.length, 16).write(cursor)
@@ -248,7 +212,7 @@ export namespace Mode {
       for (let i = 0; i < content.length; i++)
         new Bitset(content[i], 8).write(cursor)
 
-      const codewords = codewordsByVersion[version][correct]
+      const codewords = version.levels[correct].words
       const remaining = (codewords * 8) - (cursor.offset - start)
 
       cursor.offset += Math.min(remaining, 4)
@@ -269,13 +233,13 @@ export namespace Mode {
     constructor(
       readonly content: Array<number>,
       readonly version: Version,
-      readonly correct: Correct
+      readonly correct: 0 | 1 | 2 | 3
     ) { }
 
     size() {
       const { version, correct } = this
 
-      const codewords = codewordsByVersion[version][correct]
+      const codewords = version.levels[correct].words
 
       return codewords * 8
     }
@@ -287,9 +251,9 @@ export namespace Mode {
 
       new Bitset(0b1000, 4).write(cursor)
 
-      if (version < 10)
+      if (version.number < 10)
         new Bitset(content.length, 8).write(cursor)
-      else if (version < 27)
+      else if (version.number < 27)
         new Bitset(content.length, 10).write(cursor)
       else
         new Bitset(content.length, 12).write(cursor)
@@ -304,7 +268,7 @@ export namespace Mode {
         new Bitset((h * 0xC0) + l, 13).write(cursor)
       }
 
-      const codewords = codewordsByVersion[version][correct]
+      const codewords = version.levels[correct].words
       const remaining = (codewords * 8) - (cursor.offset - start)
 
       cursor.offset += Math.min(remaining, 4)
@@ -320,4 +284,59 @@ export namespace Mode {
 
   }
 
+}
+
+export function encode(mode: Mode) {
+  const wrote = new Cursor(Writable.writeToBytes(mode))
+  const level = mode.version.levels[mode.correct]
+
+  const datas = new Array<Uint8Array>()
+  const reeds = new Array<Uint8Array>()
+
+  let size = 0
+
+  for (const block of level.block) {
+    for (let i = 0; i < block.count; i++) {
+      const data = deflate(wrote.read(block.words * 8))
+      const reed = ReedSolomon.generate(data, level.fixes)
+
+      datas.push(data)
+      reeds.push(reed)
+
+      size += data.length
+      size += reed.length
+
+      continue
+    }
+  }
+
+  const final = new Cursor(new Uint8Array(size))
+
+  for (let i = 0; true; i++) {
+    const start = final.offset
+
+    for (const data of datas)
+      if (i < data.length)
+        final.writeUint8(data[i])
+
+    if (final.offset === start)
+      break
+
+    continue
+  }
+
+  for (let i = 0; true; i++) {
+    const start = final.offset
+
+    for (const reed of reeds)
+      if (i < reed.length)
+        final.writeUint8(reed[i])
+
+    if (final.offset === start)
+      break
+
+    continue
+  }
+
+  return final.bytes
 }
