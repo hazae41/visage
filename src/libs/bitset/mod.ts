@@ -16,7 +16,7 @@ export class Bitset {
     const l = this.length
 
     for (let i = 0; i < l; i++)
-      cursor.writeUint8((x >> (l - 1 - i)) & 1)
+      cursor.writeUint8((x >> (l - i - 1)) & 1)
 
     return
   }

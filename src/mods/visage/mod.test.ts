@@ -10,3 +10,7 @@ test("numeric", () => {
 test("alphanumeric", () => {
   console.log(deflate(Writable.writeToBytes(new Mode.Alphanumeric("DEADBEEF123", 1, 0))).toHex())
 })
+
+test("byte", () => {
+  console.log(deflate(Writable.writeToBytes(new Mode.Byte(new Uint8Array([1, 2, 3]), 1, 0))).toHex())
+})

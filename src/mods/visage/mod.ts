@@ -138,17 +138,13 @@ export namespace Mode {
 
   export class Alphanumeric {
 
-    static readonly alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:"
+    readonly alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:"
 
     constructor(
       readonly content: string,
       readonly version: Version,
       readonly correct: Correct
     ) { }
-
-    get alphabet() {
-      return Alphanumeric.alphabet
-    }
 
     size() {
       const { version, correct } = this
@@ -201,6 +197,120 @@ export namespace Mode {
         }
 
         break
+      }
+
+      const codewords = codewordsByVersion[version][correct]
+      const remaining = (codewords * 8) - (cursor.offset - start)
+
+      cursor.offset += Math.min(remaining, 4)
+      cursor.offset += 8 - (cursor.offset % 8)
+
+      new Bitset(0xEC, 8).write(cursor)
+
+      while (cursor.offset < (codewords * 8))
+        new Bitset(0x11, 8).write(cursor)
+
+      return
+    }
+
+  }
+
+  export class Byte {
+
+    constructor(
+      readonly content: Uint8Array,
+      readonly version: Version,
+      readonly correct: Correct
+    ) { }
+
+    size() {
+      const { version, correct } = this
+
+      const codewords = codewordsByVersion[version][correct]
+
+      return codewords * 8
+    }
+
+    write(cursor: Cursor) {
+      const { content, version, correct } = this
+
+      const start = cursor.offset
+
+      new Bitset(0b0100, 4).write(cursor)
+
+      if (version < 10)
+        new Bitset(content.length, 8).write(cursor)
+      else if (version < 27)
+        new Bitset(content.length, 16).write(cursor)
+      else
+        new Bitset(content.length, 16).write(cursor)
+
+      for (let i = 0; i < content.length; i++)
+        new Bitset(content[i], 8).write(cursor)
+
+      const codewords = codewordsByVersion[version][correct]
+      const remaining = (codewords * 8) - (cursor.offset - start)
+
+      cursor.offset += Math.min(remaining, 4)
+      cursor.offset += 8 - (cursor.offset % 8)
+
+      new Bitset(0xEC, 8).write(cursor)
+
+      while (cursor.offset < (codewords * 8))
+        new Bitset(0x11, 8).write(cursor)
+
+      return
+    }
+
+  }
+
+  export class Kanji {
+
+    constructor(
+      readonly content: Array<number>,
+      readonly version: Version,
+      readonly correct: Correct
+    ) { }
+
+    size() {
+      const { version, correct } = this
+
+      const codewords = codewordsByVersion[version][correct]
+
+      return codewords * 8
+    }
+
+    write(cursor: Cursor) {
+      const { content, version, correct } = this
+
+      const start = cursor.offset
+
+      new Bitset(0b1000, 4).write(cursor)
+
+      if (version < 10)
+        new Bitset(content.length, 8).write(cursor)
+      else if (version < 27)
+        new Bitset(content.length, 10).write(cursor)
+      else
+        new Bitset(content.length, 12).write(cursor)
+
+      for (let i = 0; i < content.length; i++) {
+        const c = content[i]
+
+        if (c < 0x8140)
+          throw new Error()
+        if (c > 0x9FFC)
+          throw new Error()
+
+        if (c > 0xE040 && c < 0xEBBF)
+          throw new Error()
+
+        const r = c - (c < 0xE040 ? 0x8140 : 0xC140)
+
+        const h = r >> 8
+        const l = r & 0xFF
+
+        new Bitset((h * 0xC0) + l, 13).write(cursor)
       }
 
       const codewords = codewordsByVersion[version][correct]
