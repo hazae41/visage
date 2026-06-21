@@ -21,10 +21,8 @@ export namespace GF256 {
   export function mul(a: number, b: number) {
     if (a === 0)
       return 0
-
     if (b === 0)
       return 0
-
     return exp[log[a] + log[b]]
   }
 
