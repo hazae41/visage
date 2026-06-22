@@ -1,17 +1,54 @@
 export interface Version {
+  /**
+   * Version number
+   */
   readonly number: number
-  readonly levels: [Level, Level, Level, Level]
+
+  /**
+   * Total number of bits in the symbol
+   */
+  readonly length: number
+
+  /**
+   * Levels of error correction
+   */
+  readonly levels: [L: Level, M: Level, Q: Level, H: Level]
 }
 
 export interface Level {
-  readonly words: number
-  readonly fixes: number
-  readonly block: Block[]
+  /**
+   * Number of words in the symbol
+   */
+  readonly words: Words
+
+  /**
+   * Types of blocks in the symbol
+   */
+  readonly types: Block[]
+}
+
+export interface Words {
+  /**
+   * Number of data words
+   */
+  readonly data: number
+
+  /**
+   * Number of reed words
+   */
+  readonly reed: number
 }
 
 export interface Block {
+  /**
+   * Number of blocks of this type
+   */
   readonly count: number
-  readonly words: number
+
+  /**
+   * Number of words in each block
+   */
+  readonly words: Words
 }
 
 export const versions: Record<string, Version> = {
@@ -19,2312 +56,3536 @@ export const versions: Record<string, Version> = {
     "number": 1,
     "levels": [
       {
-        "words": 19,
-        "fixes": 7,
-        "block": [
+        "words": {
+          "data": 19,
+          "reed": 7
+        },
+        "types": [
           {
             "count": 1,
-            "words": 19
+            "words": {
+              "data": 19,
+              "reed": 7
+            }
           }
         ]
       },
       {
-        "words": 16,
-        "fixes": 10,
-        "block": [
+        "words": {
+          "data": 16,
+          "reed": 10
+        },
+        "types": [
           {
             "count": 1,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 10
+            }
           }
         ]
       },
       {
-        "words": 13,
-        "fixes": 13,
-        "block": [
+        "words": {
+          "data": 13,
+          "reed": 13
+        },
+        "types": [
           {
             "count": 1,
-            "words": 13
+            "words": {
+              "data": 13,
+              "reed": 13
+            }
           }
         ]
       },
       {
-        "words": 9,
-        "fixes": 17,
-        "block": [
+        "words": {
+          "data": 9,
+          "reed": 17
+        },
+        "types": [
           {
             "count": 1,
-            "words": 9
+            "words": {
+              "data": 9,
+              "reed": 17
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 208
   },
   "2": {
     "number": 2,
     "levels": [
       {
-        "words": 34,
-        "fixes": 10,
-        "block": [
+        "words": {
+          "data": 34,
+          "reed": 10
+        },
+        "types": [
           {
             "count": 1,
-            "words": 34
+            "words": {
+              "data": 34,
+              "reed": 10
+            }
           }
         ]
       },
       {
-        "words": 28,
-        "fixes": 16,
-        "block": [
+        "words": {
+          "data": 28,
+          "reed": 16
+        },
+        "types": [
           {
             "count": 1,
-            "words": 28
+            "words": {
+              "data": 28,
+              "reed": 16
+            }
           }
         ]
       },
       {
-        "words": 22,
-        "fixes": 22,
-        "block": [
+        "words": {
+          "data": 22,
+          "reed": 22
+        },
+        "types": [
           {
             "count": 1,
-            "words": 22
+            "words": {
+              "data": 22,
+              "reed": 22
+            }
           }
         ]
       },
       {
-        "words": 16,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 16,
+          "reed": 28
+        },
+        "types": [
           {
             "count": 1,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 28
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 359
   },
   "3": {
     "number": 3,
     "levels": [
       {
-        "words": 55,
-        "fixes": 15,
-        "block": [
+        "words": {
+          "data": 55,
+          "reed": 15
+        },
+        "types": [
           {
             "count": 1,
-            "words": 55
+            "words": {
+              "data": 55,
+              "reed": 15
+            }
           }
         ]
       },
       {
-        "words": 44,
-        "fixes": 26,
-        "block": [
+        "words": {
+          "data": 44,
+          "reed": 26
+        },
+        "types": [
           {
             "count": 1,
-            "words": 44
+            "words": {
+              "data": 44,
+              "reed": 26
+            }
           }
         ]
       },
       {
-        "words": 34,
-        "fixes": 18,
-        "block": [
+        "words": {
+          "data": 34,
+          "reed": 36
+        },
+        "types": [
           {
             "count": 2,
-            "words": 17
+            "words": {
+              "data": 17,
+              "reed": 18
+            }
           }
         ]
       },
       {
-        "words": 26,
-        "fixes": 22,
-        "block": [
+        "words": {
+          "data": 26,
+          "reed": 44
+        },
+        "types": [
           {
             "count": 2,
-            "words": 13
+            "words": {
+              "data": 13,
+              "reed": 22
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 567
   },
   "4": {
     "number": 4,
     "levels": [
       {
-        "words": 80,
-        "fixes": 20,
-        "block": [
+        "words": {
+          "data": 80,
+          "reed": 20
+        },
+        "types": [
           {
             "count": 1,
-            "words": 80
+            "words": {
+              "data": 80,
+              "reed": 20
+            }
           }
         ]
       },
       {
-        "words": 64,
-        "fixes": 18,
-        "block": [
+        "words": {
+          "data": 64,
+          "reed": 36
+        },
+        "types": [
           {
             "count": 2,
-            "words": 32
+            "words": {
+              "data": 32,
+              "reed": 18
+            }
           }
         ]
       },
       {
-        "words": 48,
-        "fixes": 26,
-        "block": [
+        "words": {
+          "data": 48,
+          "reed": 52
+        },
+        "types": [
           {
             "count": 2,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 26
+            }
           }
         ]
       },
       {
-        "words": 36,
-        "fixes": 16,
-        "block": [
+        "words": {
+          "data": 36,
+          "reed": 64
+        },
+        "types": [
           {
             "count": 4,
-            "words": 9
+            "words": {
+              "data": 9,
+              "reed": 16
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 807
   },
   "5": {
     "number": 5,
     "levels": [
       {
-        "words": 108,
-        "fixes": 26,
-        "block": [
+        "words": {
+          "data": 108,
+          "reed": 26
+        },
+        "types": [
           {
             "count": 1,
-            "words": 108
+            "words": {
+              "data": 108,
+              "reed": 26
+            }
           }
         ]
       },
       {
-        "words": 86,
-        "fixes": 24,
-        "block": [
+        "words": {
+          "data": 86,
+          "reed": 48
+        },
+        "types": [
           {
             "count": 2,
-            "words": 43
+            "words": {
+              "data": 43,
+              "reed": 24
+            }
           }
         ]
       },
       {
-        "words": 62,
-        "fixes": 18,
-        "block": [
+        "words": {
+          "data": 62,
+          "reed": 72
+        },
+        "types": [
           {
             "count": 2,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 18
+            }
           },
           {
             "count": 2,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 18
+            }
           }
         ]
       },
       {
-        "words": 46,
-        "fixes": 22,
-        "block": [
+        "words": {
+          "data": 46,
+          "reed": 88
+        },
+        "types": [
           {
             "count": 2,
-            "words": 11
+            "words": {
+              "data": 11,
+              "reed": 22
+            }
           },
           {
             "count": 2,
-            "words": 12
+            "words": {
+              "data": 12,
+              "reed": 22
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 1079
   },
   "6": {
     "number": 6,
     "levels": [
       {
-        "words": 136,
-        "fixes": 18,
-        "block": [
+        "words": {
+          "data": 136,
+          "reed": 36
+        },
+        "types": [
           {
             "count": 2,
-            "words": 68
+            "words": {
+              "data": 68,
+              "reed": 18
+            }
           }
         ]
       },
       {
-        "words": 108,
-        "fixes": 16,
-        "block": [
+        "words": {
+          "data": 108,
+          "reed": 64
+        },
+        "types": [
           {
             "count": 4,
-            "words": 27
+            "words": {
+              "data": 27,
+              "reed": 16
+            }
           }
         ]
       },
       {
-        "words": 76,
-        "fixes": 24,
-        "block": [
+        "words": {
+          "data": 76,
+          "reed": 96
+        },
+        "types": [
           {
             "count": 4,
-            "words": 19
+            "words": {
+              "data": 19,
+              "reed": 24
+            }
           }
         ]
       },
       {
-        "words": 60,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 60,
+          "reed": 112
+        },
+        "types": [
           {
             "count": 4,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 28
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 1383
   },
   "7": {
     "number": 7,
     "levels": [
       {
-        "words": 156,
-        "fixes": 20,
-        "block": [
+        "words": {
+          "data": 156,
+          "reed": 40
+        },
+        "types": [
           {
             "count": 2,
-            "words": 78
+            "words": {
+              "data": 78,
+              "reed": 20
+            }
           }
         ]
       },
       {
-        "words": 124,
-        "fixes": 18,
-        "block": [
+        "words": {
+          "data": 124,
+          "reed": 72
+        },
+        "types": [
           {
             "count": 4,
-            "words": 31
+            "words": {
+              "data": 31,
+              "reed": 18
+            }
           }
         ]
       },
       {
-        "words": 88,
-        "fixes": 18,
-        "block": [
+        "words": {
+          "data": 88,
+          "reed": 108
+        },
+        "types": [
           {
             "count": 2,
-            "words": 14
+            "words": {
+              "data": 14,
+              "reed": 18
+            }
           },
           {
             "count": 4,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 18
+            }
           }
         ]
       },
       {
-        "words": 66,
-        "fixes": 26,
-        "block": [
+        "words": {
+          "data": 66,
+          "reed": 130
+        },
+        "types": [
           {
             "count": 4,
-            "words": 13
+            "words": {
+              "data": 13,
+              "reed": 26
+            }
           },
           {
             "count": 1,
-            "words": 14
+            "words": {
+              "data": 14,
+              "reed": 26
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 1568
   },
   "8": {
     "number": 8,
     "levels": [
       {
-        "words": 194,
-        "fixes": 24,
-        "block": [
+        "words": {
+          "data": 194,
+          "reed": 48
+        },
+        "types": [
           {
             "count": 2,
-            "words": 97
+            "words": {
+              "data": 97,
+              "reed": 24
+            }
           }
         ]
       },
       {
-        "words": 154,
-        "fixes": 22,
-        "block": [
+        "words": {
+          "data": 154,
+          "reed": 88
+        },
+        "types": [
           {
             "count": 2,
-            "words": 38
+            "words": {
+              "data": 38,
+              "reed": 22
+            }
           },
           {
             "count": 2,
-            "words": 39
+            "words": {
+              "data": 39,
+              "reed": 22
+            }
           }
         ]
       },
       {
-        "words": 110,
-        "fixes": 22,
-        "block": [
+        "words": {
+          "data": 110,
+          "reed": 132
+        },
+        "types": [
           {
             "count": 4,
-            "words": 18
+            "words": {
+              "data": 18,
+              "reed": 22
+            }
           },
           {
             "count": 2,
-            "words": 19
+            "words": {
+              "data": 19,
+              "reed": 22
+            }
           }
         ]
       },
       {
-        "words": 86,
-        "fixes": 26,
-        "block": [
+        "words": {
+          "data": 86,
+          "reed": 156
+        },
+        "types": [
           {
             "count": 4,
-            "words": 14
+            "words": {
+              "data": 14,
+              "reed": 26
+            }
           },
           {
             "count": 2,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 26
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 1936
   },
   "9": {
     "number": 9,
     "levels": [
       {
-        "words": 232,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 232,
+          "reed": 60
+        },
+        "types": [
           {
             "count": 2,
-            "words": 116
+            "words": {
+              "data": 116,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 182,
-        "fixes": 22,
-        "block": [
+        "words": {
+          "data": 182,
+          "reed": 110
+        },
+        "types": [
           {
             "count": 3,
-            "words": 36
+            "words": {
+              "data": 36,
+              "reed": 22
+            }
           },
           {
             "count": 2,
-            "words": 37
+            "words": {
+              "data": 37,
+              "reed": 22
+            }
           }
         ]
       },
       {
-        "words": 132,
-        "fixes": 20,
-        "block": [
+        "words": {
+          "data": 132,
+          "reed": 160
+        },
+        "types": [
           {
             "count": 4,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 20
+            }
           },
           {
             "count": 4,
-            "words": 17
+            "words": {
+              "data": 17,
+              "reed": 20
+            }
           }
         ]
       },
       {
-        "words": 100,
-        "fixes": 24,
-        "block": [
+        "words": {
+          "data": 100,
+          "reed": 192
+        },
+        "types": [
           {
             "count": 4,
-            "words": 12
+            "words": {
+              "data": 12,
+              "reed": 24
+            }
           },
           {
             "count": 4,
-            "words": 13
+            "words": {
+              "data": 13,
+              "reed": 24
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 2336
   },
   "10": {
     "number": 10,
     "levels": [
       {
-        "words": 274,
-        "fixes": 18,
-        "block": [
+        "words": {
+          "data": 274,
+          "reed": 72
+        },
+        "types": [
           {
             "count": 2,
-            "words": 68
+            "words": {
+              "data": 68,
+              "reed": 18
+            }
           },
           {
             "count": 2,
-            "words": 69
+            "words": {
+              "data": 69,
+              "reed": 18
+            }
           }
         ]
       },
       {
-        "words": 216,
-        "fixes": 26,
-        "block": [
+        "words": {
+          "data": 216,
+          "reed": 130
+        },
+        "types": [
           {
             "count": 4,
-            "words": 43
+            "words": {
+              "data": 43,
+              "reed": 26
+            }
           },
           {
             "count": 1,
-            "words": 44
+            "words": {
+              "data": 44,
+              "reed": 26
+            }
           }
         ]
       },
       {
-        "words": 154,
-        "fixes": 24,
-        "block": [
+        "words": {
+          "data": 154,
+          "reed": 192
+        },
+        "types": [
           {
             "count": 6,
-            "words": 19
+            "words": {
+              "data": 19,
+              "reed": 24
+            }
           },
           {
             "count": 2,
-            "words": 20
+            "words": {
+              "data": 20,
+              "reed": 24
+            }
           }
         ]
       },
       {
-        "words": 122,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 122,
+          "reed": 224
+        },
+        "types": [
           {
             "count": 6,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 28
+            }
           },
           {
             "count": 2,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 28
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 2768
   },
   "11": {
     "number": 11,
     "levels": [
       {
-        "words": 324,
-        "fixes": 20,
-        "block": [
+        "words": {
+          "data": 324,
+          "reed": 80
+        },
+        "types": [
           {
             "count": 4,
-            "words": 81
+            "words": {
+              "data": 81,
+              "reed": 20
+            }
           }
         ]
       },
       {
-        "words": 254,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 254,
+          "reed": 150
+        },
+        "types": [
           {
             "count": 1,
-            "words": 50
+            "words": {
+              "data": 50,
+              "reed": 30
+            }
           },
           {
             "count": 4,
-            "words": 51
+            "words": {
+              "data": 51,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 180,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 180,
+          "reed": 224
+        },
+        "types": [
           {
             "count": 4,
-            "words": 22
+            "words": {
+              "data": 22,
+              "reed": 28
+            }
           },
           {
             "count": 4,
-            "words": 23
+            "words": {
+              "data": 23,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 140,
-        "fixes": 24,
-        "block": [
+        "words": {
+          "data": 140,
+          "reed": 264
+        },
+        "types": [
           {
             "count": 3,
-            "words": 12
+            "words": {
+              "data": 12,
+              "reed": 24
+            }
           },
           {
             "count": 8,
-            "words": 13
+            "words": {
+              "data": 13,
+              "reed": 24
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 3232
   },
   "12": {
     "number": 12,
     "levels": [
       {
-        "words": 370,
-        "fixes": 24,
-        "block": [
+        "words": {
+          "data": 370,
+          "reed": 96
+        },
+        "types": [
           {
             "count": 2,
-            "words": 92
+            "words": {
+              "data": 92,
+              "reed": 24
+            }
           },
           {
             "count": 2,
-            "words": 93
+            "words": {
+              "data": 93,
+              "reed": 24
+            }
           }
         ]
       },
       {
-        "words": 290,
-        "fixes": 22,
-        "block": [
+        "words": {
+          "data": 290,
+          "reed": 176
+        },
+        "types": [
           {
             "count": 6,
-            "words": 36
+            "words": {
+              "data": 36,
+              "reed": 22
+            }
           },
           {
             "count": 2,
-            "words": 37
+            "words": {
+              "data": 37,
+              "reed": 22
+            }
           }
         ]
       },
       {
-        "words": 206,
-        "fixes": 26,
-        "block": [
+        "words": {
+          "data": 206,
+          "reed": 260
+        },
+        "types": [
           {
             "count": 4,
-            "words": 20
+            "words": {
+              "data": 20,
+              "reed": 26
+            }
           },
           {
             "count": 6,
-            "words": 21
+            "words": {
+              "data": 21,
+              "reed": 26
+            }
           }
         ]
       },
       {
-        "words": 158,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 158,
+          "reed": 308
+        },
+        "types": [
           {
             "count": 7,
-            "words": 14
+            "words": {
+              "data": 14,
+              "reed": 28
+            }
           },
           {
             "count": 4,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 28
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 3728
   },
   "13": {
     "number": 13,
     "levels": [
       {
-        "words": 428,
-        "fixes": 26,
-        "block": [
+        "words": {
+          "data": 428,
+          "reed": 104
+        },
+        "types": [
           {
             "count": 4,
-            "words": 107
+            "words": {
+              "data": 107,
+              "reed": 26
+            }
           }
         ]
       },
       {
-        "words": 334,
-        "fixes": 22,
-        "block": [
+        "words": {
+          "data": 334,
+          "reed": 198
+        },
+        "types": [
           {
             "count": 8,
-            "words": 37
+            "words": {
+              "data": 37,
+              "reed": 22
+            }
           },
           {
             "count": 1,
-            "words": 38
+            "words": {
+              "data": 38,
+              "reed": 22
+            }
           }
         ]
       },
       {
-        "words": 244,
-        "fixes": 24,
-        "block": [
+        "words": {
+          "data": 244,
+          "reed": 288
+        },
+        "types": [
           {
             "count": 8,
-            "words": 20
+            "words": {
+              "data": 20,
+              "reed": 24
+            }
           },
           {
             "count": 4,
-            "words": 21
+            "words": {
+              "data": 21,
+              "reed": 24
+            }
           }
         ]
       },
       {
-        "words": 180,
-        "fixes": 22,
-        "block": [
+        "words": {
+          "data": 180,
+          "reed": 352
+        },
+        "types": [
           {
             "count": 12,
-            "words": 11
+            "words": {
+              "data": 11,
+              "reed": 22
+            }
           },
           {
             "count": 4,
-            "words": 12
+            "words": {
+              "data": 12,
+              "reed": 22
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 4256
   },
   "14": {
     "number": 14,
     "levels": [
       {
-        "words": 461,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 461,
+          "reed": 120
+        },
+        "types": [
           {
             "count": 3,
-            "words": 115
+            "words": {
+              "data": 115,
+              "reed": 30
+            }
           },
           {
             "count": 1,
-            "words": 116
+            "words": {
+              "data": 116,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 365,
-        "fixes": 24,
-        "block": [
+        "words": {
+          "data": 365,
+          "reed": 216
+        },
+        "types": [
           {
             "count": 4,
-            "words": 40
+            "words": {
+              "data": 40,
+              "reed": 24
+            }
           },
           {
             "count": 5,
-            "words": 41
+            "words": {
+              "data": 41,
+              "reed": 24
+            }
           }
         ]
       },
       {
-        "words": 261,
-        "fixes": 20,
-        "block": [
+        "words": {
+          "data": 261,
+          "reed": 320
+        },
+        "types": [
           {
             "count": 11,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 20
+            }
           },
           {
             "count": 5,
-            "words": 17
+            "words": {
+              "data": 17,
+              "reed": 20
+            }
           }
         ]
       },
       {
-        "words": 197,
-        "fixes": 24,
-        "block": [
+        "words": {
+          "data": 197,
+          "reed": 384
+        },
+        "types": [
           {
             "count": 11,
-            "words": 12
+            "words": {
+              "data": 12,
+              "reed": 24
+            }
           },
           {
             "count": 5,
-            "words": 13
+            "words": {
+              "data": 13,
+              "reed": 24
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 4651
   },
   "15": {
     "number": 15,
     "levels": [
       {
-        "words": 523,
-        "fixes": 22,
-        "block": [
+        "words": {
+          "data": 523,
+          "reed": 132
+        },
+        "types": [
           {
             "count": 5,
-            "words": 87
+            "words": {
+              "data": 87,
+              "reed": 22
+            }
           },
           {
             "count": 1,
-            "words": 88
+            "words": {
+              "data": 88,
+              "reed": 22
+            }
           }
         ]
       },
       {
-        "words": 415,
-        "fixes": 24,
-        "block": [
+        "words": {
+          "data": 415,
+          "reed": 240
+        },
+        "types": [
           {
             "count": 5,
-            "words": 41
+            "words": {
+              "data": 41,
+              "reed": 24
+            }
           },
           {
             "count": 5,
-            "words": 42
+            "words": {
+              "data": 42,
+              "reed": 24
+            }
           }
         ]
       },
       {
-        "words": 295,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 295,
+          "reed": 360
+        },
+        "types": [
           {
             "count": 5,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           },
           {
             "count": 7,
-            "words": 25
+            "words": {
+              "data": 25,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 223,
-        "fixes": 24,
-        "block": [
+        "words": {
+          "data": 223,
+          "reed": 432
+        },
+        "types": [
           {
             "count": 11,
-            "words": 12
+            "words": {
+              "data": 12,
+              "reed": 24
+            }
           },
           {
             "count": 7,
-            "words": 13
+            "words": {
+              "data": 13,
+              "reed": 24
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 5243
   },
   "16": {
     "number": 16,
     "levels": [
       {
-        "words": 589,
-        "fixes": 24,
-        "block": [
+        "words": {
+          "data": 589,
+          "reed": 144
+        },
+        "types": [
           {
             "count": 5,
-            "words": 98
+            "words": {
+              "data": 98,
+              "reed": 24
+            }
           },
           {
             "count": 1,
-            "words": 99
+            "words": {
+              "data": 99,
+              "reed": 24
+            }
           }
         ]
       },
       {
-        "words": 453,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 453,
+          "reed": 280
+        },
+        "types": [
           {
             "count": 7,
-            "words": 45
+            "words": {
+              "data": 45,
+              "reed": 28
+            }
           },
           {
             "count": 3,
-            "words": 46
+            "words": {
+              "data": 46,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 325,
-        "fixes": 24,
-        "block": [
+        "words": {
+          "data": 325,
+          "reed": 408
+        },
+        "types": [
           {
             "count": 15,
-            "words": 19
+            "words": {
+              "data": 19,
+              "reed": 24
+            }
           },
           {
             "count": 2,
-            "words": 20
+            "words": {
+              "data": 20,
+              "reed": 24
+            }
           }
         ]
       },
       {
-        "words": 253,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 253,
+          "reed": 480
+        },
+        "types": [
           {
             "count": 3,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 30
+            }
           },
           {
             "count": 13,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 5867
   },
   "17": {
     "number": 17,
     "levels": [
       {
-        "words": 647,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 647,
+          "reed": 168
+        },
+        "types": [
           {
             "count": 1,
-            "words": 107
+            "words": {
+              "data": 107,
+              "reed": 28
+            }
           },
           {
             "count": 5,
-            "words": 108
+            "words": {
+              "data": 108,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 507,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 507,
+          "reed": 308
+        },
+        "types": [
           {
             "count": 10,
-            "words": 46
+            "words": {
+              "data": 46,
+              "reed": 28
+            }
           },
           {
             "count": 1,
-            "words": 47
+            "words": {
+              "data": 47,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 367,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 367,
+          "reed": 448
+        },
+        "types": [
           {
             "count": 1,
-            "words": 22
+            "words": {
+              "data": 22,
+              "reed": 28
+            }
           },
           {
             "count": 15,
-            "words": 23
+            "words": {
+              "data": 23,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 283,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 283,
+          "reed": 532
+        },
+        "types": [
           {
             "count": 2,
-            "words": 14
+            "words": {
+              "data": 14,
+              "reed": 28
+            }
           },
           {
             "count": 17,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 28
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 6523
   },
   "18": {
     "number": 18,
     "levels": [
       {
-        "words": 721,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 721,
+          "reed": 180
+        },
+        "types": [
           {
             "count": 5,
-            "words": 120
+            "words": {
+              "data": 120,
+              "reed": 30
+            }
           },
           {
             "count": 1,
-            "words": 121
+            "words": {
+              "data": 121,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 563,
-        "fixes": 26,
-        "block": [
+        "words": {
+          "data": 563,
+          "reed": 338
+        },
+        "types": [
           {
             "count": 9,
-            "words": 43
+            "words": {
+              "data": 43,
+              "reed": 26
+            }
           },
           {
             "count": 4,
-            "words": 44
+            "words": {
+              "data": 44,
+              "reed": 26
+            }
           }
         ]
       },
       {
-        "words": 397,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 397,
+          "reed": 504
+        },
+        "types": [
           {
             "count": 17,
-            "words": 22
+            "words": {
+              "data": 22,
+              "reed": 28
+            }
           },
           {
             "count": 1,
-            "words": 23
+            "words": {
+              "data": 23,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 313,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 313,
+          "reed": 588
+        },
+        "types": [
           {
             "count": 2,
-            "words": 14
+            "words": {
+              "data": 14,
+              "reed": 28
+            }
           },
           {
             "count": 19,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 28
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 7211
   },
   "19": {
     "number": 19,
     "levels": [
       {
-        "words": 795,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 795,
+          "reed": 196
+        },
+        "types": [
           {
             "count": 3,
-            "words": 113
+            "words": {
+              "data": 113,
+              "reed": 28
+            }
           },
           {
             "count": 4,
-            "words": 114
+            "words": {
+              "data": 114,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 627,
-        "fixes": 26,
-        "block": [
+        "words": {
+          "data": 627,
+          "reed": 364
+        },
+        "types": [
           {
             "count": 3,
-            "words": 44
+            "words": {
+              "data": 44,
+              "reed": 26
+            }
           },
           {
             "count": 11,
-            "words": 45
+            "words": {
+              "data": 45,
+              "reed": 26
+            }
           }
         ]
       },
       {
-        "words": 445,
-        "fixes": 26,
-        "block": [
+        "words": {
+          "data": 445,
+          "reed": 546
+        },
+        "types": [
           {
             "count": 17,
-            "words": 21
+            "words": {
+              "data": 21,
+              "reed": 26
+            }
           },
           {
             "count": 4,
-            "words": 22
+            "words": {
+              "data": 22,
+              "reed": 26
+            }
           }
         ]
       },
       {
-        "words": 341,
-        "fixes": 26,
-        "block": [
+        "words": {
+          "data": 341,
+          "reed": 650
+        },
+        "types": [
           {
             "count": 9,
-            "words": 13
+            "words": {
+              "data": 13,
+              "reed": 26
+            }
           },
           {
             "count": 16,
-            "words": 14
+            "words": {
+              "data": 14,
+              "reed": 26
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 7931
   },
   "20": {
     "number": 20,
     "levels": [
       {
-        "words": 861,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 861,
+          "reed": 224
+        },
+        "types": [
           {
             "count": 3,
-            "words": 107
+            "words": {
+              "data": 107,
+              "reed": 28
+            }
           },
           {
             "count": 5,
-            "words": 108
+            "words": {
+              "data": 108,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 669,
-        "fixes": 26,
-        "block": [
+        "words": {
+          "data": 669,
+          "reed": 416
+        },
+        "types": [
           {
             "count": 3,
-            "words": 41
+            "words": {
+              "data": 41,
+              "reed": 26
+            }
           },
           {
             "count": 13,
-            "words": 42
+            "words": {
+              "data": 42,
+              "reed": 26
+            }
           }
         ]
       },
       {
-        "words": 485,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 485,
+          "reed": 600
+        },
+        "types": [
           {
             "count": 15,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           },
           {
             "count": 5,
-            "words": 25
+            "words": {
+              "data": 25,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 385,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 385,
+          "reed": 700
+        },
+        "types": [
           {
             "count": 15,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 28
+            }
           },
           {
             "count": 10,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 28
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 8683
   },
   "21": {
     "number": 21,
     "levels": [
       {
-        "words": 932,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 932,
+          "reed": 224
+        },
+        "types": [
           {
             "count": 4,
-            "words": 116
+            "words": {
+              "data": 116,
+              "reed": 28
+            }
           },
           {
             "count": 4,
-            "words": 117
+            "words": {
+              "data": 117,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 714,
-        "fixes": 26,
-        "block": [
+        "words": {
+          "data": 714,
+          "reed": 442
+        },
+        "types": [
           {
             "count": 17,
-            "words": 42
+            "words": {
+              "data": 42,
+              "reed": 26
+            }
           }
         ]
       },
       {
-        "words": 512,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 512,
+          "reed": 644
+        },
+        "types": [
           {
             "count": 17,
-            "words": 22
+            "words": {
+              "data": 22,
+              "reed": 28
+            }
           },
           {
             "count": 6,
-            "words": 23
+            "words": {
+              "data": 23,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 406,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 406,
+          "reed": 750
+        },
+        "types": [
           {
             "count": 19,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           },
           {
             "count": 6,
-            "words": 17
+            "words": {
+              "data": 17,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 9252
   },
   "22": {
     "number": 22,
     "levels": [
       {
-        "words": 1006,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 1006,
+          "reed": 252
+        },
+        "types": [
           {
             "count": 2,
-            "words": 111
+            "words": {
+              "data": 111,
+              "reed": 28
+            }
           },
           {
             "count": 7,
-            "words": 112
+            "words": {
+              "data": 112,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 782,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 782,
+          "reed": 476
+        },
+        "types": [
           {
             "count": 17,
-            "words": 46
+            "words": {
+              "data": 46,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 568,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 568,
+          "reed": 690
+        },
+        "types": [
           {
             "count": 7,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           },
           {
             "count": 16,
-            "words": 25
+            "words": {
+              "data": 25,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 442,
-        "fixes": 24,
-        "block": [
+        "words": {
+          "data": 442,
+          "reed": 816
+        },
+        "types": [
           {
             "count": 34,
-            "words": 13
+            "words": {
+              "data": 13,
+              "reed": 24
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 10068
   },
   "23": {
     "number": 23,
     "levels": [
       {
-        "words": 1094,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1094,
+          "reed": 270
+        },
+        "types": [
           {
             "count": 4,
-            "words": 121
+            "words": {
+              "data": 121,
+              "reed": 30
+            }
           },
           {
             "count": 5,
-            "words": 122
+            "words": {
+              "data": 122,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 860,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 860,
+          "reed": 504
+        },
+        "types": [
           {
             "count": 4,
-            "words": 47
+            "words": {
+              "data": 47,
+              "reed": 28
+            }
           },
           {
             "count": 14,
-            "words": 48
+            "words": {
+              "data": 48,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 614,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 614,
+          "reed": 750
+        },
+        "types": [
           {
             "count": 11,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           },
           {
             "count": 14,
-            "words": 25
+            "words": {
+              "data": 25,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 464,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 464,
+          "reed": 900
+        },
+        "types": [
           {
             "count": 16,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 30
+            }
           },
           {
             "count": 14,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 10916
   },
   "24": {
     "number": 24,
     "levels": [
       {
-        "words": 1174,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1174,
+          "reed": 300
+        },
+        "types": [
           {
             "count": 6,
-            "words": 117
+            "words": {
+              "data": 117,
+              "reed": 30
+            }
           },
           {
             "count": 4,
-            "words": 118
+            "words": {
+              "data": 118,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 914,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 914,
+          "reed": 560
+        },
+        "types": [
           {
             "count": 6,
-            "words": 45
+            "words": {
+              "data": 45,
+              "reed": 28
+            }
           },
           {
             "count": 14,
-            "words": 46
+            "words": {
+              "data": 46,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 664,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 664,
+          "reed": 810
+        },
+        "types": [
           {
             "count": 11,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           },
           {
             "count": 16,
-            "words": 25
+            "words": {
+              "data": 25,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 514,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 514,
+          "reed": 960
+        },
+        "types": [
           {
             "count": 30,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           },
           {
             "count": 2,
-            "words": 17
+            "words": {
+              "data": 17,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 11796
   },
   "25": {
     "number": 25,
     "levels": [
       {
-        "words": 1276,
-        "fixes": 26,
-        "block": [
+        "words": {
+          "data": 1276,
+          "reed": 312
+        },
+        "types": [
           {
             "count": 8,
-            "words": 106
+            "words": {
+              "data": 106,
+              "reed": 26
+            }
           },
           {
             "count": 4,
-            "words": 107
+            "words": {
+              "data": 107,
+              "reed": 26
+            }
           }
         ]
       },
       {
-        "words": 1000,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 1000,
+          "reed": 588
+        },
+        "types": [
           {
             "count": 8,
-            "words": 47
+            "words": {
+              "data": 47,
+              "reed": 28
+            }
           },
           {
             "count": 13,
-            "words": 48
+            "words": {
+              "data": 48,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 718,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 718,
+          "reed": 870
+        },
+        "types": [
           {
             "count": 7,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           },
           {
             "count": 22,
-            "words": 25
+            "words": {
+              "data": 25,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 538,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 538,
+          "reed": 1050
+        },
+        "types": [
           {
             "count": 22,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 30
+            }
           },
           {
             "count": 13,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 12708
   },
   "26": {
     "number": 26,
     "levels": [
       {
-        "words": 1370,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 1370,
+          "reed": 336
+        },
+        "types": [
           {
             "count": 10,
-            "words": 114
+            "words": {
+              "data": 114,
+              "reed": 28
+            }
           },
           {
             "count": 2,
-            "words": 115
+            "words": {
+              "data": 115,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 1062,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 1062,
+          "reed": 644
+        },
+        "types": [
           {
             "count": 19,
-            "words": 46
+            "words": {
+              "data": 46,
+              "reed": 28
+            }
           },
           {
             "count": 4,
-            "words": 47
+            "words": {
+              "data": 47,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 754,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 754,
+          "reed": 952
+        },
+        "types": [
           {
             "count": 28,
-            "words": 22
+            "words": {
+              "data": 22,
+              "reed": 28
+            }
           },
           {
             "count": 6,
-            "words": 23
+            "words": {
+              "data": 23,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 596,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 596,
+          "reed": 1110
+        },
+        "types": [
           {
             "count": 33,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           },
           {
             "count": 4,
-            "words": 17
+            "words": {
+              "data": 17,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 13652
   },
   "27": {
     "number": 27,
     "levels": [
       {
-        "words": 1468,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1468,
+          "reed": 360
+        },
+        "types": [
           {
             "count": 8,
-            "words": 122
+            "words": {
+              "data": 122,
+              "reed": 30
+            }
           },
           {
             "count": 4,
-            "words": 123
+            "words": {
+              "data": 123,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 1128,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 1128,
+          "reed": 700
+        },
+        "types": [
           {
             "count": 22,
-            "words": 45
+            "words": {
+              "data": 45,
+              "reed": 28
+            }
           },
           {
             "count": 3,
-            "words": 46
+            "words": {
+              "data": 46,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 808,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 808,
+          "reed": 1020
+        },
+        "types": [
           {
             "count": 8,
-            "words": 23
+            "words": {
+              "data": 23,
+              "reed": 30
+            }
           },
           {
             "count": 26,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 628,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 628,
+          "reed": 1200
+        },
+        "types": [
           {
             "count": 12,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 30
+            }
           },
           {
             "count": 28,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 14628
   },
   "28": {
     "number": 28,
     "levels": [
       {
-        "words": 1531,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1531,
+          "reed": 390
+        },
+        "types": [
           {
             "count": 3,
-            "words": 117
+            "words": {
+              "data": 117,
+              "reed": 30
+            }
           },
           {
             "count": 10,
-            "words": 118
+            "words": {
+              "data": 118,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 1193,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 1193,
+          "reed": 728
+        },
+        "types": [
           {
             "count": 3,
-            "words": 45
+            "words": {
+              "data": 45,
+              "reed": 28
+            }
           },
           {
             "count": 23,
-            "words": 46
+            "words": {
+              "data": 46,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 871,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 871,
+          "reed": 1050
+        },
+        "types": [
           {
             "count": 4,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           },
           {
             "count": 31,
-            "words": 25
+            "words": {
+              "data": 25,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 661,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 661,
+          "reed": 1260
+        },
+        "types": [
           {
             "count": 11,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 30
+            }
           },
           {
             "count": 31,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 15371
   },
   "29": {
     "number": 29,
     "levels": [
       {
-        "words": 1631,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1631,
+          "reed": 420
+        },
+        "types": [
           {
             "count": 7,
-            "words": 116
+            "words": {
+              "data": 116,
+              "reed": 30
+            }
           },
           {
             "count": 7,
-            "words": 117
+            "words": {
+              "data": 117,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 1267,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 1267,
+          "reed": 784
+        },
+        "types": [
           {
             "count": 21,
-            "words": 45
+            "words": {
+              "data": 45,
+              "reed": 28
+            }
           },
           {
             "count": 7,
-            "words": 46
+            "words": {
+              "data": 46,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 911,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 911,
+          "reed": 1140
+        },
+        "types": [
           {
             "count": 1,
-            "words": 23
+            "words": {
+              "data": 23,
+              "reed": 30
+            }
           },
           {
             "count": 37,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 701,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 701,
+          "reed": 1350
+        },
+        "types": [
           {
             "count": 19,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 30
+            }
           },
           {
             "count": 26,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 16411
   },
   "30": {
     "number": 30,
     "levels": [
       {
-        "words": 1735,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1735,
+          "reed": 450
+        },
+        "types": [
           {
             "count": 5,
-            "words": 115
+            "words": {
+              "data": 115,
+              "reed": 30
+            }
           },
           {
             "count": 10,
-            "words": 116
+            "words": {
+              "data": 116,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 1373,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 1373,
+          "reed": 812
+        },
+        "types": [
           {
             "count": 19,
-            "words": 47
+            "words": {
+              "data": 47,
+              "reed": 28
+            }
           },
           {
             "count": 10,
-            "words": 48
+            "words": {
+              "data": 48,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 985,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 985,
+          "reed": 1200
+        },
+        "types": [
           {
             "count": 15,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           },
           {
             "count": 25,
-            "words": 25
+            "words": {
+              "data": 25,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 745,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 745,
+          "reed": 1440
+        },
+        "types": [
           {
             "count": 23,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 30
+            }
           },
           {
             "count": 25,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 17483
   },
   "31": {
     "number": 31,
     "levels": [
       {
-        "words": 1843,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1843,
+          "reed": 480
+        },
+        "types": [
           {
             "count": 13,
-            "words": 115
+            "words": {
+              "data": 115,
+              "reed": 30
+            }
           },
           {
             "count": 3,
-            "words": 116
+            "words": {
+              "data": 116,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 1455,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 1455,
+          "reed": 868
+        },
+        "types": [
           {
             "count": 2,
-            "words": 46
+            "words": {
+              "data": 46,
+              "reed": 28
+            }
           },
           {
             "count": 29,
-            "words": 47
+            "words": {
+              "data": 47,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 1033,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1033,
+          "reed": 1290
+        },
+        "types": [
           {
             "count": 42,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           },
           {
             "count": 1,
-            "words": 25
+            "words": {
+              "data": 25,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 793,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 793,
+          "reed": 1530
+        },
+        "types": [
           {
             "count": 23,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 30
+            }
           },
           {
             "count": 28,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 18587
   },
   "32": {
     "number": 32,
     "levels": [
       {
-        "words": 1955,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1955,
+          "reed": 510
+        },
+        "types": [
           {
             "count": 17,
-            "words": 115
+            "words": {
+              "data": 115,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 1541,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 1541,
+          "reed": 924
+        },
+        "types": [
           {
             "count": 10,
-            "words": 46
+            "words": {
+              "data": 46,
+              "reed": 28
+            }
           },
           {
             "count": 23,
-            "words": 47
+            "words": {
+              "data": 47,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 1115,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1115,
+          "reed": 1350
+        },
+        "types": [
           {
             "count": 10,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           },
           {
             "count": 35,
-            "words": 25
+            "words": {
+              "data": 25,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 845,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 845,
+          "reed": 1620
+        },
+        "types": [
           {
             "count": 19,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 30
+            }
           },
           {
             "count": 35,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 19723
   },
   "33": {
     "number": 33,
     "levels": [
       {
-        "words": 2071,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 2071,
+          "reed": 540
+        },
+        "types": [
           {
             "count": 17,
-            "words": 115
+            "words": {
+              "data": 115,
+              "reed": 30
+            }
           },
           {
             "count": 1,
-            "words": 116
+            "words": {
+              "data": 116,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 1631,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 1631,
+          "reed": 980
+        },
+        "types": [
           {
             "count": 14,
-            "words": 46
+            "words": {
+              "data": 46,
+              "reed": 28
+            }
           },
           {
             "count": 21,
-            "words": 47
+            "words": {
+              "data": 47,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 1171,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1171,
+          "reed": 1440
+        },
+        "types": [
           {
             "count": 29,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           },
           {
             "count": 19,
-            "words": 25
+            "words": {
+              "data": 25,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 901,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 901,
+          "reed": 1710
+        },
+        "types": [
           {
             "count": 11,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 30
+            }
           },
           {
             "count": 46,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 20891
   },
   "34": {
     "number": 34,
     "levels": [
       {
-        "words": 2191,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 2191,
+          "reed": 570
+        },
+        "types": [
           {
             "count": 13,
-            "words": 115
+            "words": {
+              "data": 115,
+              "reed": 30
+            }
           },
           {
             "count": 6,
-            "words": 116
+            "words": {
+              "data": 116,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 1725,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 1725,
+          "reed": 1036
+        },
+        "types": [
           {
             "count": 14,
-            "words": 46
+            "words": {
+              "data": 46,
+              "reed": 28
+            }
           },
           {
             "count": 23,
-            "words": 47
+            "words": {
+              "data": 47,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 1231,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1231,
+          "reed": 1530
+        },
+        "types": [
           {
             "count": 44,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           },
           {
             "count": 7,
-            "words": 25
+            "words": {
+              "data": 25,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 961,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 961,
+          "reed": 1800
+        },
+        "types": [
           {
             "count": 59,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           },
           {
             "count": 1,
-            "words": 17
+            "words": {
+              "data": 17,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 22091
   },
   "35": {
     "number": 35,
     "levels": [
       {
-        "words": 2306,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 2306,
+          "reed": 570
+        },
+        "types": [
           {
             "count": 12,
-            "words": 121
+            "words": {
+              "data": 121,
+              "reed": 30
+            }
           },
           {
             "count": 7,
-            "words": 122
+            "words": {
+              "data": 122,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 1812,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 1812,
+          "reed": 1064
+        },
+        "types": [
           {
             "count": 12,
-            "words": 47
+            "words": {
+              "data": 47,
+              "reed": 28
+            }
           },
           {
             "count": 26,
-            "words": 48
+            "words": {
+              "data": 48,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 1286,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1286,
+          "reed": 1590
+        },
+        "types": [
           {
             "count": 39,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           },
           {
             "count": 14,
-            "words": 25
+            "words": {
+              "data": 25,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 986,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 986,
+          "reed": 1890
+        },
+        "types": [
           {
             "count": 22,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 30
+            }
           },
           {
             "count": 41,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 23008
   },
   "36": {
     "number": 36,
     "levels": [
       {
-        "words": 2434,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 2434,
+          "reed": 600
+        },
+        "types": [
           {
             "count": 6,
-            "words": 121
+            "words": {
+              "data": 121,
+              "reed": 30
+            }
           },
           {
             "count": 14,
-            "words": 122
+            "words": {
+              "data": 122,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 1914,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 1914,
+          "reed": 1120
+        },
+        "types": [
           {
             "count": 6,
-            "words": 47
+            "words": {
+              "data": 47,
+              "reed": 28
+            }
           },
           {
             "count": 34,
-            "words": 48
+            "words": {
+              "data": 48,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 1354,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1354,
+          "reed": 1680
+        },
+        "types": [
           {
             "count": 46,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           },
           {
             "count": 10,
-            "words": 25
+            "words": {
+              "data": 25,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 1054,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1054,
+          "reed": 1980
+        },
+        "types": [
           {
             "count": 2,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 30
+            }
           },
           {
             "count": 64,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 24272
   },
   "37": {
     "number": 37,
     "levels": [
       {
-        "words": 2566,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 2566,
+          "reed": 630
+        },
+        "types": [
           {
             "count": 17,
-            "words": 122
+            "words": {
+              "data": 122,
+              "reed": 30
+            }
           },
           {
             "count": 4,
-            "words": 123
+            "words": {
+              "data": 123,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 1992,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 1992,
+          "reed": 1204
+        },
+        "types": [
           {
             "count": 29,
-            "words": 46
+            "words": {
+              "data": 46,
+              "reed": 28
+            }
           },
           {
             "count": 14,
-            "words": 47
+            "words": {
+              "data": 47,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 1426,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1426,
+          "reed": 1770
+        },
+        "types": [
           {
             "count": 49,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           },
           {
             "count": 10,
-            "words": 25
+            "words": {
+              "data": 25,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 1096,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1096,
+          "reed": 2100
+        },
+        "types": [
           {
             "count": 24,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 30
+            }
           },
           {
             "count": 46,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 25568
   },
   "38": {
     "number": 38,
     "levels": [
       {
-        "words": 2702,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 2702,
+          "reed": 660
+        },
+        "types": [
           {
             "count": 4,
-            "words": 122
+            "words": {
+              "data": 122,
+              "reed": 30
+            }
           },
           {
             "count": 18,
-            "words": 123
+            "words": {
+              "data": 123,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 2102,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 2102,
+          "reed": 1260
+        },
+        "types": [
           {
             "count": 13,
-            "words": 46
+            "words": {
+              "data": 46,
+              "reed": 28
+            }
           },
           {
             "count": 32,
-            "words": 47
+            "words": {
+              "data": 47,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 1502,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1502,
+          "reed": 1860
+        },
+        "types": [
           {
             "count": 48,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           },
           {
             "count": 14,
-            "words": 25
+            "words": {
+              "data": 25,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 1142,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1142,
+          "reed": 2220
+        },
+        "types": [
           {
             "count": 42,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 30
+            }
           },
           {
             "count": 32,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 26896
   },
   "39": {
     "number": 39,
     "levels": [
       {
-        "words": 2812,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 2812,
+          "reed": 720
+        },
+        "types": [
           {
             "count": 20,
-            "words": 117
+            "words": {
+              "data": 117,
+              "reed": 30
+            }
           },
           {
             "count": 4,
-            "words": 118
+            "words": {
+              "data": 118,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 2216,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 2216,
+          "reed": 1316
+        },
+        "types": [
           {
             "count": 40,
-            "words": 47
+            "words": {
+              "data": 47,
+              "reed": 28
+            }
           },
           {
             "count": 7,
-            "words": 48
+            "words": {
+              "data": 48,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 1582,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1582,
+          "reed": 1950
+        },
+        "types": [
           {
             "count": 43,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           },
           {
             "count": 22,
-            "words": 25
+            "words": {
+              "data": 25,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 1222,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1222,
+          "reed": 2310
+        },
+        "types": [
           {
             "count": 10,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 30
+            }
           },
           {
             "count": 67,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 28256
   },
   "40": {
     "number": 40,
     "levels": [
       {
-        "words": 2956,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 2956,
+          "reed": 750
+        },
+        "types": [
           {
             "count": 19,
-            "words": 118
+            "words": {
+              "data": 118,
+              "reed": 30
+            }
           },
           {
             "count": 6,
-            "words": 119
+            "words": {
+              "data": 119,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 2334,
-        "fixes": 28,
-        "block": [
+        "words": {
+          "data": 2334,
+          "reed": 1372
+        },
+        "types": [
           {
             "count": 18,
-            "words": 47
+            "words": {
+              "data": 47,
+              "reed": 28
+            }
           },
           {
             "count": 31,
-            "words": 48
+            "words": {
+              "data": 48,
+              "reed": 28
+            }
           }
         ]
       },
       {
-        "words": 1666,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1666,
+          "reed": 2040
+        },
+        "types": [
           {
             "count": 34,
-            "words": 24
+            "words": {
+              "data": 24,
+              "reed": 30
+            }
           },
           {
             "count": 34,
-            "words": 25
+            "words": {
+              "data": 25,
+              "reed": 30
+            }
           }
         ]
       },
       {
-        "words": 1276,
-        "fixes": 30,
-        "block": [
+        "words": {
+          "data": 1276,
+          "reed": 2430
+        },
+        "types": [
           {
             "count": 20,
-            "words": 15
+            "words": {
+              "data": 15,
+              "reed": 30
+            }
           },
           {
             "count": 61,
-            "words": 16
+            "words": {
+              "data": 16,
+              "reed": 30
+            }
           }
         ]
       }
-    ]
+    ],
+    "length": 29648
   }
 }

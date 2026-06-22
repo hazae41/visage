@@ -3,18 +3,17 @@
 import { Bitset } from "@/libs/bitset/mod.ts";
 import { ReedSolomon } from "@/libs/correct/mod.ts";
 import { deflate } from "@/libs/deflate/mod.ts";
-import { inflate } from "@/libs/inflate/mod.ts";
 import { Version } from "@/mods/versions/mod.ts";
 import { Writable } from "@hazae41/binary";
 import { Cursor } from "@hazae41/cursor";
 
-export type Mode =
-  | Mode.Numeric
-  | Mode.Alphanumeric
-  | Mode.Byte
-  | Mode.Kanji
+export type Content =
+  | Content.Numeric
+  | Content.Alphanumeric
+  | Content.Byte
+  | Content.Kanji
 
-export namespace Mode {
+export namespace Content {
 
   export class Numeric {
 
@@ -27,9 +26,9 @@ export namespace Mode {
     size() {
       const { version, correct } = this
 
-      const codewords = version.levels[correct].words
+      const datawords = version.levels[correct].words.data
 
-      return codewords * 8
+      return datawords * 8
     }
 
     write(cursor: Cursor) {
@@ -85,15 +84,15 @@ export namespace Mode {
         break
       }
 
-      const codewords = version.levels[correct].words
-      const remaining = (codewords * 8) - (cursor.offset - start)
+      const datawords = version.levels[correct].words.data
+      const remaining = (datawords * 8) - (cursor.offset - start)
 
       cursor.offset += Math.min(remaining, 4)
       cursor.offset += 8 - (cursor.offset % 8)
 
       new Bitset(0xEC, 8).write(cursor)
 
-      while (cursor.offset < (codewords * 8))
+      while (cursor.offset < (datawords * 8))
         new Bitset(0x11, 8).write(cursor)
 
       return
@@ -114,9 +113,9 @@ export namespace Mode {
     size() {
       const { version, correct } = this
 
-      const codewords = version.levels[correct].words
+      const datawords = version.levels[correct].words.data
 
-      return codewords * 8
+      return datawords * 8
     }
 
     write(cursor: Cursor) {
@@ -164,15 +163,15 @@ export namespace Mode {
         break
       }
 
-      const codewords = version.levels[correct].words
-      const remaining = (codewords * 8) - (cursor.offset - start)
+      const datawords = version.levels[correct].words.data
+      const remaining = (datawords * 8) - (cursor.offset - start)
 
       cursor.offset += Math.min(remaining, 4)
       cursor.offset += 8 - (cursor.offset % 8)
 
       new Bitset(0xEC, 8).write(cursor)
 
-      while (cursor.offset < (codewords * 8))
+      while (cursor.offset < (datawords * 8))
         new Bitset(0x11, 8).write(cursor)
 
       return
@@ -191,9 +190,9 @@ export namespace Mode {
     size() {
       const { version, correct } = this
 
-      const codewords = version.levels[correct].words
+      const datawords = version.levels[correct].words.data
 
-      return codewords * 8
+      return datawords * 8
     }
 
     write(cursor: Cursor) {
@@ -213,15 +212,15 @@ export namespace Mode {
       for (let i = 0; i < content.length; i++)
         new Bitset(content[i], 8).write(cursor)
 
-      const codewords = version.levels[correct].words
-      const remaining = (codewords * 8) - (cursor.offset - start)
+      const datawords = version.levels[correct].words.data
+      const remaining = (datawords * 8) - (cursor.offset - start)
 
       cursor.offset += Math.min(remaining, 4)
       cursor.offset += 8 - (cursor.offset % 8)
 
       new Bitset(0xEC, 8).write(cursor)
 
-      while (cursor.offset < (codewords * 8))
+      while (cursor.offset < (datawords * 8))
         new Bitset(0x11, 8).write(cursor)
 
       return
@@ -240,9 +239,9 @@ export namespace Mode {
     size() {
       const { version, correct } = this
 
-      const codewords = version.levels[correct].words
+      const datawords = version.levels[correct].words.data
 
-      return codewords * 8
+      return datawords * 8
     }
 
     write(cursor: Cursor) {
@@ -269,15 +268,15 @@ export namespace Mode {
         new Bitset((h * 0xC0) + l, 13).write(cursor)
       }
 
-      const codewords = version.levels[correct].words
-      const remaining = (codewords * 8) - (cursor.offset - start)
+      const datawords = version.levels[correct].words.data
+      const remaining = (datawords * 8) - (cursor.offset - start)
 
       cursor.offset += Math.min(remaining, 4)
       cursor.offset += 8 - (cursor.offset % 8)
 
       new Bitset(0xEC, 8).write(cursor)
 
-      while (cursor.offset < (codewords * 8))
+      while (cursor.offset < (datawords * 8))
         new Bitset(0x11, 8).write(cursor)
 
       return
@@ -287,57 +286,52 @@ export namespace Mode {
 
 }
 
-export function encode(mode: Mode) {
-  const wrote = new Cursor(Writable.writeToBytes(mode))
-  const level = mode.version.levels[mode.correct]
+export function encode(content: Content) {
+  const bits = new Cursor(new Uint8Array(content.version.length))
+
+  const wrote = new Cursor(Writable.writeToBytes(content))
+  const level = content.version.levels[content.correct]
 
   const datas = new Array<Uint8Array>()
   const reeds = new Array<Uint8Array>()
 
-  let size = 0
-
-  for (const block of level.block) {
-    for (let i = 0; i < block.count; i++) {
-      const data = deflate(wrote.read(block.words * 8))
-      const reed = ReedSolomon.generate(data, level.fixes)
+  for (const type of level.types) {
+    for (let i = 0; i < type.count; i++) {
+      const data = deflate(wrote.read(type.words.data * 8))
+      const reed = ReedSolomon.generate(data, type.words.reed)
 
       datas.push(data)
       reeds.push(reed)
-
-      size += data.length
-      size += reed.length
 
       continue
     }
   }
 
-  const final = new Cursor(new Uint8Array(size))
-
   for (let i = 0; true; i++) {
-    const start = final.offset
+    const start = bits.offset
 
     for (const data of datas)
       if (i < data.length)
-        final.writeUint8(data[i])
+        new Bitset(data[i], 8).write(bits)
 
-    if (final.offset === start)
+    if (bits.offset === start)
       break
 
     continue
   }
 
   for (let i = 0; true; i++) {
-    const start = final.offset
+    const start = bits.offset
 
     for (const reed of reeds)
       if (i < reed.length)
-        final.writeUint8(reed[i])
+        new Bitset(reed[i], 8).write(bits)
 
-    if (final.offset === start)
+    if (bits.offset === start)
       break
 
     continue
   }
 
-  return inflate(final.bytes) // TODO add padding
+  return bits.bytes
 }
