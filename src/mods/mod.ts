@@ -1,1 +1,1 @@
-export * from "./visage/mod.ts";
+export * from "./content/mod.ts";

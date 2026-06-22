@@ -1,6 +1,7 @@
-import { encode } from "@/mod.ts";
+import { Bitstream } from "@/mods/bitstream/mod.ts";
+import { Content } from "@/mods/content/mod.ts";
 import { versions } from "@/mods/versions/mod.ts";
-import { Content } from "@/mods/visage/mod.ts";
+import { Writable } from "@hazae41/binary";
 import { test } from "@hazae41/phobos";
 
 // test("numeric", () => {
@@ -12,5 +13,5 @@ import { test } from "@hazae41/phobos";
 // })
 
 test("byte", () => {
-  console.log(encode(new Content.Byte(new Uint8Array([1, 2, 3]), versions[27], 0)).toHex())
+  console.log(Writable.writeToBytes(new Bitstream(new Content.Byte(new TextEncoder().encode("Hello world"), versions[1], 0))).length)
 })
