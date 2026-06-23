@@ -27,7 +27,7 @@ export class Biscuit {
     Timing.Horizontal.write(matrix)
     Timing.Vertical.write(matrix)
 
-    matrix.set(new Uint8Array([0]), 7, 7)
+    matrix.set(new Uint8Array([1]), 8, matrix.width - 8)
 
     cursor.offset = cursor.length
   }
