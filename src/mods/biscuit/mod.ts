@@ -20,9 +20,9 @@ export class Biscuit {
   write(cursor: Cursor) {
     const matrix = new Matrix(cursor.bytes, this.width)
 
-    new Finder(0, 0).write(matrix)
-    new Finder(this.width - 7, 0).write(matrix)
-    new Finder(0, this.width - 7).write(matrix)
+    Finder.TopLeft.write(matrix)
+    Finder.TopRight.write(matrix)
+    Finder.BottomLeft.write(matrix)
 
     Timing.Horizontal.write(matrix)
     Timing.Vertical.write(matrix)
@@ -106,34 +106,72 @@ export class Pattern {
 
 }
 
-export class Finder {
+export namespace Finder {
 
-  constructor(
-    /**
-     * Width axis
-     */
-    readonly x: number,
-    /**
-     * Height axis
-     */
-    readonly y: number
-  ) { }
+  export namespace TopLeft {
 
-  write(matrix: Matrix) {
-    const pattern = new Pattern(matrix)
+    export function write(matrix: Matrix) {
+      const pattern = new Pattern(matrix)
 
-    pattern.x = this.x
-    pattern.y = this.y
+      pattern.x = 0
+      pattern.y = 0
 
-    pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1]))
-    pattern.write(new Uint8Array([1, 0, 0, 0, 0, 0, 1]))
-    pattern.write(new Uint8Array([1, 0, 1, 1, 1, 0, 1]))
-    pattern.write(new Uint8Array([1, 0, 1, 1, 1, 0, 1]))
-    pattern.write(new Uint8Array([1, 0, 1, 1, 1, 0, 1]))
-    pattern.write(new Uint8Array([1, 0, 0, 0, 0, 0, 1]))
-    pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1]))
+      pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1, 0]))
+      pattern.write(new Uint8Array([1, 0, 0, 0, 0, 0, 1, 0]))
+      pattern.write(new Uint8Array([1, 0, 1, 1, 1, 0, 1, 0]))
+      pattern.write(new Uint8Array([1, 0, 1, 1, 1, 0, 1, 0]))
+      pattern.write(new Uint8Array([1, 0, 1, 1, 1, 0, 1, 0]))
+      pattern.write(new Uint8Array([1, 0, 0, 0, 0, 0, 1, 0]))
+      pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1, 0]))
+      pattern.write(new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0]))
 
-    return
+      return
+    }
+
+  }
+
+  export namespace TopRight {
+
+    export function write(matrix: Matrix) {
+      const pattern = new Pattern(matrix)
+
+      pattern.x = matrix.width - 8
+      pattern.y = 0
+
+      pattern.write(new Uint8Array([0, 1, 1, 1, 1, 1, 1, 1]))
+      pattern.write(new Uint8Array([0, 1, 0, 0, 0, 0, 0, 1]))
+      pattern.write(new Uint8Array([0, 1, 0, 1, 1, 1, 0, 1]))
+      pattern.write(new Uint8Array([0, 1, 0, 1, 1, 1, 0, 1]))
+      pattern.write(new Uint8Array([0, 1, 0, 1, 1, 1, 0, 1]))
+      pattern.write(new Uint8Array([0, 1, 0, 0, 0, 0, 0, 1]))
+      pattern.write(new Uint8Array([0, 1, 1, 1, 1, 1, 1, 1]))
+      pattern.write(new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0]))
+
+      return
+    }
+
+  }
+
+  export namespace BottomLeft {
+
+    export function write(matrix: Matrix) {
+      const pattern = new Pattern(matrix)
+
+      pattern.x = 0
+      pattern.y = matrix.width - 8
+
+      pattern.write(new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0]))
+      pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1, 0]))
+      pattern.write(new Uint8Array([1, 0, 0, 0, 0, 0, 1, 0]))
+      pattern.write(new Uint8Array([1, 0, 1, 1, 1, 0, 1, 0]))
+      pattern.write(new Uint8Array([1, 0, 1, 1, 1, 0, 1, 0]))
+      pattern.write(new Uint8Array([1, 0, 1, 1, 1, 0, 1, 0]))
+      pattern.write(new Uint8Array([1, 0, 0, 0, 0, 0, 1, 0]))
+      pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1, 0]))
+
+      return
+    }
+
   }
 
 }

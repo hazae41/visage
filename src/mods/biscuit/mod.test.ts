@@ -13,5 +13,7 @@ test("biscuit", () => {
   for (let y = 0; y < biscuit.width; y++)
     console.log(bytes.slice(y * biscuit.width, (y + 1) * biscuit.width).join(" "))
 
+  console.log(`${biscuit.width}x${biscuit.width} (${biscuit.size()} bytes)`)
+
   return
 })
