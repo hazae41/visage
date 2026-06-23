@@ -5,7 +5,7 @@ import { Content } from "@/mods/content/mod.ts";
 import { Writable } from "@hazae41/binary";
 import { Cursor } from "@hazae41/cursor";
 
-export class Bitstream {
+export class Mixture {
 
   constructor(
     readonly content: Content
