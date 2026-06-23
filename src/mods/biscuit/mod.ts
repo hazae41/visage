@@ -1,3 +1,5 @@
+// deno-lint-ignore-file no-namespace
+
 import { Mixture } from "@/mods/mixture/mod.ts";
 import { Cursor } from "@hazae41/cursor";
 
@@ -22,6 +24,11 @@ export class Biscuit {
     new Finder(this.width - 7, 0).write(matrix)
     new Finder(0, this.width - 7).write(matrix)
 
+    Timing.Horizontal.write(matrix)
+    Timing.Vertical.write(matrix)
+
+    matrix.set(new Uint8Array([0]), 7, 7)
+
     cursor.offset = cursor.length
   }
 
@@ -32,19 +39,16 @@ export class Biscuit {
  */
 export class Matrix {
 
+  /**
+   * Marks the bytes that have been written to
+   */
+  readonly burns: Uint8Array
+
   constructor(
     readonly bytes: Uint8Array,
     readonly width: number
-  ) { }
-
-  /**
-   * Get the byte at the given x and y coordinates
-   * @param x Width axis
-   * @param y Height axis
-   * @returns 
-   */
-  at(x: number, y: number) {
-    return this.bytes.at((y * this.width) + x)
+  ) {
+    this.burns = new Uint8Array(this.width * this.width)
   }
 
   /**
@@ -54,7 +58,13 @@ export class Matrix {
    * @param y Height axis
    */
   set(array: ArrayLike<number>, x: number, y: number) {
-    this.bytes.set(array, (y * this.width) + x)
+    const offset = (y * this.width) + x
+
+    this.bytes.set(array, offset)
+
+    this.burns.fill(1, offset, offset + array.length)
+
+    return
   }
 
 }
@@ -124,6 +134,48 @@ export class Finder {
     pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1]))
 
     return
+  }
+
+}
+
+export namespace Timing {
+
+  export namespace Horizontal {
+
+    export function write(matrix: Matrix) {
+      const w = matrix.width - 8
+
+      for (let i = 1, x = 8; x < w; i++, x++) {
+        const pattern = new Pattern(matrix)
+
+        pattern.x = x
+        pattern.y = 6
+
+        pattern.write(new Uint8Array([i % 2]))
+      }
+
+      return
+    }
+
+  }
+
+  export namespace Vertical {
+
+    export function write(matrix: Matrix) {
+      const h = matrix.width - 8
+
+      for (let i = 1, y = 8; y < h; i++, y++) {
+        const pattern = new Pattern(matrix)
+
+        pattern.x = 6
+        pattern.y = y
+
+        pattern.write(new Uint8Array([i % 2]))
+      }
+
+      return
+    }
+
   }
 
 }
