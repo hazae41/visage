@@ -1,6 +1,7 @@
 // deno-lint-ignore-file no-namespace
 
 import { Mixture } from "@/mods/mixture/mod.ts";
+import { Writable } from "@hazae41/binary";
 import { Cursor } from "@hazae41/cursor";
 
 export class Biscuit {
@@ -27,7 +28,36 @@ export class Biscuit {
     Timing.Horizontal.write(matrix)
     Timing.Vertical.write(matrix)
 
-    matrix.set(new Uint8Array([1]), 8, matrix.width - 8)
+    matrix.setUint8(8, matrix.width - 8, 1)
+
+    const wrote = Writable.writeToBytes(this.mixture)
+
+    {
+      let i = 0;
+
+      loop: for (let col = matrix.width - 1; col >= 1; col -= 2) {
+
+        if (col === 6)
+          col = 5
+
+        for (let row = 0; row < matrix.width; row++) {
+          for (let j = 0; j < 2; j++) {
+            const upward = ((col + 1) & 2) === 0
+
+            const x = col - j
+            const y = upward ? matrix.width - 1 - row : row
+
+            if (matrix.getUint8(x, y) === 0)
+              matrix.setUint8(x, y, wrote[i++])
+
+            if (i === wrote.length)
+              break loop
+
+            continue
+          }
+        }
+      }
+    }
 
     cursor.offset = cursor.length
   }
@@ -39,16 +69,23 @@ export class Biscuit {
  */
 export class Matrix {
 
-  /**
-   * Marks the bytes that have been written to
-   */
-  readonly burns: Uint8Array
-
   constructor(
     readonly bytes: Uint8Array,
     readonly width: number
-  ) {
-    this.burns = new Uint8Array(this.width * this.width)
+  ) { }
+
+  /**
+   * Get the byte at the given x and y coordinates
+   * @param x Width axis
+   * @param y Height axis
+   * @returns
+   */
+  getUint8(x: number, y: number) {
+    return this.bytes[(y * this.width) + x]
+  }
+
+  setUint8(x: number, y: number, value: number) {
+    this.bytes[(y * this.width) + x] = value
   }
 
   /**
@@ -57,14 +94,8 @@ export class Matrix {
    * @param x Width axis
    * @param y Height axis
    */
-  set(array: ArrayLike<number>, x: number, y: number) {
-    const offset = (y * this.width) + x
-
-    this.bytes.set(array, offset)
-
-    this.burns.fill(1, offset, offset + array.length)
-
-    return
+  set(x: number, y: number, array: ArrayLike<number>) {
+    this.bytes.set(array, (y * this.width) + x)
   }
 
 }
@@ -89,19 +120,11 @@ export class Pattern {
   ) { }
 
   /**
-   * Write bytes to the matrix at the current cursor position
-   * @param bytes 
-   */
-  set(bytes: Uint8Array) {
-    this.matrix.set(bytes, this.x, this.y)
-  }
-
-  /**
    * Write bytes to the matrix and move the cursor down by one
-   * @param bytes 
+   * @param array 
    */
-  write(bytes: Uint8Array) {
-    this.matrix.set(bytes, this.x, this.y++)
+  write(array: ArrayLike<number>) {
+    this.matrix.set(this.x, this.y++, array)
   }
 
 }
@@ -116,14 +139,14 @@ export namespace Finder {
       pattern.x = 0
       pattern.y = 0
 
-      pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1, 0]))
-      pattern.write(new Uint8Array([1, 0, 0, 0, 0, 0, 1, 0]))
-      pattern.write(new Uint8Array([1, 0, 1, 1, 1, 0, 1, 0]))
-      pattern.write(new Uint8Array([1, 0, 1, 1, 1, 0, 1, 0]))
-      pattern.write(new Uint8Array([1, 0, 1, 1, 1, 0, 1, 0]))
-      pattern.write(new Uint8Array([1, 0, 0, 0, 0, 0, 1, 0]))
-      pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1, 0]))
-      pattern.write(new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0]))
+      pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1, 2]))
+      pattern.write(new Uint8Array([1, 2, 2, 2, 2, 2, 1, 2]))
+      pattern.write(new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
+      pattern.write(new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
+      pattern.write(new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
+      pattern.write(new Uint8Array([1, 2, 2, 2, 2, 2, 1, 2]))
+      pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1, 2]))
+      pattern.write(new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
 
       return
     }
@@ -138,14 +161,14 @@ export namespace Finder {
       pattern.x = matrix.width - 8
       pattern.y = 0
 
-      pattern.write(new Uint8Array([0, 1, 1, 1, 1, 1, 1, 1]))
-      pattern.write(new Uint8Array([0, 1, 0, 0, 0, 0, 0, 1]))
-      pattern.write(new Uint8Array([0, 1, 0, 1, 1, 1, 0, 1]))
-      pattern.write(new Uint8Array([0, 1, 0, 1, 1, 1, 0, 1]))
-      pattern.write(new Uint8Array([0, 1, 0, 1, 1, 1, 0, 1]))
-      pattern.write(new Uint8Array([0, 1, 0, 0, 0, 0, 0, 1]))
-      pattern.write(new Uint8Array([0, 1, 1, 1, 1, 1, 1, 1]))
-      pattern.write(new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0]))
+      pattern.write(new Uint8Array([2, 1, 1, 1, 1, 1, 1, 1]))
+      pattern.write(new Uint8Array([2, 1, 2, 2, 2, 2, 2, 1]))
+      pattern.write(new Uint8Array([2, 1, 2, 1, 1, 1, 2, 1]))
+      pattern.write(new Uint8Array([2, 1, 2, 1, 1, 1, 2, 1]))
+      pattern.write(new Uint8Array([2, 1, 2, 1, 1, 1, 2, 1]))
+      pattern.write(new Uint8Array([2, 1, 2, 2, 2, 2, 2, 1]))
+      pattern.write(new Uint8Array([2, 1, 1, 1, 1, 1, 1, 1]))
+      pattern.write(new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
 
       return
     }
@@ -160,14 +183,14 @@ export namespace Finder {
       pattern.x = 0
       pattern.y = matrix.width - 8
 
-      pattern.write(new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0]))
-      pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1, 0]))
-      pattern.write(new Uint8Array([1, 0, 0, 0, 0, 0, 1, 0]))
-      pattern.write(new Uint8Array([1, 0, 1, 1, 1, 0, 1, 0]))
-      pattern.write(new Uint8Array([1, 0, 1, 1, 1, 0, 1, 0]))
-      pattern.write(new Uint8Array([1, 0, 1, 1, 1, 0, 1, 0]))
-      pattern.write(new Uint8Array([1, 0, 0, 0, 0, 0, 1, 0]))
-      pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1, 0]))
+      pattern.write(new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
+      pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1, 2]))
+      pattern.write(new Uint8Array([1, 2, 2, 2, 2, 2, 1, 2]))
+      pattern.write(new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
+      pattern.write(new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
+      pattern.write(new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
+      pattern.write(new Uint8Array([1, 2, 2, 2, 2, 2, 1, 2]))
+      pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1, 2]))
 
       return
     }
@@ -189,7 +212,7 @@ export namespace Timing {
         pattern.x = x
         pattern.y = 6
 
-        pattern.write(new Uint8Array([i % 2]))
+        pattern.write(new Uint8Array([i % 2 ? 1 : 2]))
       }
 
       return
@@ -208,7 +231,7 @@ export namespace Timing {
         pattern.x = 6
         pattern.y = y
 
-        pattern.write(new Uint8Array([i % 2]))
+        pattern.write(new Uint8Array([i % 2 ? 1 : 2]))
       }
 
       return
