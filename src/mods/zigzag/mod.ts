@@ -1,4 +1,4 @@
-import { Uint8Matrix } from "@/mods/matrix/mod.ts";
+import { Uint8Matrix } from "@/libs/matrix/mod.ts";
 import { Mixture } from "@/mods/mixture/mod.ts";
 import { Cursor } from "@hazae41/cursor";
 

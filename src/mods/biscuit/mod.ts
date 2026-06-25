@@ -1,5 +1,5 @@
+import { Uint8Matrix } from "@/libs/matrix/mod.ts";
 import { Finder } from "@/mods/finder/mod.ts";
-import { Uint8Matrix } from "@/mods/matrix/mod.ts";
 import { Mixture } from "@/mods/mixture/mod.ts";
 import { Timing } from "@/mods/timing/mod.ts";
 import { Zigzag } from "@/mods/zigzag/mod.ts";
