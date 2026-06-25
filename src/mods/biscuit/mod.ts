@@ -14,10 +14,10 @@ export class Biscuit {
   ) { }
 
   encode() {
-    const width = 17 + (this.mixture.content.version.number * 4)
+    const length = 17 + (this.mixture.content.version.number * 4)
 
-    const result = new Uint8Array(width * width)
-    const matrix = new Uint8Matrix(result.buffer, width)
+    const result = new Uint8Array(length * length)
+    const matrix = new Uint8Matrix(result.buffer, length)
 
     Finder.TopLeft.write(matrix)
     Finder.TopRight.write(matrix)
