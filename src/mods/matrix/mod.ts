@@ -24,8 +24,8 @@ export class Uint8Matrix {
     return this.data.subarray((y * this.size) + x, (y * this.size) + x + length)
   }
 
-  clone() {
-    return new Uint8Matrix(new Uint8Array(this.data), this.size)
+  slice() {
+    return new Uint8Matrix(this.data.slice(), this.size)
   }
 
 }
