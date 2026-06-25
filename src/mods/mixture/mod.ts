@@ -2,7 +2,6 @@ import { Bitset } from "@/libs/bitset/mod.ts";
 import { deflate } from "@/libs/deflate/mod.ts";
 import { ReedSolomon } from "@/libs/reed/mod.ts";
 import { Content } from "@/mods/content/mod.ts";
-import { Writable } from "@hazae41/binary";
 import { Cursor } from "@hazae41/cursor";
 
 export class Mixture {
@@ -11,15 +10,13 @@ export class Mixture {
     readonly content: Content
   ) { }
 
-  size() {
-    return this.content.version.length
-  }
-
-  write(cursor: Cursor) {
+  encode() {
     const { content } = this
 
-    const wrote = new Cursor(Writable.writeToBytes(content))
     const level = content.version.levels[content.correct]
+
+    const wrote = new Cursor(content.encode())
+    const mixed = new Cursor(new Uint8Array(content.version.length))
 
     const datas = new Array<Uint8Array>()
     const reeds = new Array<Uint8Array>()
@@ -37,32 +34,32 @@ export class Mixture {
     }
 
     for (let i = 0; true; i++) {
-      const start = cursor.offset
+      const start = mixed.offset
 
       for (const data of datas)
         if (i < data.length)
-          new Bitset(data[i], 8).write(cursor)
+          new Bitset(data[i], 8).write(mixed)
 
-      if (cursor.offset === start)
+      if (mixed.offset === start)
         break
 
       continue
     }
 
     for (let i = 0; true; i++) {
-      const start = cursor.offset
+      const start = mixed.offset
 
       for (const reed of reeds)
         if (i < reed.length)
-          new Bitset(reed[i], 8).write(cursor)
+          new Bitset(reed[i], 8).write(mixed)
 
-      if (cursor.offset === start)
+      if (mixed.offset === start)
         break
 
       continue
     }
 
-    return
+    return mixed.bytes
   }
 
 }

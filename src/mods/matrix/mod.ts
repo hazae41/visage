@@ -1,31 +1,31 @@
 /**
  * Uint8Array but in two dimensions
  */
-export class Matrix {
+export class Uint8Matrix {
 
   constructor(
-    readonly bytes: Uint8Array,
-    readonly width: number
+    readonly data: Uint8Array,
+    readonly size: number
   ) { }
 
   getUint8(x: number, y: number) {
-    return this.bytes[(y * this.width) + x]
+    return this.data[(y * this.size) + x]
   }
 
   setUint8(x: number, y: number, value: number) {
-    this.bytes[(y * this.width) + x] = value
+    this.data[(y * this.size) + x] = value
   }
 
   set(x: number, y: number, array: ArrayLike<number>) {
-    this.bytes.set(array, (y * this.width) + x)
+    this.data.set(array, (y * this.size) + x)
   }
 
   get(x: number, y: number, length: number) {
-    return this.bytes.subarray((y * this.width) + x, (y * this.width) + x + length)
+    return this.data.subarray((y * this.size) + x, (y * this.size) + x + length)
   }
 
   clone() {
-    return new Matrix(new Uint8Array(this.bytes), this.width)
+    return new Uint8Matrix(new Uint8Array(this.data), this.size)
   }
 
 }

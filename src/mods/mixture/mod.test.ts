@@ -1,7 +1,6 @@
 import { Content } from "@/mods/content/mod.ts";
 import { Mixture } from "@/mods/mixture/mod.ts";
 import { versions } from "@/mods/version/mod.ts";
-import { Writable } from "@hazae41/binary";
 import { test } from "@hazae41/phobos";
 
 // test("numeric", () => {
@@ -13,5 +12,5 @@ import { test } from "@hazae41/phobos";
 // })
 
 test("byte", () => {
-  console.log(Writable.writeToBytes(new Mixture(new Content.Byte(new TextEncoder().encode("Hello world"), versions[1], 0))).length)
+  console.log(new Mixture(new Content.Byte(new TextEncoder().encode("Hello world"), versions[1], 0)).encode().length)
 })

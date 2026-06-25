@@ -20,18 +20,11 @@ export namespace Content {
       readonly correct: 0 | 1 | 2 | 3
     ) { }
 
-    size() {
-      const { version, correct } = this
-
-      const datawords = version.levels[correct].words.data
-
-      return datawords * 8
-    }
-
-    write(cursor: Cursor) {
+    encode() {
       const { content, version, correct } = this
 
-      const start = cursor.offset
+      const length = version.levels[correct].words.data
+      const cursor = new Cursor(new Uint8Array(length * 8))
 
       new Bitset(0b0001, 4).write(cursor)
 
@@ -81,18 +74,15 @@ export namespace Content {
         break
       }
 
-      const datawords = version.levels[correct].words.data
-      const remaining = (datawords * 8) - (cursor.offset - start)
-
-      cursor.offset += Math.min(remaining, 4)
+      cursor.offset += Math.min(cursor.remaining, 4)
       cursor.offset += 8 - (cursor.offset % 8)
 
       new Bitset(0xEC, 8).write(cursor)
 
-      while (cursor.offset < (datawords * 8))
+      while (cursor.offset < cursor.length)
         new Bitset(0x11, 8).write(cursor)
 
-      return
+      return cursor.bytes
     }
 
   }
@@ -107,18 +97,11 @@ export namespace Content {
       readonly correct: 0 | 1 | 2 | 3
     ) { }
 
-    size() {
-      const { version, correct } = this
-
-      const datawords = version.levels[correct].words.data
-
-      return datawords * 8
-    }
-
-    write(cursor: Cursor) {
+    encode() {
       const { alphabet, content, version, correct } = this
 
-      const start = cursor.offset
+      const length = version.levels[correct].words.data
+      const cursor = new Cursor(new Uint8Array(length * 8))
 
       new Bitset(0b0010, 4).write(cursor)
 
@@ -160,18 +143,15 @@ export namespace Content {
         break
       }
 
-      const datawords = version.levels[correct].words.data
-      const remaining = (datawords * 8) - (cursor.offset - start)
-
-      cursor.offset += Math.min(remaining, 4)
+      cursor.offset += Math.min(cursor.remaining, 4)
       cursor.offset += 8 - (cursor.offset % 8)
 
       new Bitset(0xEC, 8).write(cursor)
 
-      while (cursor.offset < (datawords * 8))
+      while (cursor.offset < cursor.length)
         new Bitset(0x11, 8).write(cursor)
 
-      return
+      return cursor.bytes
     }
 
   }
@@ -184,18 +164,11 @@ export namespace Content {
       readonly correct: 0 | 1 | 2 | 3
     ) { }
 
-    size() {
-      const { version, correct } = this
-
-      const datawords = version.levels[correct].words.data
-
-      return datawords * 8
-    }
-
-    write(cursor: Cursor) {
+    encode() {
       const { content, version, correct } = this
 
-      const start = cursor.offset
+      const length = version.levels[correct].words.data
+      const cursor = new Cursor(new Uint8Array(length * 8))
 
       new Bitset(0b0100, 4).write(cursor)
 
@@ -209,18 +182,15 @@ export namespace Content {
       for (let i = 0; i < content.length; i++)
         new Bitset(content[i], 8).write(cursor)
 
-      const datawords = version.levels[correct].words.data
-      const remaining = (datawords * 8) - (cursor.offset - start)
-
-      cursor.offset += Math.min(remaining, 4)
+      cursor.offset += Math.min(cursor.remaining, 4)
       cursor.offset += 8 - (cursor.offset % 8)
 
       new Bitset(0xEC, 8).write(cursor)
 
-      while (cursor.offset < (datawords * 8))
+      while (cursor.offset < cursor.length)
         new Bitset(0x11, 8).write(cursor)
 
-      return
+      return cursor.bytes
     }
 
   }
@@ -233,18 +203,11 @@ export namespace Content {
       readonly correct: 0 | 1 | 2 | 3
     ) { }
 
-    size() {
-      const { version, correct } = this
-
-      const datawords = version.levels[correct].words.data
-
-      return datawords * 8
-    }
-
-    write(cursor: Cursor) {
+    encode() {
       const { content, version, correct } = this
 
-      const start = cursor.offset
+      const length = version.levels[correct].words.data
+      const cursor = new Cursor(new Uint8Array(length * 8))
 
       new Bitset(0b1000, 4).write(cursor)
 
@@ -265,18 +228,15 @@ export namespace Content {
         new Bitset((h * 0xC0) + l, 13).write(cursor)
       }
 
-      const datawords = version.levels[correct].words.data
-      const remaining = (datawords * 8) - (cursor.offset - start)
-
-      cursor.offset += Math.min(remaining, 4)
+      cursor.offset += Math.min(cursor.remaining, 4)
       cursor.offset += 8 - (cursor.offset % 8)
 
       new Bitset(0xEC, 8).write(cursor)
 
-      while (cursor.offset < (datawords * 8))
+      while (cursor.offset < cursor.length)
         new Bitset(0x11, 8).write(cursor)
 
-      return
+      return cursor.bytes
     }
 
   }

@@ -2,11 +2,10 @@ import { Biscuit } from "@/mods/biscuit/mod.ts";
 import { Content } from "@/mods/content/mod.ts";
 import { Mixture } from "@/mods/mixture/mod.ts";
 import { versions } from "@/mods/version/mod.ts";
-import { Writable } from "@hazae41/binary";
 import { test } from "@hazae41/phobos";
 
 function print(biscuit: Biscuit) {
-  const wrote = new Array(...Writable.writeToBytes(biscuit))
+  const wrote = new Array(...biscuit.encode())
 
   const digits = Math.floor(Math.log10(biscuit.width)) + 1
 

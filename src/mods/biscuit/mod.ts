@@ -1,9 +1,8 @@
 import { Finder } from "@/mods/finder/mod.ts";
-import { Matrix } from "@/mods/matrix/mod.ts";
+import { Uint8Matrix } from "@/mods/matrix/mod.ts";
 import { Mixture } from "@/mods/mixture/mod.ts";
 import { Timing } from "@/mods/timing/mod.ts";
 import { Zigzag } from "@/mods/zigzag/mod.ts";
-import { Cursor } from "@hazae41/cursor";
 
 export class Biscuit {
 
@@ -15,14 +14,9 @@ export class Biscuit {
     this.width = 17 + (this.mixture.content.version.number * 4)
   }
 
-  size() {
-    return this.width * this.width
-  }
-
-  write(cursor: Cursor) {
-    cursor.offset = cursor.length
-
-    const matrix = new Matrix(cursor.bytes, this.width)
+  encode() {
+    const result = new Uint8Array(this.width * this.width)
+    const matrix = new Uint8Matrix(result, this.width)
 
     Finder.TopLeft.write(matrix)
     Finder.TopRight.write(matrix)
@@ -31,20 +25,21 @@ export class Biscuit {
     Timing.Horizontal.write(matrix)
     Timing.Vertical.write(matrix)
 
-    matrix.setUint8(8, matrix.width - 8, 1)
+    matrix.setUint8(8, matrix.size - 8, 1)
 
     new Zigzag(this.mixture).write(matrix)
 
     new Mask0().write(matrix)
 
+    return result
   }
 
 }
 
 export class Mask0 {
 
-  write(matrix: Matrix) {
-    const { width } = matrix
+  write(matrix: Uint8Matrix) {
+    const { size: width } = matrix
 
     for (let row = 0; row < width; row++) {
       for (let col = 0; col < width; col++) {

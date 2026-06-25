@@ -1,6 +1,6 @@
-import { Matrix } from "@/mods/matrix/mod.ts";
+import { Uint8Matrix } from "@/mods/matrix/mod.ts";
 import { Mixture } from "@/mods/mixture/mod.ts";
-import { Writable } from "@hazae41/binary";
+import { Cursor } from "@hazae41/cursor";
 
 export class Zigzag {
 
@@ -8,29 +8,27 @@ export class Zigzag {
     readonly mixture: Mixture
   ) { }
 
-  write(matrix: Matrix) {
-    const wrote = Writable.writeToBytes(this.mixture)
+  write(matrix: Uint8Matrix) {
+    const cursor = new Cursor(this.mixture.encode())
 
-    let i = 0;
-
-    for (let col = matrix.width - 1; col >= 1; col -= 2) {
+    for (let col = matrix.size - 1; col >= 1; col -= 2) {
 
       if (col === 6)
         col = 5
 
-      for (let row = 0; row < matrix.width; row++) {
+      for (let row = 0; row < matrix.size; row++) {
         const upward = ((col + 1) & 2) === 0
 
         for (let j = 0; j < 2; j++) {
           const x = col - j
-          const y = upward ? matrix.width - 1 - row : row
+          const y = upward ? matrix.size - 1 - row : row
 
           if (matrix.getUint8(x, y) > 1)
             continue
 
-          matrix.setUint8(x, y, wrote[i++])
+          matrix.setUint8(x, y, cursor.readUint8())
 
-          if (i === wrote.length)
+          if (cursor.offset === cursor.length)
             return
 
           continue
