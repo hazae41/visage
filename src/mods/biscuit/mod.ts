@@ -68,25 +68,25 @@ export class Mask0 {
 export class Format {
 
   constructor(
-    readonly level: 0 | 1 | 2 | 3,
-    readonly cover: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7
+    readonly correct: 0 | 1 | 2 | 3,
+    readonly pattern: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7
   ) { }
 
   write(matrix: Uint8Matrix) {
-    const { level, cover } = this
+    const { correct, pattern } = this
 
     const format = new Cursor(new Uint8Array(5))
 
-    if (level === 0)
+    if (correct === 0)
       new Bitset(0b01, 2).write(format)
-    else if (level === 1)
+    else if (correct === 1)
       new Bitset(0b00, 2).write(format)
-    else if (level === 2)
+    else if (correct === 2)
       new Bitset(0b11, 2).write(format)
-    else if (level === 3)
+    else if (correct === 3)
       new Bitset(0b10, 2).write(format)
 
-    new Bitset(cover, 3).write(format)
+    new Bitset(pattern, 3).write(format)
 
     const formatWithErrorCorrection = new Cursor(new Uint8Array(15))
     formatWithErrorCorrection.write(format.bytes)
