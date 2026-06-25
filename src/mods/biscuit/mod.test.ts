@@ -3,7 +3,7 @@ import { Content } from "@/mods/content/mod.ts";
 import { Mixture } from "@/mods/mixture/mod.ts";
 import { versions } from "@/mods/version/mod.ts";
 import { test } from "@hazae41/phobos";
-import jsQR from "jsqr";
+import { binarize, Decoder, Detector, grayscale } from "@nuintun/qrcode";
 
 function print(biscuit: Biscuit) {
   const wrote = new Array(...biscuit.encode())
@@ -36,23 +36,11 @@ test("biscuit", () => {
 
   print(biscuit)
 
-  const bitset = biscuit.encode()
+  const bits = biscuit.encode()
+  const rgba = new Uint8ClampedArray(biscuit.width * biscuit.width * 4)
 
-  const upsize = new Uint8Array(biscuit.width * biscuit.width * 4)
-
-  for (let i = 0; i < bitset.length; i++) {
-    const bit = bitset[i]
-
-    upsize[i * 4 + 0] = bit
-    upsize[i * 4 + 1] = bit
-    upsize[i * 4 + 2] = bit
-    upsize[i * 4 + 3] = bit
-  }
-
-  const rgba = new Uint8ClampedArray(biscuit.width * biscuit.width * 4 * 4)
-
-  for (let i = 0; i < upsize.length; i++) {
-    const bit = upsize[i]
+  for (let i = 0; i < bits.length; i++) {
+    const bit = bits[i]
 
     rgba[i * 4 + 0] = bit % 2 === 1 ? 0 : 255
     rgba[i * 4 + 1] = bit % 2 === 1 ? 0 : 255
@@ -60,9 +48,19 @@ test("biscuit", () => {
     rgba[i * 4 + 3] = 255
   }
 
-  const result = jsQR.default(rgba, biscuit.width * 2, biscuit.width * 2, {})
+  const image = new ImageData(biscuit.width, biscuit.width)
 
-  console.log(result)
+  image.data.set(rgba)
+
+  const detection = new Detector().detect(binarize(grayscale(image), biscuit.width, biscuit.width))
+
+  for (let next = detection.next(); !next.done; next = detection.next()) {
+    // for (let y = 0; y < biscuit.width; y++) {
+    //   console.log(new Array(biscuit.width).fill(0).map((_, i) => next.value.matrix.get(i, y) ? "██" : "  ").join(""))
+    // }
+
+    console.log(new Decoder().decode(next.value.matrix))
+  }
 
   return
 })
