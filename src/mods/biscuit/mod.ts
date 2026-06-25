@@ -84,6 +84,12 @@ export class Matrix {
     return this.bytes[(y * this.width) + x]
   }
 
+  /**
+   * Set the byte at the given x and y coordinates
+   * @param x 
+   * @param y 
+   * @param value 
+   */
   setUint8(x: number, y: number, value: number) {
     this.bytes[(y * this.width) + x] = value
   }
@@ -100,53 +106,22 @@ export class Matrix {
 
 }
 
-/**
- * Two dimensional cursor
- */
-export class Pattern {
-
-  /**
-   * Width axis
-   */
-  x = 0
-
-  /**
-   * Height axis
-   */
-  y = 0
-
-  constructor(
-    readonly matrix: Matrix
-  ) { }
-
-  /**
-   * Write bytes to the matrix and move the cursor down by one
-   * @param array 
-   */
-  write(array: ArrayLike<number>) {
-    this.matrix.set(this.x, this.y++, array)
-  }
-
-}
-
 export namespace Finder {
 
   export namespace TopLeft {
 
     export function write(matrix: Matrix) {
-      const pattern = new Pattern(matrix)
+      // deno-lint-ignore prefer-const
+      let x = 0, y = 0
 
-      pattern.x = 0
-      pattern.y = 0
-
-      pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1, 2]))
-      pattern.write(new Uint8Array([1, 2, 2, 2, 2, 2, 1, 2]))
-      pattern.write(new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
-      pattern.write(new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
-      pattern.write(new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
-      pattern.write(new Uint8Array([1, 2, 2, 2, 2, 2, 1, 2]))
-      pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1, 2]))
-      pattern.write(new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
+      matrix.set(x, y++, new Uint8Array([1, 1, 1, 1, 1, 1, 1, 2]))
+      matrix.set(x, y++, new Uint8Array([1, 2, 2, 2, 2, 2, 1, 2]))
+      matrix.set(x, y++, new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
+      matrix.set(x, y++, new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
+      matrix.set(x, y++, new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
+      matrix.set(x, y++, new Uint8Array([1, 2, 2, 2, 2, 2, 1, 2]))
+      matrix.set(x, y++, new Uint8Array([1, 1, 1, 1, 1, 1, 1, 2]))
+      matrix.set(x, y++, new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
 
       return
     }
@@ -156,19 +131,17 @@ export namespace Finder {
   export namespace TopRight {
 
     export function write(matrix: Matrix) {
-      const pattern = new Pattern(matrix)
+      // deno-lint-ignore prefer-const
+      let x = matrix.width - 8, y = 0
 
-      pattern.x = matrix.width - 8
-      pattern.y = 0
-
-      pattern.write(new Uint8Array([2, 1, 1, 1, 1, 1, 1, 1]))
-      pattern.write(new Uint8Array([2, 1, 2, 2, 2, 2, 2, 1]))
-      pattern.write(new Uint8Array([2, 1, 2, 1, 1, 1, 2, 1]))
-      pattern.write(new Uint8Array([2, 1, 2, 1, 1, 1, 2, 1]))
-      pattern.write(new Uint8Array([2, 1, 2, 1, 1, 1, 2, 1]))
-      pattern.write(new Uint8Array([2, 1, 2, 2, 2, 2, 2, 1]))
-      pattern.write(new Uint8Array([2, 1, 1, 1, 1, 1, 1, 1]))
-      pattern.write(new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
+      matrix.set(x, y++, new Uint8Array([2, 1, 1, 1, 1, 1, 1, 1]))
+      matrix.set(x, y++, new Uint8Array([2, 1, 2, 2, 2, 2, 2, 1]))
+      matrix.set(x, y++, new Uint8Array([2, 1, 2, 1, 1, 1, 2, 1]))
+      matrix.set(x, y++, new Uint8Array([2, 1, 2, 1, 1, 1, 2, 1]))
+      matrix.set(x, y++, new Uint8Array([2, 1, 2, 1, 1, 1, 2, 1]))
+      matrix.set(x, y++, new Uint8Array([2, 1, 2, 2, 2, 2, 2, 1]))
+      matrix.set(x, y++, new Uint8Array([2, 1, 1, 1, 1, 1, 1, 1]))
+      matrix.set(x, y++, new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
 
       return
     }
@@ -178,19 +151,17 @@ export namespace Finder {
   export namespace BottomLeft {
 
     export function write(matrix: Matrix) {
-      const pattern = new Pattern(matrix)
+      // deno-lint-ignore prefer-const
+      let x = 0, y = matrix.width - 8
 
-      pattern.x = 0
-      pattern.y = matrix.width - 8
-
-      pattern.write(new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
-      pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1, 2]))
-      pattern.write(new Uint8Array([1, 2, 2, 2, 2, 2, 1, 2]))
-      pattern.write(new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
-      pattern.write(new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
-      pattern.write(new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
-      pattern.write(new Uint8Array([1, 2, 2, 2, 2, 2, 1, 2]))
-      pattern.write(new Uint8Array([1, 1, 1, 1, 1, 1, 1, 2]))
+      matrix.set(x, y++, new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
+      matrix.set(x, y++, new Uint8Array([1, 1, 1, 1, 1, 1, 1, 2]))
+      matrix.set(x, y++, new Uint8Array([1, 2, 2, 2, 2, 2, 1, 2]))
+      matrix.set(x, y++, new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
+      matrix.set(x, y++, new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
+      matrix.set(x, y++, new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
+      matrix.set(x, y++, new Uint8Array([1, 2, 2, 2, 2, 2, 1, 2]))
+      matrix.set(x, y++, new Uint8Array([1, 1, 1, 1, 1, 1, 1, 2]))
 
       return
     }
@@ -206,14 +177,8 @@ export namespace Timing {
     export function write(matrix: Matrix) {
       const w = matrix.width - 8
 
-      for (let i = 1, x = 8; x < w; i++, x++) {
-        const pattern = new Pattern(matrix)
-
-        pattern.x = x
-        pattern.y = 6
-
-        pattern.write(new Uint8Array([i % 2 ? 1 : 2]))
-      }
+      for (let i = 1, x = 8; x < w; i++, x++)
+        matrix.setUint8(x, 6, i % 2 ? 1 : 2)
 
       return
     }
@@ -225,14 +190,8 @@ export namespace Timing {
     export function write(matrix: Matrix) {
       const h = matrix.width - 8
 
-      for (let i = 1, y = 8; y < h; i++, y++) {
-        const pattern = new Pattern(matrix)
-
-        pattern.x = 6
-        pattern.y = y
-
-        pattern.write(new Uint8Array([i % 2 ? 1 : 2]))
-      }
+      for (let i = 1, y = 8; y < h; i++, y++)
+        matrix.setUint8(6, y, i % 2 ? 1 : 2)
 
       return
     }
