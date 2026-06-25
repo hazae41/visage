@@ -42,52 +42,33 @@ export namespace ReedSolomon {
 
   /**
    * Generate Reed-Solomon error correction bytes for the given data
-   * @param data Bytes to generate error correction bytes for
-   * @param size Number of error correction bytes to generate
+   * @param message Bytes to generate error correction bytes for
+   * @param length Number of error correction bytes to generate
    * @returns Generated error correction bytes
    */
-  export function generate(data: Uint8Array, size: number) {
-    let generator = new Uint8Array([1])
+  export function generate(message: Uint8Array, length: number) {
+    let weights = new Uint8Array([1])
 
-    for (let i = 0; i < size; i++)
-      generator = GF256.polmul(generator, new Uint8Array([1, GF256.exp[i]]))
+    for (let i = 0; i < length; i++)
+      weights = GF256.polmul(weights, new Uint8Array([1, GF256.exp[i]]))
 
-    const message = new Uint8Array(data.length + size)
+    const results = new Uint8Array(message.length + length)
 
-    message.set(data)
+    results.set(message)
 
-    for (let i = 0; i < data.length; i++) {
-      const coefficient = message[i]
+    for (let i = 0; i < message.length; i++) {
+      const coefficient = results[i]
 
       if (coefficient === 0)
         continue
 
-      for (let j = 0; j < generator.length; j++)
-        message[i + j] ^= GF256.mul(generator[j], coefficient)
+      for (let j = 0; j < weights.length; j++)
+        results[i + j] ^= GF256.mul(weights[j], coefficient)
 
       continue
     }
 
-    return message.subarray(data.length)
-  }
-
-}
-
-export namespace BCH {
-
-  export function remainder(data: Uint8Array) {
-    let d = 0
-
-    for (let i = 0; i < data.length; i++) {
-      d = ((d << 1) | data[i]) & 0x1fffff
-
-      if (d & 0x100000)
-        d ^= 0x108000
-
-      continue
-    }
-
-    return new Uint8Array([(d >> 10) & 0xff, (d >> 2) & 0xff])
+    return results.subarray(message.length)
   }
 
 }
