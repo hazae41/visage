@@ -1,31 +1,27 @@
 /**
  * Uint8Array but in two dimensions
  */
-export class Uint8Matrix {
+export class Uint8Matrix<T extends ArrayBufferLike = ArrayBufferLike> {
+
+  readonly #array: Uint8Array
 
   constructor(
-    readonly data: Uint8Array,
-    readonly size: number
-  ) { }
-
-  getUint8(x: number, y: number) {
-    return this.data[(y * this.size) + x]
+    readonly buffer: T,
+    readonly length: number
+  ) {
+    this.#array = new Uint8Array(buffer)
   }
 
-  setUint8(x: number, y: number, value: number) {
-    this.data[(y * this.size) + x] = value
+  get(x: number, y: number) {
+    return this.#array[(y * this.length) + x]
   }
 
-  set(x: number, y: number, array: ArrayLike<number>) {
-    this.data.set(array, (y * this.size) + x)
+  set(x: number, y: number, value: number) {
+    this.#array[(y * this.length) + x] = value
   }
 
-  get(x: number, y: number, length: number) {
-    return this.data.subarray((y * this.size) + x, (y * this.size) + x + length)
-  }
-
-  slice() {
-    return new Uint8Matrix(this.data.slice(), this.size)
+  subarray(x: number, y: number) {
+    return this.#array.subarray((y * this.length) + x, ((y + 1) * this.length))
   }
 
 }

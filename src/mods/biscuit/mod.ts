@@ -19,7 +19,7 @@ export class Biscuit {
 
   encode() {
     const result = new Uint8Array(this.width * this.width)
-    const matrix = new Uint8Matrix(result, this.width)
+    const matrix = new Uint8Matrix(result.buffer, this.width)
 
     Finder.TopLeft.write(matrix)
     Finder.TopRight.write(matrix)
@@ -28,7 +28,7 @@ export class Biscuit {
     Timing.Horizontal.write(matrix)
     Timing.Vertical.write(matrix)
 
-    matrix.setUint8(8, matrix.size - 8, 3)
+    matrix.set(8, matrix.length - 8, 3)
 
     new Format(this.mixture.content.correct, 0).write(matrix)
 
@@ -46,11 +46,11 @@ export class Biscuit {
 export class Mask0 {
 
   write(matrix: Uint8Matrix) {
-    const { size: width } = matrix
+    const { length: width } = matrix
 
     for (let row = 0; row < width; row++) {
       for (let col = 0; col < width; col++) {
-        const value = matrix.getUint8(col, row)
+        const value = matrix.get(col, row)
 
         if (value > 1)
           continue
@@ -58,7 +58,7 @@ export class Mask0 {
         if (((row + col) % 2) !== 0)
           continue
 
-        matrix.setUint8(col, row, value === 1 ? 0 : 1)
+        matrix.set(col, row, value === 1 ? 0 : 1)
       }
     }
 
@@ -102,18 +102,18 @@ export class Format {
     formatWithErrorCorrection.offset = 0
 
     for (let x = 0; x < 6; x++)
-      matrix.setUint8(x, 8, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
+      matrix.set(x, 8, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
     for (let x = 7; x < 9; x++)
-      matrix.setUint8(x, 8, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
+      matrix.set(x, 8, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
     for (let y = 7; y; y--)
-      matrix.setUint8(8, y, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
+      matrix.set(8, y, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
 
     formatWithErrorCorrection.offset = 0
 
-    for (let y = matrix.size - 1; y > matrix.size - 8; y--)
-      matrix.setUint8(8, y, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
-    for (let x = matrix.size - 8; x < matrix.size; x++)
-      matrix.setUint8(x, 8, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
+    for (let y = matrix.length - 1; y > matrix.length - 8; y--)
+      matrix.set(8, y, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
+    for (let x = matrix.length - 8; x < matrix.length; x++)
+      matrix.set(x, 8, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
 
     return
   }

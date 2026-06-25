@@ -9,14 +9,14 @@ export namespace Finder {
     export function write(matrix: Uint8Matrix) {
       let x = 0, y = 0
 
-      matrix.set(x, y++, new Uint8Array([3, 3, 3, 3, 3, 3, 3, 2]))
-      matrix.set(x, y++, new Uint8Array([3, 2, 2, 2, 2, 2, 3, 2]))
-      matrix.set(x, y++, new Uint8Array([3, 2, 3, 3, 3, 2, 3, 2]))
-      matrix.set(x, y++, new Uint8Array([3, 2, 3, 3, 3, 2, 3, 2]))
-      matrix.set(x, y++, new Uint8Array([3, 2, 3, 3, 3, 2, 3, 2]))
-      matrix.set(x, y++, new Uint8Array([3, 2, 2, 2, 2, 2, 3, 2]))
-      matrix.set(x, y++, new Uint8Array([3, 3, 3, 3, 3, 3, 3, 2]))
-      matrix.set(x, y++, new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
+      matrix.subarray(x, y++).set(new Uint8Array([3, 3, 3, 3, 3, 3, 3, 2]))
+      matrix.subarray(x, y++).set(new Uint8Array([3, 2, 2, 2, 2, 2, 3, 2]))
+      matrix.subarray(x, y++).set(new Uint8Array([3, 2, 3, 3, 3, 2, 3, 2]))
+      matrix.subarray(x, y++).set(new Uint8Array([3, 2, 3, 3, 3, 2, 3, 2]))
+      matrix.subarray(x, y++).set(new Uint8Array([3, 2, 3, 3, 3, 2, 3, 2]))
+      matrix.subarray(x, y++).set(new Uint8Array([3, 2, 2, 2, 2, 2, 3, 2]))
+      matrix.subarray(x, y++).set(new Uint8Array([3, 3, 3, 3, 3, 3, 3, 2]))
+      matrix.subarray(x, y++).set(new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
 
       return
     }
@@ -26,16 +26,16 @@ export namespace Finder {
   export namespace TopRight {
 
     export function write(matrix: Uint8Matrix) {
-      let x = matrix.size - 8, y = 0
+      let x = matrix.length - 8, y = 0
 
-      matrix.set(x, y++, new Uint8Array([2, 3, 3, 3, 3, 3, 3, 3]))
-      matrix.set(x, y++, new Uint8Array([2, 3, 2, 2, 2, 2, 2, 3]))
-      matrix.set(x, y++, new Uint8Array([2, 3, 2, 3, 3, 3, 2, 3]))
-      matrix.set(x, y++, new Uint8Array([2, 3, 2, 3, 3, 3, 2, 3]))
-      matrix.set(x, y++, new Uint8Array([2, 3, 2, 3, 3, 3, 2, 3]))
-      matrix.set(x, y++, new Uint8Array([2, 3, 2, 2, 2, 2, 2, 3]))
-      matrix.set(x, y++, new Uint8Array([2, 3, 3, 3, 3, 3, 3, 3]))
-      matrix.set(x, y++, new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
+      matrix.subarray(x, y++).set(new Uint8Array([2, 3, 3, 3, 3, 3, 3, 3]))
+      matrix.subarray(x, y++).set(new Uint8Array([2, 3, 2, 2, 2, 2, 2, 3]))
+      matrix.subarray(x, y++).set(new Uint8Array([2, 3, 2, 3, 3, 3, 2, 3]))
+      matrix.subarray(x, y++).set(new Uint8Array([2, 3, 2, 3, 3, 3, 2, 3]))
+      matrix.subarray(x, y++).set(new Uint8Array([2, 3, 2, 3, 3, 3, 2, 3]))
+      matrix.subarray(x, y++).set(new Uint8Array([2, 3, 2, 2, 2, 2, 2, 3]))
+      matrix.subarray(x, y++).set(new Uint8Array([2, 3, 3, 3, 3, 3, 3, 3]))
+      matrix.subarray(x, y++).set(new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
 
       return
     }
@@ -45,16 +45,16 @@ export namespace Finder {
   export namespace BottomLeft {
 
     export function write(matrix: Uint8Matrix) {
-      let x = 0, y = matrix.size - 8
+      let x = 0, y = matrix.length - 8
 
-      matrix.set(x, y++, new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
-      matrix.set(x, y++, new Uint8Array([3, 3, 3, 3, 3, 3, 3, 2]))
-      matrix.set(x, y++, new Uint8Array([3, 2, 2, 2, 2, 2, 3, 2]))
-      matrix.set(x, y++, new Uint8Array([3, 2, 3, 3, 3, 2, 3, 2]))
-      matrix.set(x, y++, new Uint8Array([3, 2, 3, 3, 3, 2, 3, 2]))
-      matrix.set(x, y++, new Uint8Array([3, 2, 3, 3, 3, 2, 3, 2]))
-      matrix.set(x, y++, new Uint8Array([3, 2, 2, 2, 2, 2, 3, 2]))
-      matrix.set(x, y++, new Uint8Array([3, 3, 3, 3, 3, 3, 3, 2]))
+      matrix.subarray(x, y++).set(new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
+      matrix.subarray(x, y++).set(new Uint8Array([3, 3, 3, 3, 3, 3, 3, 2]))
+      matrix.subarray(x, y++).set(new Uint8Array([3, 2, 2, 2, 2, 2, 3, 2]))
+      matrix.subarray(x, y++).set(new Uint8Array([3, 2, 3, 3, 3, 2, 3, 2]))
+      matrix.subarray(x, y++).set(new Uint8Array([3, 2, 3, 3, 3, 2, 3, 2]))
+      matrix.subarray(x, y++).set(new Uint8Array([3, 2, 3, 3, 3, 2, 3, 2]))
+      matrix.subarray(x, y++).set(new Uint8Array([3, 2, 2, 2, 2, 2, 3, 2]))
+      matrix.subarray(x, y++).set(new Uint8Array([3, 3, 3, 3, 3, 3, 3, 2]))
 
       return
     }
