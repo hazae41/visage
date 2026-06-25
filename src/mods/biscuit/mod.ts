@@ -94,10 +94,10 @@ export class Format {
     formatWithErrorCorrection.write(format.bytes)
     formatWithErrorCorrection.write(BCH.N15.K5.generate(format.bytes))
 
-    const mask = new Uint8Array([1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0])
+    const submask = new Uint8Array([1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0])
 
     for (let i = 0; i < 15; i++)
-      formatWithErrorCorrection.bytes[i] ^= mask[i]
+      formatWithErrorCorrection.bytes[i] ^= submask[i]
 
     formatWithErrorCorrection.offset = 0
 
