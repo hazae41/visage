@@ -19,6 +19,8 @@ export class Biscuit {
   }
 
   write(cursor: Cursor) {
+    cursor.offset = cursor.length
+
     const matrix = new Matrix(cursor.bytes, this.width)
 
     Finder.TopLeft.write(matrix)
@@ -32,7 +34,8 @@ export class Biscuit {
 
     new Zigzag(this.mixture).write(matrix)
 
-    cursor.offset = cursor.length
+    new Mask0().write(matrix)
+
   }
 
 }
@@ -63,6 +66,10 @@ export class Matrix {
     return this.bytes.subarray((y * this.width) + x, (y * this.width) + x + length)
   }
 
+  clone() {
+    return new Matrix(new Uint8Array(this.bytes), this.width)
+  }
+
 }
 
 export namespace Finder {
@@ -73,13 +80,13 @@ export namespace Finder {
       // deno-lint-ignore prefer-const
       let x = 0, y = 0
 
-      matrix.set(x, y++, new Uint8Array([1, 1, 1, 1, 1, 1, 1, 2]))
-      matrix.set(x, y++, new Uint8Array([1, 2, 2, 2, 2, 2, 1, 2]))
-      matrix.set(x, y++, new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
-      matrix.set(x, y++, new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
-      matrix.set(x, y++, new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
-      matrix.set(x, y++, new Uint8Array([1, 2, 2, 2, 2, 2, 1, 2]))
-      matrix.set(x, y++, new Uint8Array([1, 1, 1, 1, 1, 1, 1, 2]))
+      matrix.set(x, y++, new Uint8Array([3, 3, 3, 3, 3, 3, 3, 2]))
+      matrix.set(x, y++, new Uint8Array([3, 2, 2, 2, 2, 2, 3, 2]))
+      matrix.set(x, y++, new Uint8Array([3, 2, 3, 3, 3, 2, 3, 2]))
+      matrix.set(x, y++, new Uint8Array([3, 2, 3, 3, 3, 2, 3, 2]))
+      matrix.set(x, y++, new Uint8Array([3, 2, 3, 3, 3, 2, 3, 2]))
+      matrix.set(x, y++, new Uint8Array([3, 2, 2, 2, 2, 2, 3, 2]))
+      matrix.set(x, y++, new Uint8Array([3, 3, 3, 3, 3, 3, 3, 2]))
       matrix.set(x, y++, new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
 
       return
@@ -93,13 +100,13 @@ export namespace Finder {
       // deno-lint-ignore prefer-const
       let x = matrix.width - 8, y = 0
 
-      matrix.set(x, y++, new Uint8Array([2, 1, 1, 1, 1, 1, 1, 1]))
-      matrix.set(x, y++, new Uint8Array([2, 1, 2, 2, 2, 2, 2, 1]))
-      matrix.set(x, y++, new Uint8Array([2, 1, 2, 1, 1, 1, 2, 1]))
-      matrix.set(x, y++, new Uint8Array([2, 1, 2, 1, 1, 1, 2, 1]))
-      matrix.set(x, y++, new Uint8Array([2, 1, 2, 1, 1, 1, 2, 1]))
-      matrix.set(x, y++, new Uint8Array([2, 1, 2, 2, 2, 2, 2, 1]))
-      matrix.set(x, y++, new Uint8Array([2, 1, 1, 1, 1, 1, 1, 1]))
+      matrix.set(x, y++, new Uint8Array([2, 3, 3, 3, 3, 3, 3, 3]))
+      matrix.set(x, y++, new Uint8Array([2, 3, 2, 2, 2, 2, 2, 3]))
+      matrix.set(x, y++, new Uint8Array([2, 3, 2, 3, 3, 3, 2, 3]))
+      matrix.set(x, y++, new Uint8Array([2, 3, 2, 3, 3, 3, 2, 3]))
+      matrix.set(x, y++, new Uint8Array([2, 3, 2, 3, 3, 3, 2, 3]))
+      matrix.set(x, y++, new Uint8Array([2, 3, 2, 2, 2, 2, 2, 3]))
+      matrix.set(x, y++, new Uint8Array([2, 3, 3, 3, 3, 3, 3, 3]))
       matrix.set(x, y++, new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
 
       return
@@ -114,13 +121,13 @@ export namespace Finder {
       let x = 0, y = matrix.width - 8
 
       matrix.set(x, y++, new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
-      matrix.set(x, y++, new Uint8Array([1, 1, 1, 1, 1, 1, 1, 2]))
-      matrix.set(x, y++, new Uint8Array([1, 2, 2, 2, 2, 2, 1, 2]))
-      matrix.set(x, y++, new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
-      matrix.set(x, y++, new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
-      matrix.set(x, y++, new Uint8Array([1, 2, 1, 1, 1, 2, 1, 2]))
-      matrix.set(x, y++, new Uint8Array([1, 2, 2, 2, 2, 2, 1, 2]))
-      matrix.set(x, y++, new Uint8Array([1, 1, 1, 1, 1, 1, 1, 2]))
+      matrix.set(x, y++, new Uint8Array([3, 3, 3, 3, 3, 3, 3, 2]))
+      matrix.set(x, y++, new Uint8Array([3, 2, 2, 2, 2, 2, 3, 2]))
+      matrix.set(x, y++, new Uint8Array([3, 2, 3, 3, 3, 2, 3, 2]))
+      matrix.set(x, y++, new Uint8Array([3, 2, 3, 3, 3, 2, 3, 2]))
+      matrix.set(x, y++, new Uint8Array([3, 2, 3, 3, 3, 2, 3, 2]))
+      matrix.set(x, y++, new Uint8Array([3, 2, 2, 2, 2, 2, 3, 2]))
+      matrix.set(x, y++, new Uint8Array([3, 3, 3, 3, 3, 3, 3, 2]))
 
       return
     }
@@ -137,7 +144,7 @@ export namespace Timing {
       const w = matrix.width - 8
 
       for (let i = 1, x = 8; x < w; i++, x++)
-        matrix.setUint8(x, 6, i % 2 ? 1 : 2)
+        matrix.setUint8(x, 6, i % 2 ? 3 : 2)
 
       return
     }
@@ -150,7 +157,7 @@ export namespace Timing {
       const h = matrix.width - 8
 
       for (let i = 1, y = 8; y < h; i++, y++)
-        matrix.setUint8(6, y, i % 2 ? 1 : 2)
+        matrix.setUint8(6, y, i % 2 ? 3 : 2)
 
       return
     }
@@ -182,8 +189,10 @@ export class Zigzag {
           const x = col - j
           const y = upward ? matrix.width - 1 - row : row
 
-          if (matrix.getUint8(x, y) === 0)
-            matrix.setUint8(x, y, wrote[i++])
+          if (matrix.getUint8(x, y) > 1)
+            continue
+
+          matrix.setUint8(x, y, wrote[i++])
 
           if (i === wrote.length)
             return
@@ -192,6 +201,30 @@ export class Zigzag {
         }
       }
     }
+  }
+
+}
+
+export class Mask0 {
+
+  write(matrix: Matrix) {
+    const { width } = matrix
+
+    for (let row = 0; row < width; row++) {
+      for (let col = 0; col < width; col++) {
+        const value = matrix.getUint8(col, row)
+
+        if (value > 1)
+          continue
+
+        if (((row + col) % 2) !== 0)
+          continue
+
+        matrix.setUint8(col, row, value === 1 ? 0 : 1)
+      }
+    }
+
+    return
   }
 
 }

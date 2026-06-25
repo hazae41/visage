@@ -72,3 +72,22 @@ export namespace ReedSolomon {
   }
 
 }
+
+export namespace BCH {
+
+  export function remainder(data: Uint8Array) {
+    let d = 0
+
+    for (let i = 0; i < data.length; i++) {
+      d = ((d << 1) | data[i]) & 0x1fffff
+
+      if (d & 0x100000)
+        d ^= 0x108000
+
+      continue
+    }
+
+    return new Uint8Array([(d >> 10) & 0xff, (d >> 2) & 0xff])
+  }
+
+}

@@ -1,4 +1,4 @@
-import { ReedSolomon } from "@/libs/correct/mod.ts";
+import { BCH, ReedSolomon } from "@/libs/correct/mod.ts";
 import { test } from "@hazae41/phobos";
 
 test("reed solomon", () => {
@@ -7,4 +7,8 @@ test("reed solomon", () => {
 
   console.log(data.toHex())
   console.log(eccs.toHex())
+})
+
+test("bch", () => {
+  console.log(BCH.remainder(crypto.getRandomValues(new Uint8Array(15))).toHex())
 })
