@@ -37,27 +37,22 @@ test("biscuit", () => {
   print(biscuit)
 
   const bitset = biscuit.encode()
-  const padded = new Uint8Array((biscuit.width + 8) * (biscuit.width + 8))
 
-  for (let y = 0; y < biscuit.width; y++)
-    for (let x = 0; x < biscuit.width; x++)
-      padded[(y + 4) * (biscuit.width + 8) + (x + 4)] = bitset[y * biscuit.width + x]
+  const upsize = new Uint8Array(biscuit.width * biscuit.width * 4)
 
-  const upsized = new Uint8Array((biscuit.width + 8) * (biscuit.width + 8) * 4)
+  for (let i = 0; i < bitset.length; i++) {
+    const bit = bitset[i]
 
-  for (let i = 0; i < padded.length; i++) {
-    const bit = padded[i]
-
-    upsized[i * 4 + 0] = bit
-    upsized[i * 4 + 1] = bit
-    upsized[i * 4 + 2] = bit
-    upsized[i * 4 + 3] = bit
+    upsize[i * 4 + 0] = bit
+    upsize[i * 4 + 1] = bit
+    upsize[i * 4 + 2] = bit
+    upsize[i * 4 + 3] = bit
   }
 
-  const rgba = new Uint8ClampedArray((biscuit.width + 8) * (biscuit.width + 8) * 4 * 4)
+  const rgba = new Uint8ClampedArray(biscuit.width * biscuit.width * 4 * 4)
 
-  for (let i = 0; i < upsized.length; i++) {
-    const bit = upsized[i]
+  for (let i = 0; i < upsize.length; i++) {
+    const bit = upsize[i]
 
     rgba[i * 4 + 0] = bit % 2 === 1 ? 0 : 255
     rgba[i * 4 + 1] = bit % 2 === 1 ? 0 : 255
@@ -65,7 +60,7 @@ test("biscuit", () => {
     rgba[i * 4 + 3] = 255
   }
 
-  const result = jsQR.default(rgba, (biscuit.width + 8) * 2, (biscuit.width + 8) * 2, {})
+  const result = jsQR.default(rgba, biscuit.width * 2, biscuit.width * 2, {})
 
   console.log(result)
 
