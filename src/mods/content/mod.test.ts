@@ -1,4 +1,4 @@
-import { versions } from "@/mods/versions/mod.ts";
+import { versions } from "@/mods/version/mod.ts";
 import { Writable } from "@hazae41/binary";
 import { test } from "@hazae41/phobos";
 import { Content } from "./mod.ts";
