@@ -30,6 +30,8 @@ export class Biscuit {
 
     matrix.setUint8(8, matrix.size - 8, 1)
 
+    new Format(this.mixture.content.correct, 0).write(matrix)
+
     new Zigzag(this.mixture).write(matrix)
 
     new Mask0().write(matrix)
@@ -100,18 +102,18 @@ export class Format {
     formatWithErrorCorrection.offset = 0
 
     for (let x = 0; x < 6; x++)
-      matrix.setUint8(x, 8, formatWithErrorCorrection.readUint8())
+      matrix.setUint8(x, 8, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
     for (let x = 7; x < 9; x++)
-      matrix.setUint8(x, 8, formatWithErrorCorrection.readUint8())
+      matrix.setUint8(x, 8, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
     for (let y = 7; y; y--)
-      matrix.setUint8(8, y, formatWithErrorCorrection.readUint8())
+      matrix.setUint8(8, y, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
 
     formatWithErrorCorrection.offset = 0
 
     for (let y = matrix.size - 1; y > matrix.size - 8; y--)
-      matrix.setUint8(8, y, formatWithErrorCorrection.readUint8())
+      matrix.setUint8(8, y, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
     for (let x = matrix.size - 8; x < matrix.size; x++)
-      matrix.setUint8(x, 8, formatWithErrorCorrection.readUint8())
+      matrix.setUint8(x, 8, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
 
     return
   }
