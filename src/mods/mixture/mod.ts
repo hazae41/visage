@@ -1,6 +1,6 @@
 import { Bitset } from "@/libs/bitset/mod.ts";
-import { ReedSolomon } from "@/libs/correct/mod.ts";
 import { deflate } from "@/libs/deflate/mod.ts";
+import { ReedSolomon } from "@/libs/reed/mod.ts";
 import { Content } from "@/mods/content/mod.ts";
 import { Writable } from "@hazae41/binary";
 import { Cursor } from "@hazae41/cursor";

@@ -1,5 +1,5 @@
-import { ReedSolomon } from "@/libs/correct/mod.ts";
 import { test } from "@hazae41/phobos";
+import { ReedSolomon } from "./mod.ts";
 
 test("reed solomon", () => {
   const data = new TextEncoder().encode("Hello World")
