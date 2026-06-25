@@ -8,6 +8,8 @@ import { binarize, Decoder, Detector, grayscale } from "@nuintun/qrcode";
 function print(biscuit: Biscuit) {
   const wrote = new Array(...biscuit.encode())
 
+  console.log()
+
   const digits = Math.floor(Math.log10(biscuit.width)) + 1
 
   for (let digit = 0; digit < digits; digit++) {
@@ -48,19 +50,12 @@ test("biscuit", () => {
     rgba[i * 4 + 3] = 255
   }
 
-  const image = new ImageData(biscuit.width, biscuit.width)
-
-  image.data.set(rgba)
+  const image = new ImageData(rgba, biscuit.width, biscuit.width)
 
   const detection = new Detector().detect(binarize(grayscale(image), biscuit.width, biscuit.width))
 
-  for (let next = detection.next(); !next.done; next = detection.next()) {
-    // for (let y = 0; y < biscuit.width; y++) {
-    //   console.log(new Array(biscuit.width).fill(0).map((_, i) => next.value.matrix.get(i, y) ? "██" : "  ").join(""))
-    // }
-
-    console.log(new Decoder().decode(next.value.matrix))
-  }
+  for (let next = detection.next(); !next.done; next = detection.next())
+    console.log(new Decoder().decode(next.value.matrix).content)
 
   return
 })

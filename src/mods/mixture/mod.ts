@@ -18,8 +18,6 @@ export class Mixture {
     const wrote = new Cursor(content.encode())
     const mixed = new Cursor(new Uint8Array(content.version.length))
 
-    console.log(deflate(wrote.bytes))
-
     const datas = new Array<Uint8Array>()
     const reeds = new Array<Uint8Array>()
 
