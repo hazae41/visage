@@ -3,6 +3,7 @@ import { Content } from "@/mods/content/mod.ts";
 import { Mixture } from "@/mods/mixture/mod.ts";
 import { versions } from "@/mods/version/mod.ts";
 import { test } from "@hazae41/phobos";
+import jsQR from "jsqr";
 
 function print(biscuit: Biscuit) {
   const wrote = new Array(...biscuit.encode())
@@ -34,6 +35,39 @@ test("biscuit", () => {
   const biscuit = new Biscuit(new Mixture(new Content.Byte(new TextEncoder().encode("Hello world"), versions[1], 0)))
 
   print(biscuit)
+
+  const bitset = biscuit.encode()
+  const padded = new Uint8Array((biscuit.width + 8) * (biscuit.width + 8))
+
+  for (let y = 0; y < biscuit.width; y++)
+    for (let x = 0; x < biscuit.width; x++)
+      padded[(y + 4) * (biscuit.width + 8) + (x + 4)] = bitset[y * biscuit.width + x]
+
+  const upsized = new Uint8Array((biscuit.width + 8) * (biscuit.width + 8) * 4)
+
+  for (let i = 0; i < padded.length; i++) {
+    const bit = padded[i]
+
+    upsized[i * 4 + 0] = bit
+    upsized[i * 4 + 1] = bit
+    upsized[i * 4 + 2] = bit
+    upsized[i * 4 + 3] = bit
+  }
+
+  const rgba = new Uint8ClampedArray((biscuit.width + 8) * (biscuit.width + 8) * 4 * 4)
+
+  for (let i = 0; i < upsized.length; i++) {
+    const bit = upsized[i]
+
+    rgba[i * 4 + 0] = bit % 2 === 1 ? 0 : 255
+    rgba[i * 4 + 1] = bit % 2 === 1 ? 0 : 255
+    rgba[i * 4 + 2] = bit % 2 === 1 ? 0 : 255
+    rgba[i * 4 + 3] = 255
+  }
+
+  const result = jsQR.default(rgba, (biscuit.width + 8) * 2, (biscuit.width + 8) * 2, {})
+
+  console.log(result)
 
   return
 })

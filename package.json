@@ -24,6 +24,7 @@
     "@hazae41/tscousin": "^1.0.28",
     "@types/node": "^25.9.1",
     "deno": "^2.8.1",
+    "jsqr": "^1.4.0",
     "typescript": "^6.0.3"
   },
   "keywords": [
