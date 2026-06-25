@@ -30,34 +30,7 @@ export class Biscuit {
 
     matrix.setUint8(8, matrix.width - 8, 1)
 
-    const wrote = Writable.writeToBytes(this.mixture)
-
-    {
-      let i = 0;
-
-      loop: for (let col = matrix.width - 1; col >= 1; col -= 2) {
-
-        if (col === 6)
-          col = 5
-
-        for (let row = 0; row < matrix.width; row++) {
-          for (let j = 0; j < 2; j++) {
-            const upward = ((col + 1) & 2) === 0
-
-            const x = col - j
-            const y = upward ? matrix.width - 1 - row : row
-
-            if (matrix.getUint8(x, y) === 0)
-              matrix.setUint8(x, y, wrote[i++])
-
-            if (i === wrote.length)
-              break loop
-
-            continue
-          }
-        }
-      }
-    }
+    new Zigzag(this.mixture).write(matrix)
 
     cursor.offset = cursor.length
   }
@@ -74,34 +47,20 @@ export class Matrix {
     readonly width: number
   ) { }
 
-  /**
-   * Get the byte at the given x and y coordinates
-   * @param x Width axis
-   * @param y Height axis
-   * @returns
-   */
   getUint8(x: number, y: number) {
     return this.bytes[(y * this.width) + x]
   }
 
-  /**
-   * Set the byte at the given x and y coordinates
-   * @param x 
-   * @param y 
-   * @param value 
-   */
   setUint8(x: number, y: number, value: number) {
     this.bytes[(y * this.width) + x] = value
   }
 
-  /**
-   * Set the byte at the given x and y coordinates
-   * @param array 
-   * @param x Width axis
-   * @param y Height axis
-   */
   set(x: number, y: number, array: ArrayLike<number>) {
     this.bytes.set(array, (y * this.width) + x)
+  }
+
+  get(x: number, y: number, length: number) {
+    return this.bytes.subarray((y * this.width) + x, (y * this.width) + x + length)
   }
 
 }
@@ -196,6 +155,43 @@ export namespace Timing {
       return
     }
 
+  }
+
+}
+
+export class Zigzag {
+
+  constructor(
+    readonly mixture: Mixture
+  ) { }
+
+  write(matrix: Matrix) {
+    const wrote = Writable.writeToBytes(this.mixture)
+
+    let i = 0;
+
+    for (let col = matrix.width - 1; col >= 1; col -= 2) {
+
+      if (col === 6)
+        col = 5
+
+      for (let row = 0; row < matrix.width; row++) {
+        const upward = ((col + 1) & 2) === 0
+
+        for (let j = 0; j < 2; j++) {
+          const x = col - j
+          const y = upward ? matrix.width - 1 - row : row
+
+          if (matrix.getUint8(x, y) === 0)
+            matrix.setUint8(x, y, wrote[i++])
+
+          if (i === wrote.length)
+            return
+
+          continue
+        }
+      }
+    }
   }
 
 }
