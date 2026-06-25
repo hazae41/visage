@@ -28,7 +28,7 @@ export class Biscuit {
     Timing.Horizontal.write(matrix)
     Timing.Vertical.write(matrix)
 
-    matrix.setUint8(8, matrix.size - 8, 1)
+    matrix.setUint8(8, matrix.size - 8, 3)
 
     new Format(this.mixture.content.correct, 0).write(matrix)
 
