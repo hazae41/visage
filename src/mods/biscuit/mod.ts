@@ -38,7 +38,7 @@ export class Biscuit {
 
     new Format(this.mixture.content.correct, 0).write(matrix)
 
-    return result
+    return matrix
   }
 
 }
