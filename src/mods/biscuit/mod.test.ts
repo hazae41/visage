@@ -56,7 +56,7 @@ test("biscuit", () => {
 
   print(bits)
 
-  const detection = new Detector().detect(binarize(grayscale(rgba), biscuit.width, biscuit.width))
+  const detection = new Detector().detect(binarize(grayscale(rgba), bits.length, bits.length))
 
   for (let next = detection.next(); !next.done; next = detection.next())
     console.log(new Decoder().decode(next.value.matrix).content)

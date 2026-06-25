@@ -9,17 +9,15 @@ import { Cursor } from "@hazae41/cursor";
 
 export class Biscuit {
 
-  readonly width: number
-
   constructor(
     readonly mixture: Mixture
-  ) {
-    this.width = 17 + (this.mixture.content.version.number * 4)
-  }
+  ) { }
 
   encode() {
-    const result = new Uint8Array(this.width * this.width)
-    const matrix = new Uint8Matrix(result.buffer, this.width)
+    const width = 17 + (this.mixture.content.version.number * 4)
+
+    const result = new Uint8Array(width * width)
+    const matrix = new Uint8Matrix(result.buffer, width)
 
     Finder.TopLeft.write(matrix)
     Finder.TopRight.write(matrix)
