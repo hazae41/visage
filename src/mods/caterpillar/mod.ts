@@ -50,7 +50,7 @@ export namespace Caterpillar {
          */
         for (let i = 0; i < 2; i++) {
           const x = col - i
-          const y = ((col + 1) & 2) ? row : ((matrix.length - 1) - row)
+          const y = (((col + 1) % 4) < 2) ? ((matrix.length - 1) - row) : row
 
           yield { x, y }
 
