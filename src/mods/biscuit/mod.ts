@@ -35,7 +35,7 @@ export class Biscuit {
 
     new Caterpillar(this.content).write(matrix)
 
-    new Mask0().write(matrix)
+    Mask0.write(matrix)
 
     new Format(correct, 0).write(matrix)
 
@@ -125,9 +125,11 @@ export class Format {
 
 }
 
-export class Mask0 {
+export namespace Mask0 {
 
-  write(matrix: Uint8Matrix) {
+  export const pattern = 0
+
+  export function write(matrix: Uint8Matrix) {
     const { length: width } = matrix
 
     for (let row = 0; row < width; row++) {

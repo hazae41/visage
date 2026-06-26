@@ -9,6 +9,7 @@ function print(matrix: Uint8Matrix) {
   const bits = new Uint8Array(matrix.buffer)
 
   console.log()
+  console.log()
 
   const digits = Math.floor(Math.log10(matrix.length)) + 1
 
@@ -48,9 +49,7 @@ function colorize(matrix: Uint8Matrix) {
 }
 
 test("biscuit", () => {
-  const biscuit = new Biscuit(new Content.Byte(new TextEncoder().encode("Hello world"), versions[1], 0))
-
-  const bits = biscuit.encode()
+  const bits = new Biscuit(new Content.Byte(new TextEncoder().encode("Hello world"), versions[1], 0)).encode()
   const rgba = colorize(bits)
 
   print(bits)
