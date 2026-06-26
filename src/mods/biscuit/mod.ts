@@ -95,30 +95,30 @@ export class Format {
 
     new Bitset(pattern, 3).write(format)
 
-    const formatWithErrorCorrection = new Cursor(new Uint8Array(15))
-    formatWithErrorCorrection.write(format.bytes)
-    formatWithErrorCorrection.write(BCH.N15.K5.generate(format.bytes))
+    const formatAndCorrection = new Cursor(new Uint8Array(15))
+    formatAndCorrection.write(format.bytes)
+    formatAndCorrection.write(BCH.N15.K5.generate(format.bytes))
 
     const submask = new Uint8Array([1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0])
 
     for (let i = 0; i < 15; i++)
-      formatWithErrorCorrection.bytes[i] ^= submask[i]
+      formatAndCorrection.bytes[i] ^= submask[i]
 
-    formatWithErrorCorrection.offset = 0
+    formatAndCorrection.offset = 0
 
     for (let x = 0; x < 6; x++)
-      matrix.set(x, 8, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
+      matrix.set(x, 8, formatAndCorrection.readUint8() === 1 ? 3 : 2)
     for (let x = 7; x < 9; x++)
-      matrix.set(x, 8, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
+      matrix.set(x, 8, formatAndCorrection.readUint8() === 1 ? 3 : 2)
     for (let y = 7; y; y--)
-      matrix.set(8, y, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
+      matrix.set(8, y, formatAndCorrection.readUint8() === 1 ? 3 : 2)
 
-    formatWithErrorCorrection.offset = 0
+    formatAndCorrection.offset = 0
 
     for (let y = matrix.length - 1; y > matrix.length - 8; y--)
-      matrix.set(8, y, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
+      matrix.set(8, y, formatAndCorrection.readUint8() === 1 ? 3 : 2)
     for (let x = matrix.length - 8; x < matrix.length; x++)
-      matrix.set(x, 8, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
+      matrix.set(x, 8, formatAndCorrection.readUint8() === 1 ? 3 : 2)
 
     return
   }
