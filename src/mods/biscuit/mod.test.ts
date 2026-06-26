@@ -48,16 +48,22 @@ function colorize(matrix: Uint8Matrix) {
   return rgba
 }
 
-test("biscuit", () => {
-  const bits = new Biscuit(new Content.Byte(new TextEncoder().encode("Hello world"), versions[1], 0)).encode()
+function f(biscuit: Biscuit) {
+  const bits = biscuit.encode()
   const rgba = colorize(bits)
 
   print(bits)
 
-  const detection = new Detector().detect(binarize(grayscale(rgba), bits.length, bits.length))
+  const next = new Detector().detect(binarize(grayscale(rgba), bits.length, bits.length)).next()
 
-  for (let next = detection.next(); !next.done; next = detection.next())
-    console.log(new Decoder().decode(next.value.matrix).content)
+  if (next.done)
+    throw new Error("No QR code found")
+
+  console.log(new Decoder().decode(next.value.matrix).content)
 
   return
+}
+
+test("biscuit", () => {
+  f(new Biscuit(new Content.Byte(new TextEncoder().encode("Hello world"), versions[1], 0)))
 })
