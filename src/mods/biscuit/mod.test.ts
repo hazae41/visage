@@ -1,7 +1,6 @@
 import { Uint8Matrix } from "@/libs/matrix/mod.ts";
 import { Biscuit } from "@/mods/biscuit/mod.ts";
 import { Content } from "@/mods/content/mod.ts";
-import { Mixture } from "@/mods/mixture/mod.ts";
 import { versions } from "@/mods/version/mod.ts";
 import { test } from "@hazae41/phobos";
 import { binarize, Decoder, Detector, grayscale } from "@nuintun/qrcode";
@@ -49,7 +48,7 @@ function colorize(matrix: Uint8Matrix) {
 }
 
 test("biscuit", () => {
-  const biscuit = new Biscuit(new Mixture(new Content.Byte(new TextEncoder().encode("Hello world"), versions[1], 0)))
+  const biscuit = new Biscuit(new Content.Byte(new TextEncoder().encode("Hello world"), versions[1], 0))
 
   const bits = biscuit.encode()
   const rgba = colorize(bits)

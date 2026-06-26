@@ -1,17 +1,18 @@
 // deno-lint-ignore-file no-namespace
 
 import { Uint8Matrix } from "@/libs/matrix/mod.ts";
+import { Content } from "@/mods/content/mod.ts";
 import { Mixture } from "@/mods/mixture/mod.ts";
 import { Cursor } from "@hazae41/cursor";
 
 export class Caterpillar {
 
   constructor(
-    readonly mixture: Mixture
+    readonly content: Content
   ) { }
 
   write(matrix: Uint8Matrix) {
-    const cursor = new Cursor(this.mixture.encode())
+    const cursor = new Cursor(new Mixture(this.content).encode())
 
     for (const { x, y } of Caterpillar.walk(matrix)) {
       if (cursor.offset === cursor.length)
@@ -45,7 +46,7 @@ export namespace Caterpillar {
        */
       for (let row = 0; row < matrix.length; row++) {
         /**
-         * Columns are walked in pairs
+         * Walk each element of the column pair and yield its coordinates
          */
         for (let i = 0; i < 2; i++) {
           const x = col - i

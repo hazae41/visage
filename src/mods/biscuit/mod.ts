@@ -3,19 +3,21 @@ import { BCH } from "@/libs/bch/mod.ts";
 import { Bitset } from "@/libs/bitset/mod.ts";
 import { Uint8Matrix } from "@/libs/matrix/mod.ts";
 import { Caterpillar } from "@/mods/caterpillar/mod.ts";
+import { Content } from "@/mods/content/mod.ts";
 import { Finder } from "@/mods/finder/mod.ts";
-import { Mixture } from "@/mods/mixture/mod.ts";
 import { Timing } from "@/mods/timing/mod.ts";
 import { Cursor } from "@hazae41/cursor";
 
 export class Biscuit {
 
   constructor(
-    readonly mixture: Mixture
+    readonly content: Content
   ) { }
 
   encode() {
-    const length = 17 + (this.mixture.content.version.number * 4)
+    const { version, correct } = this.content
+
+    const length = 17 + (version.number * 4)
 
     const result = new Uint8Array(length * length)
     const matrix = new Uint8Matrix(result.buffer, length)
@@ -31,11 +33,11 @@ export class Biscuit {
 
     Preformat.write(matrix)
 
-    new Caterpillar(this.mixture).write(matrix)
+    new Caterpillar(this.content).write(matrix)
 
     new Mask0().write(matrix)
 
-    new Format(this.mixture.content.correct, 0).write(matrix)
+    new Format(correct, 0).write(matrix)
 
     return matrix
   }
