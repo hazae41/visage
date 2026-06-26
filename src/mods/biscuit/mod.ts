@@ -6,6 +6,7 @@ import { Caterpillar } from "@/mods/caterpillar/mod.ts";
 import { Content } from "@/mods/content/mod.ts";
 import { Finder } from "@/mods/finder/mod.ts";
 import { Timing } from "@/mods/timing/mod.ts";
+import { Version } from "@/mods/version/mod.ts";
 import { Cursor } from "@hazae41/cursor";
 
 export class Biscuit {
@@ -33,7 +34,7 @@ export class Biscuit {
 
     Preformat.write(matrix)
 
-    new Version(version.number).write(matrix)
+    new Version(version).write(matrix)
 
     new Caterpillar(this.content).write(matrix)
 
@@ -125,39 +126,6 @@ export class Format {
       matrix.set(8, row, cursor.readUint8() === 1 ? 3 : 2)
     for (let col = matrix.length - 8; col < matrix.length; col++)
       matrix.set(col, 8, cursor.readUint8() === 1 ? 3 : 2)
-
-    return
-  }
-
-}
-
-export class Version {
-
-  constructor(
-    readonly number: number
-  ) { }
-
-  write(matrix: Uint8Matrix) {
-    if (this.number < 7)
-      return
-
-    const cursor = new Cursor(new Uint8Array(18))
-
-    new Bitset(this.number, 6).write(cursor)
-
-    cursor.write(BCH.N18K6.generate(cursor.before))
-
-    cursor.offset = 0
-
-    for (let subrow = 0; subrow < 6; subrow++)
-      for (let subcol = 0; subcol < 3; subcol++)
-        matrix.set(matrix.length - 9 - subcol, 5 - subrow, cursor.readUint8() === 1 ? 3 : 2)
-
-    cursor.offset = 0
-
-    for (let subcol = 0; subcol < 6; subcol++)
-      for (let subrow = 0; subrow < 3; subrow++)
-        matrix.set(5 - subcol, matrix.length - 9 - subrow, cursor.readUint8() === 1 ? 3 : 2)
 
     return
   }
