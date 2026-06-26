@@ -57,20 +57,20 @@ export namespace Dot {
 export namespace Preformat {
 
   export function write(matrix: Uint8Matrix) {
-    for (let x = 0; x < 6; x++)
-      matrix.set(x, 8, 3)
+    for (let col = 0; col < 6; col++)
+      matrix.set(col, 8, 3)
 
     matrix.set(7, 8, 3)
     matrix.set(8, 8, 3)
     matrix.set(8, 7, 3)
 
-    for (let y = 5; y >= 0; y--)
-      matrix.set(8, y, 3)
+    for (let row = 5; row >= 0; row--)
+      matrix.set(8, row, 3)
 
-    for (let y = matrix.length - 1; y > matrix.length - 8; y--)
-      matrix.set(8, y, 3)
-    for (let x = matrix.length - 8; x < matrix.length; x++)
-      matrix.set(x, 8, 3)
+    for (let row = matrix.length - 1; row > matrix.length - 8; row--)
+      matrix.set(8, row, 3)
+    for (let col = matrix.length - 8; col < matrix.length; col++)
+      matrix.set(col, 8, 3)
 
     return
   }
@@ -109,22 +109,22 @@ export class Format {
 
     cursor.offset = 0
 
-    for (let x = 0; x < 6; x++)
-      matrix.set(x, 8, cursor.readUint8() === 1 ? 3 : 2)
+    for (let col = 0; col < 6; col++)
+      matrix.set(col, 8, cursor.readUint8() === 1 ? 3 : 2)
 
     matrix.set(7, 8, cursor.readUint8() === 1 ? 3 : 2)
     matrix.set(8, 8, cursor.readUint8() === 1 ? 3 : 2)
     matrix.set(8, 7, cursor.readUint8() === 1 ? 3 : 2)
 
-    for (let y = 5; y >= 0; y--)
-      matrix.set(8, y, cursor.readUint8() === 1 ? 3 : 2)
+    for (let row = 5; row >= 0; row--)
+      matrix.set(8, row, cursor.readUint8() === 1 ? 3 : 2)
 
     cursor.offset = 0
 
-    for (let y = matrix.length - 1; y > matrix.length - 8; y--)
-      matrix.set(8, y, cursor.readUint8() === 1 ? 3 : 2)
-    for (let x = matrix.length - 8; x < matrix.length; x++)
-      matrix.set(x, 8, cursor.readUint8() === 1 ? 3 : 2)
+    for (let row = matrix.length - 1; row > matrix.length - 8; row--)
+      matrix.set(8, row, cursor.readUint8() === 1 ? 3 : 2)
+    for (let col = matrix.length - 8; col < matrix.length; col++)
+      matrix.set(col, 8, cursor.readUint8() === 1 ? 3 : 2)
 
     return
   }
@@ -149,15 +149,15 @@ export class Version {
 
     cursor.offset = 0
 
-    for (let y = 0; y < 6; y++)
-      for (let x = 0; x < 3; x++)
-        matrix.set(matrix.length - 9 - x, 5 - y, cursor.readUint8() === 1 ? 3 : 2)
+    for (let subrow = 0; subrow < 6; subrow++)
+      for (let subcol = 0; subcol < 3; subcol++)
+        matrix.set(matrix.length - 9 - subcol, 5 - subrow, cursor.readUint8() === 1 ? 3 : 2)
 
     cursor.offset = 0
 
-    for (let x = 0; x < 6; x++)
-      for (let y = 0; y < 3; y++)
-        matrix.set(5 - x, matrix.length - 9 - y, cursor.readUint8() === 1 ? 3 : 2)
+    for (let subcol = 0; subcol < 6; subcol++)
+      for (let subrow = 0; subrow < 3; subrow++)
+        matrix.set(5 - subcol, matrix.length - 9 - subrow, cursor.readUint8() === 1 ? 3 : 2)
 
     return
   }

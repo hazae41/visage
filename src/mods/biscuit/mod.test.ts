@@ -13,21 +13,21 @@ function print(matrix: Uint8Matrix) {
 
   const digits = Math.floor(Math.log10(matrix.length)) + 1
 
-  for (let digit = 0; digit < digits; digit++) {
+  for (let dig = 0; dig < digits; dig++) {
     const spc = new Array(digits).fill(" ")
-    const col = new Array(matrix.length).fill(0).map((_, x) => Math.floor(x / (10 ** (digits - digit - 1))) % 10)
+    const idx = new Array(matrix.length).fill(0).map((_, x) => Math.floor(x / (10 ** (digits - dig - 1))) % 10)
 
-    console.log(spc.join(""), "", "", "", col.join(" "))
+    console.log(spc.join(""), "", "", "", idx.join(" "))
   }
 
   console.log()
   console.log()
 
-  for (let y = 0; y < matrix.length; y++) {
-    const row = new Array(digits).fill(0).map((_, i) => Math.floor(y / (10 ** (digits - i - 1))) % 10)
-    const val = new Array(...bits).slice(y * matrix.length, (y + 1) * matrix.length).map(b => b % 2 ? "██" : "  ")
+  for (let row = 0; row < matrix.length; row++) {
+    const idx = new Array(digits).fill(0).map((_, i) => Math.floor(row / (10 ** (digits - i - 1))) % 10)
+    const val = new Array(...bits).slice(row * matrix.length, (row + 1) * matrix.length).map(b => b % 2 ? "██" : "  ")
 
-    console.log(row.join(""), "", "", "", val.join(""))
+    console.log(idx.join(""), "", "", "", val.join(""))
   }
 
   console.log()
