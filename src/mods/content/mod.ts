@@ -1,7 +1,7 @@
 // deno-lint-ignore-file no-namespace
 
 import { Bitset } from "@/libs/bitset/mod.ts";
-import { Version } from "@/mods/version/mod.ts";
+import { VersionInfo } from "@/mods/version/mod.ts";
 import { Cursor } from "@hazae41/cursor";
 
 export type Content =
@@ -16,7 +16,7 @@ export namespace Content {
 
     constructor(
       readonly content: string,
-      readonly version: Version,
+      readonly version: VersionInfo,
       readonly correct: 0 | 1 | 2 | 3
     ) { }
 
@@ -93,7 +93,7 @@ export namespace Content {
 
     constructor(
       readonly content: string,
-      readonly version: Version,
+      readonly version: VersionInfo,
       readonly correct: 0 | 1 | 2 | 3
     ) { }
 
@@ -160,7 +160,7 @@ export namespace Content {
 
     constructor(
       readonly content: Uint8Array,
-      readonly version: Version,
+      readonly version: VersionInfo,
       readonly correct: 0 | 1 | 2 | 3
     ) { }
 
@@ -199,7 +199,7 @@ export namespace Content {
 
     constructor(
       readonly content: Array<number>,
-      readonly version: Version,
+      readonly version: VersionInfo,
       readonly correct: 0 | 1 | 2 | 3
     ) { }
 

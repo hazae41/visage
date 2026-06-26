@@ -1,4 +1,4 @@
-export interface Version {
+export interface VersionInfo {
   /**
    * Version number
    */
@@ -12,22 +12,22 @@ export interface Version {
   /**
    * Levels of error correction
    */
-  readonly levels: [L: Level, M: Level, Q: Level, H: Level]
+  readonly levels: [L: LevelInfo, M: LevelInfo, Q: LevelInfo, H: LevelInfo]
 }
 
-export interface Level {
+export interface LevelInfo {
   /**
    * Number of words in the symbol
    */
-  readonly words: Words
+  readonly words: WordsInfo
 
   /**
    * Types of blocks in the symbol
    */
-  readonly types: Block[]
+  readonly types: BlockInfo[]
 }
 
-export interface Words {
+export interface WordsInfo {
   /**
    * Number of data words
    */
@@ -39,7 +39,7 @@ export interface Words {
   readonly reed: number
 }
 
-export interface Block {
+export interface BlockInfo {
   /**
    * Number of blocks of this type
    */
@@ -48,10 +48,10 @@ export interface Block {
   /**
    * Number of words in each block
    */
-  readonly words: Words
+  readonly words: WordsInfo
 }
 
-export const versions: Record<string, Version> = {
+export const versions: Record<string, VersionInfo> = {
   "1": {
     "number": 1,
     "levels": [

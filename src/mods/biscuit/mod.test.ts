@@ -65,5 +65,5 @@ function f(biscuit: Biscuit) {
 }
 
 test("biscuit", () => {
-  f(new Biscuit(new Content.Byte(new TextEncoder().encode("Hello world"), versions[7], 0)))
+  f(new Biscuit(new Content.Byte(new TextEncoder().encode("Hello world"), versions[1], 0)))
 })
