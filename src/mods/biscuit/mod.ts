@@ -33,6 +33,8 @@ export class Biscuit {
 
     Preformat.write(matrix)
 
+    new Version(version.number).write(matrix)
+
     new Caterpillar(this.content).write(matrix)
 
     Mask0.write(matrix)
@@ -56,16 +58,19 @@ export namespace Preformat {
 
   export function write(matrix: Uint8Matrix) {
     for (let x = 0; x < 6; x++)
-      matrix.set(x, 8, 2)
-    for (let x = 7; x < 9; x++)
-      matrix.set(x, 8, 2)
-    for (let y = 7; y; y--)
-      matrix.set(8, y, 2)
+      matrix.set(x, 8, 3)
+
+    matrix.set(7, 8, 3)
+    matrix.set(8, 8, 3)
+    matrix.set(8, 7, 3)
+
+    for (let y = 5; y >= 0; y--)
+      matrix.set(8, y, 3)
 
     for (let y = matrix.length - 1; y > matrix.length - 8; y--)
-      matrix.set(8, y, 2)
+      matrix.set(8, y, 3)
     for (let x = matrix.length - 8; x < matrix.length; x++)
-      matrix.set(x, 8, 2)
+      matrix.set(x, 8, 3)
 
     return
   }
@@ -82,43 +87,77 @@ export class Format {
   write(matrix: Uint8Matrix) {
     const { correct, pattern } = this
 
-    const format = new Cursor(new Uint8Array(5))
+    const cursor = new Cursor(new Uint8Array(15))
 
     if (correct === 0)
-      new Bitset(0b01, 2).write(format)
+      new Bitset(0b01, 2).write(cursor)
     else if (correct === 1)
-      new Bitset(0b00, 2).write(format)
+      new Bitset(0b00, 2).write(cursor)
     else if (correct === 2)
-      new Bitset(0b11, 2).write(format)
+      new Bitset(0b11, 2).write(cursor)
     else if (correct === 3)
-      new Bitset(0b10, 2).write(format)
+      new Bitset(0b10, 2).write(cursor)
 
-    new Bitset(pattern, 3).write(format)
+    new Bitset(pattern, 3).write(cursor)
 
-    const formatAndCorrection = new Cursor(new Uint8Array(15))
-    formatAndCorrection.write(format.bytes)
-    formatAndCorrection.write(BCH.N15.K5.generate(format.bytes))
+    cursor.write(BCH.N15K5.generate(cursor.before))
 
     const submask = new Uint8Array([1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0])
 
     for (let i = 0; i < 15; i++)
-      formatAndCorrection.bytes[i] ^= submask[i]
+      cursor.bytes[i] ^= submask[i]
 
-    formatAndCorrection.offset = 0
+    cursor.offset = 0
 
     for (let x = 0; x < 6; x++)
-      matrix.set(x, 8, formatAndCorrection.readUint8() === 1 ? 3 : 2)
-    for (let x = 7; x < 9; x++)
-      matrix.set(x, 8, formatAndCorrection.readUint8() === 1 ? 3 : 2)
-    for (let y = 7; y; y--)
-      matrix.set(8, y, formatAndCorrection.readUint8() === 1 ? 3 : 2)
+      matrix.set(x, 8, cursor.readUint8() === 1 ? 3 : 2)
 
-    formatAndCorrection.offset = 0
+    matrix.set(7, 8, cursor.readUint8() === 1 ? 3 : 2)
+    matrix.set(8, 8, cursor.readUint8() === 1 ? 3 : 2)
+    matrix.set(8, 7, cursor.readUint8() === 1 ? 3 : 2)
+
+    for (let y = 5; y >= 0; y--)
+      matrix.set(8, y, cursor.readUint8() === 1 ? 3 : 2)
+
+    cursor.offset = 0
 
     for (let y = matrix.length - 1; y > matrix.length - 8; y--)
-      matrix.set(8, y, formatAndCorrection.readUint8() === 1 ? 3 : 2)
+      matrix.set(8, y, cursor.readUint8() === 1 ? 3 : 2)
     for (let x = matrix.length - 8; x < matrix.length; x++)
-      matrix.set(x, 8, formatAndCorrection.readUint8() === 1 ? 3 : 2)
+      matrix.set(x, 8, cursor.readUint8() === 1 ? 3 : 2)
+
+    return
+  }
+
+}
+
+export class Version {
+
+  constructor(
+    readonly number: number
+  ) { }
+
+  write(matrix: Uint8Matrix) {
+    if (this.number < 7)
+      return
+
+    const cursor = new Cursor(new Uint8Array(18))
+
+    new Bitset(this.number, 6).write(cursor)
+
+    cursor.write(BCH.N18K6.generate(cursor.before))
+
+    cursor.offset = 0
+
+    for (let y = 0; y < 6; y++)
+      for (let x = 0; x < 3; x++)
+        matrix.set(matrix.length - 9 - x, 5 - y, cursor.readUint8() === 1 ? 3 : 2)
+
+    cursor.offset = 0
+
+    for (let x = 0; x < 6; x++)
+      for (let y = 0; y < 3; y++)
+        matrix.set(5 - x, matrix.length - 9 - y, cursor.readUint8() === 1 ? 3 : 2)
 
     return
   }
