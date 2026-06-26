@@ -1,3 +1,4 @@
+// deno-lint-ignore-file no-namespace
 import { BCH } from "@/libs/bch/mod.ts";
 import { Bitset } from "@/libs/bitset/mod.ts";
 import { Uint8Matrix } from "@/libs/matrix/mod.ts";
@@ -26,9 +27,9 @@ export class Biscuit {
     Timing.Horizontal.write(matrix)
     Timing.Vertical.write(matrix)
 
-    matrix.set(8, matrix.length - 8, 3)
+    Dot.write(matrix)
 
-    new Format(this.mixture.content.correct, 0).write(matrix)
+    Preformat.write(matrix)
 
     new Caterpillar(this.mixture).write(matrix)
 
@@ -41,24 +42,28 @@ export class Biscuit {
 
 }
 
-export class Mask0 {
+export namespace Dot {
 
-  write(matrix: Uint8Matrix) {
-    const { length: width } = matrix
+  export function write(matrix: Uint8Matrix) {
+    matrix.set(8, matrix.length - 8, 3)
+  }
 
-    for (let row = 0; row < width; row++) {
-      for (let col = 0; col < width; col++) {
-        const value = matrix.get(col, row)
+}
 
-        if (value > 1)
-          continue
+export namespace Preformat {
 
-        if (((row + col) % 2) !== 0)
-          continue
+  export function write(matrix: Uint8Matrix) {
+    for (let x = 0; x < 6; x++)
+      matrix.set(x, 8, 2)
+    for (let x = 7; x < 9; x++)
+      matrix.set(x, 8, 2)
+    for (let y = 7; y; y--)
+      matrix.set(8, y, 2)
 
-        matrix.set(col, row, value === 1 ? 0 : 1)
-      }
-    }
+    for (let y = matrix.length - 1; y > matrix.length - 8; y--)
+      matrix.set(8, y, 2)
+    for (let x = matrix.length - 8; x < matrix.length; x++)
+      matrix.set(x, 8, 2)
 
     return
   }
@@ -112,6 +117,30 @@ export class Format {
       matrix.set(8, y, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
     for (let x = matrix.length - 8; x < matrix.length; x++)
       matrix.set(x, 8, formatWithErrorCorrection.readUint8() === 1 ? 3 : 2)
+
+    return
+  }
+
+}
+
+export class Mask0 {
+
+  write(matrix: Uint8Matrix) {
+    const { length: width } = matrix
+
+    for (let row = 0; row < width; row++) {
+      for (let col = 0; col < width; col++) {
+        const value = matrix.get(col, row)
+
+        if (value > 1)
+          continue
+
+        if (((row + col) % 2) !== 0)
+          continue
+
+        matrix.set(col, row, value === 1 ? 0 : 1)
+      }
+    }
 
     return
   }
