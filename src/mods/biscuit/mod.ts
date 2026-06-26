@@ -137,10 +137,10 @@ export namespace Mask0 {
   export const pattern = 0
 
   export function write(matrix: Uint8Matrix) {
-    const { length: width } = matrix
+    const { length } = matrix
 
-    for (let row = 0; row < width; row++) {
-      for (let col = 0; col < width; col++) {
+    for (let row = 0; row < length; row++) {
+      for (let col = 0; col < length; col++) {
         const value = matrix.get(col, row)
 
         if (value > 1)
