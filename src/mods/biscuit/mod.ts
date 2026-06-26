@@ -1,10 +1,10 @@
 import { BCH } from "@/libs/bch/mod.ts";
 import { Bitset } from "@/libs/bitset/mod.ts";
 import { Uint8Matrix } from "@/libs/matrix/mod.ts";
+import { Caterpillar } from "@/mods/caterpillar/mod.ts";
 import { Finder } from "@/mods/finder/mod.ts";
 import { Mixture } from "@/mods/mixture/mod.ts";
 import { Timing } from "@/mods/timing/mod.ts";
-import { Zigzag } from "@/mods/zigzag/mod.ts";
 import { Cursor } from "@hazae41/cursor";
 
 export class Biscuit {
@@ -30,7 +30,7 @@ export class Biscuit {
 
     new Format(this.mixture.content.correct, 0).write(matrix)
 
-    new Zigzag(this.mixture).write(matrix)
+    new Caterpillar(this.mixture).write(matrix)
 
     new Mask0().write(matrix)
 
