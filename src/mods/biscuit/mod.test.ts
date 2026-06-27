@@ -1,4 +1,4 @@
-// deno-lint-ignore-file no-unused-vars
+// deno-lint-ignore-file no-unused-vars ban-unused-ignore
 
 import { Uint8Matrix } from "@/libs/matrix/mod.ts";
 import { Biscuit } from "@/mods/biscuit/mod.ts";
@@ -71,4 +71,6 @@ test("biscuit", () => {
 
     assert(encoded === decoded, version)
   }
+
+  print(new Biscuit(new Content.Byte(new TextEncoder().encode("Test"), versions[7], 0)).encode())
 })
