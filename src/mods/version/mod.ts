@@ -43,9 +43,14 @@ export interface VersionInfo {
   readonly number: number
 
   /**
-   * Total number of bits in the symbol
+   * Total number of bits
    */
   readonly length: number
+
+  /**
+   * Alignment patterns
+   */
+  readonly aligns: PointInfo[]
 
   /**
    * Levels of error correction
@@ -53,14 +58,26 @@ export interface VersionInfo {
   readonly levels: [L: LevelInfo, M: LevelInfo, Q: LevelInfo, H: LevelInfo]
 }
 
+export interface PointInfo {
+  /**
+   * Column (X) of the point
+   */
+  readonly col: number
+
+  /**
+   * Row (Y) of the point
+   */
+  readonly row: number
+}
+
 export interface LevelInfo {
   /**
-   * Number of words in the symbol
+   * Number of words
    */
   readonly words: WordsInfo
 
   /**
-   * Types of blocks in the symbol
+   * Types of blocks
    */
   readonly types: BlockInfo[]
 }
@@ -92,6 +109,8 @@ export interface BlockInfo {
 export const versions: Record<string, VersionInfo> = {
   "1": {
     "number": 1,
+    "length": 208,
+    "aligns": [],
     "levels": [
       {
         "words": {
@@ -153,11 +172,29 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 208
+    ]
   },
   "2": {
     "number": 2,
+    "length": 359,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 18
+      },
+      {
+        "col": 18,
+        "row": 6
+      },
+      {
+        "col": 18,
+        "row": 18
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -219,11 +256,29 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 359
+    ]
   },
   "3": {
     "number": 3,
+    "length": 567,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 22
+      },
+      {
+        "col": 22,
+        "row": 6
+      },
+      {
+        "col": 22,
+        "row": 22
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -285,11 +340,29 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 567
+    ]
   },
   "4": {
     "number": 4,
+    "length": 807,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 26
+      },
+      {
+        "col": 26,
+        "row": 6
+      },
+      {
+        "col": 26,
+        "row": 26
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -351,11 +424,29 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 807
+    ]
   },
   "5": {
     "number": 5,
+    "length": 1079,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 30
+      },
+      {
+        "col": 30,
+        "row": 6
+      },
+      {
+        "col": 30,
+        "row": 30
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -431,11 +522,29 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 1079
+    ]
   },
   "6": {
     "number": 6,
+    "length": 1383,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 34
+      },
+      {
+        "col": 34,
+        "row": 6
+      },
+      {
+        "col": 34,
+        "row": 34
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -497,11 +606,49 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 1383
+    ]
   },
   "7": {
     "number": 7,
+    "length": 1568,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 22
+      },
+      {
+        "col": 6,
+        "row": 38
+      },
+      {
+        "col": 22,
+        "row": 6
+      },
+      {
+        "col": 22,
+        "row": 22
+      },
+      {
+        "col": 22,
+        "row": 38
+      },
+      {
+        "col": 38,
+        "row": 6
+      },
+      {
+        "col": 38,
+        "row": 22
+      },
+      {
+        "col": 38,
+        "row": 38
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -577,11 +724,49 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 1568
+    ]
   },
   "8": {
     "number": 8,
+    "length": 1936,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 24
+      },
+      {
+        "col": 6,
+        "row": 42
+      },
+      {
+        "col": 24,
+        "row": 6
+      },
+      {
+        "col": 24,
+        "row": 24
+      },
+      {
+        "col": 24,
+        "row": 42
+      },
+      {
+        "col": 42,
+        "row": 6
+      },
+      {
+        "col": 42,
+        "row": 24
+      },
+      {
+        "col": 42,
+        "row": 42
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -664,11 +849,49 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 1936
+    ]
   },
   "9": {
     "number": 9,
+    "length": 2336,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 26
+      },
+      {
+        "col": 6,
+        "row": 46
+      },
+      {
+        "col": 26,
+        "row": 6
+      },
+      {
+        "col": 26,
+        "row": 26
+      },
+      {
+        "col": 26,
+        "row": 46
+      },
+      {
+        "col": 46,
+        "row": 6
+      },
+      {
+        "col": 46,
+        "row": 26
+      },
+      {
+        "col": 46,
+        "row": 46
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -751,11 +974,49 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 2336
+    ]
   },
   "10": {
     "number": 10,
+    "length": 2768,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 28
+      },
+      {
+        "col": 6,
+        "row": 50
+      },
+      {
+        "col": 28,
+        "row": 6
+      },
+      {
+        "col": 28,
+        "row": 28
+      },
+      {
+        "col": 28,
+        "row": 50
+      },
+      {
+        "col": 50,
+        "row": 6
+      },
+      {
+        "col": 50,
+        "row": 28
+      },
+      {
+        "col": 50,
+        "row": 50
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -845,11 +1106,49 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 2768
+    ]
   },
   "11": {
     "number": 11,
+    "length": 3232,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 30
+      },
+      {
+        "col": 6,
+        "row": 54
+      },
+      {
+        "col": 30,
+        "row": 6
+      },
+      {
+        "col": 30,
+        "row": 30
+      },
+      {
+        "col": 30,
+        "row": 54
+      },
+      {
+        "col": 54,
+        "row": 6
+      },
+      {
+        "col": 54,
+        "row": 30
+      },
+      {
+        "col": 54,
+        "row": 54
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -932,11 +1231,49 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 3232
+    ]
   },
   "12": {
     "number": 12,
+    "length": 3728,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 32
+      },
+      {
+        "col": 6,
+        "row": 58
+      },
+      {
+        "col": 32,
+        "row": 6
+      },
+      {
+        "col": 32,
+        "row": 32
+      },
+      {
+        "col": 32,
+        "row": 58
+      },
+      {
+        "col": 58,
+        "row": 6
+      },
+      {
+        "col": 58,
+        "row": 32
+      },
+      {
+        "col": 58,
+        "row": 58
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -1026,11 +1363,49 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 3728
+    ]
   },
   "13": {
     "number": 13,
+    "length": 4256,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 34
+      },
+      {
+        "col": 6,
+        "row": 62
+      },
+      {
+        "col": 34,
+        "row": 6
+      },
+      {
+        "col": 34,
+        "row": 34
+      },
+      {
+        "col": 34,
+        "row": 62
+      },
+      {
+        "col": 62,
+        "row": 6
+      },
+      {
+        "col": 62,
+        "row": 34
+      },
+      {
+        "col": 62,
+        "row": 62
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -1113,11 +1488,77 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 4256
+    ]
   },
   "14": {
     "number": 14,
+    "length": 4651,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 26
+      },
+      {
+        "col": 6,
+        "row": 46
+      },
+      {
+        "col": 6,
+        "row": 66
+      },
+      {
+        "col": 26,
+        "row": 6
+      },
+      {
+        "col": 26,
+        "row": 26
+      },
+      {
+        "col": 26,
+        "row": 46
+      },
+      {
+        "col": 26,
+        "row": 66
+      },
+      {
+        "col": 46,
+        "row": 6
+      },
+      {
+        "col": 46,
+        "row": 26
+      },
+      {
+        "col": 46,
+        "row": 46
+      },
+      {
+        "col": 46,
+        "row": 66
+      },
+      {
+        "col": 66,
+        "row": 6
+      },
+      {
+        "col": 66,
+        "row": 26
+      },
+      {
+        "col": 66,
+        "row": 46
+      },
+      {
+        "col": 66,
+        "row": 66
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -1207,11 +1648,77 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 4651
+    ]
   },
   "15": {
     "number": 15,
+    "length": 5243,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 26
+      },
+      {
+        "col": 6,
+        "row": 48
+      },
+      {
+        "col": 6,
+        "row": 70
+      },
+      {
+        "col": 26,
+        "row": 6
+      },
+      {
+        "col": 26,
+        "row": 26
+      },
+      {
+        "col": 26,
+        "row": 48
+      },
+      {
+        "col": 26,
+        "row": 70
+      },
+      {
+        "col": 48,
+        "row": 6
+      },
+      {
+        "col": 48,
+        "row": 26
+      },
+      {
+        "col": 48,
+        "row": 48
+      },
+      {
+        "col": 48,
+        "row": 70
+      },
+      {
+        "col": 70,
+        "row": 6
+      },
+      {
+        "col": 70,
+        "row": 26
+      },
+      {
+        "col": 70,
+        "row": 48
+      },
+      {
+        "col": 70,
+        "row": 70
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -1301,11 +1808,77 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 5243
+    ]
   },
   "16": {
     "number": 16,
+    "length": 5867,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 26
+      },
+      {
+        "col": 6,
+        "row": 50
+      },
+      {
+        "col": 6,
+        "row": 74
+      },
+      {
+        "col": 26,
+        "row": 6
+      },
+      {
+        "col": 26,
+        "row": 26
+      },
+      {
+        "col": 26,
+        "row": 50
+      },
+      {
+        "col": 26,
+        "row": 74
+      },
+      {
+        "col": 50,
+        "row": 6
+      },
+      {
+        "col": 50,
+        "row": 26
+      },
+      {
+        "col": 50,
+        "row": 50
+      },
+      {
+        "col": 50,
+        "row": 74
+      },
+      {
+        "col": 74,
+        "row": 6
+      },
+      {
+        "col": 74,
+        "row": 26
+      },
+      {
+        "col": 74,
+        "row": 50
+      },
+      {
+        "col": 74,
+        "row": 74
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -1395,11 +1968,77 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 5867
+    ]
   },
   "17": {
     "number": 17,
+    "length": 6523,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 30
+      },
+      {
+        "col": 6,
+        "row": 54
+      },
+      {
+        "col": 6,
+        "row": 78
+      },
+      {
+        "col": 30,
+        "row": 6
+      },
+      {
+        "col": 30,
+        "row": 30
+      },
+      {
+        "col": 30,
+        "row": 54
+      },
+      {
+        "col": 30,
+        "row": 78
+      },
+      {
+        "col": 54,
+        "row": 6
+      },
+      {
+        "col": 54,
+        "row": 30
+      },
+      {
+        "col": 54,
+        "row": 54
+      },
+      {
+        "col": 54,
+        "row": 78
+      },
+      {
+        "col": 78,
+        "row": 6
+      },
+      {
+        "col": 78,
+        "row": 30
+      },
+      {
+        "col": 78,
+        "row": 54
+      },
+      {
+        "col": 78,
+        "row": 78
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -1489,11 +2128,77 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 6523
+    ]
   },
   "18": {
     "number": 18,
+    "length": 7211,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 30
+      },
+      {
+        "col": 6,
+        "row": 56
+      },
+      {
+        "col": 6,
+        "row": 82
+      },
+      {
+        "col": 30,
+        "row": 6
+      },
+      {
+        "col": 30,
+        "row": 30
+      },
+      {
+        "col": 30,
+        "row": 56
+      },
+      {
+        "col": 30,
+        "row": 82
+      },
+      {
+        "col": 56,
+        "row": 6
+      },
+      {
+        "col": 56,
+        "row": 30
+      },
+      {
+        "col": 56,
+        "row": 56
+      },
+      {
+        "col": 56,
+        "row": 82
+      },
+      {
+        "col": 82,
+        "row": 6
+      },
+      {
+        "col": 82,
+        "row": 30
+      },
+      {
+        "col": 82,
+        "row": 56
+      },
+      {
+        "col": 82,
+        "row": 82
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -1583,11 +2288,77 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 7211
+    ]
   },
   "19": {
     "number": 19,
+    "length": 7931,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 30
+      },
+      {
+        "col": 6,
+        "row": 58
+      },
+      {
+        "col": 6,
+        "row": 86
+      },
+      {
+        "col": 30,
+        "row": 6
+      },
+      {
+        "col": 30,
+        "row": 30
+      },
+      {
+        "col": 30,
+        "row": 58
+      },
+      {
+        "col": 30,
+        "row": 86
+      },
+      {
+        "col": 58,
+        "row": 6
+      },
+      {
+        "col": 58,
+        "row": 30
+      },
+      {
+        "col": 58,
+        "row": 58
+      },
+      {
+        "col": 58,
+        "row": 86
+      },
+      {
+        "col": 86,
+        "row": 6
+      },
+      {
+        "col": 86,
+        "row": 30
+      },
+      {
+        "col": 86,
+        "row": 58
+      },
+      {
+        "col": 86,
+        "row": 86
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -1677,11 +2448,77 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 7931
+    ]
   },
   "20": {
     "number": 20,
+    "length": 8683,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 34
+      },
+      {
+        "col": 6,
+        "row": 62
+      },
+      {
+        "col": 6,
+        "row": 90
+      },
+      {
+        "col": 34,
+        "row": 6
+      },
+      {
+        "col": 34,
+        "row": 34
+      },
+      {
+        "col": 34,
+        "row": 62
+      },
+      {
+        "col": 34,
+        "row": 90
+      },
+      {
+        "col": 62,
+        "row": 6
+      },
+      {
+        "col": 62,
+        "row": 34
+      },
+      {
+        "col": 62,
+        "row": 62
+      },
+      {
+        "col": 62,
+        "row": 90
+      },
+      {
+        "col": 90,
+        "row": 6
+      },
+      {
+        "col": 90,
+        "row": 34
+      },
+      {
+        "col": 90,
+        "row": 62
+      },
+      {
+        "col": 90,
+        "row": 90
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -1771,11 +2608,113 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 8683
+    ]
   },
   "21": {
     "number": 21,
+    "length": 9252,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 28
+      },
+      {
+        "col": 6,
+        "row": 50
+      },
+      {
+        "col": 6,
+        "row": 72
+      },
+      {
+        "col": 6,
+        "row": 94
+      },
+      {
+        "col": 28,
+        "row": 6
+      },
+      {
+        "col": 28,
+        "row": 28
+      },
+      {
+        "col": 28,
+        "row": 50
+      },
+      {
+        "col": 28,
+        "row": 72
+      },
+      {
+        "col": 28,
+        "row": 94
+      },
+      {
+        "col": 50,
+        "row": 6
+      },
+      {
+        "col": 50,
+        "row": 28
+      },
+      {
+        "col": 50,
+        "row": 50
+      },
+      {
+        "col": 50,
+        "row": 72
+      },
+      {
+        "col": 50,
+        "row": 94
+      },
+      {
+        "col": 72,
+        "row": 6
+      },
+      {
+        "col": 72,
+        "row": 28
+      },
+      {
+        "col": 72,
+        "row": 50
+      },
+      {
+        "col": 72,
+        "row": 72
+      },
+      {
+        "col": 72,
+        "row": 94
+      },
+      {
+        "col": 94,
+        "row": 6
+      },
+      {
+        "col": 94,
+        "row": 28
+      },
+      {
+        "col": 94,
+        "row": 50
+      },
+      {
+        "col": 94,
+        "row": 72
+      },
+      {
+        "col": 94,
+        "row": 94
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -1858,11 +2797,113 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 9252
+    ]
   },
   "22": {
     "number": 22,
+    "length": 10068,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 26
+      },
+      {
+        "col": 6,
+        "row": 50
+      },
+      {
+        "col": 6,
+        "row": 74
+      },
+      {
+        "col": 6,
+        "row": 98
+      },
+      {
+        "col": 26,
+        "row": 6
+      },
+      {
+        "col": 26,
+        "row": 26
+      },
+      {
+        "col": 26,
+        "row": 50
+      },
+      {
+        "col": 26,
+        "row": 74
+      },
+      {
+        "col": 26,
+        "row": 98
+      },
+      {
+        "col": 50,
+        "row": 6
+      },
+      {
+        "col": 50,
+        "row": 26
+      },
+      {
+        "col": 50,
+        "row": 50
+      },
+      {
+        "col": 50,
+        "row": 74
+      },
+      {
+        "col": 50,
+        "row": 98
+      },
+      {
+        "col": 74,
+        "row": 6
+      },
+      {
+        "col": 74,
+        "row": 26
+      },
+      {
+        "col": 74,
+        "row": 50
+      },
+      {
+        "col": 74,
+        "row": 74
+      },
+      {
+        "col": 74,
+        "row": 98
+      },
+      {
+        "col": 98,
+        "row": 6
+      },
+      {
+        "col": 98,
+        "row": 26
+      },
+      {
+        "col": 98,
+        "row": 50
+      },
+      {
+        "col": 98,
+        "row": 74
+      },
+      {
+        "col": 98,
+        "row": 98
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -1938,11 +2979,113 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 10068
+    ]
   },
   "23": {
     "number": 23,
+    "length": 10916,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 30
+      },
+      {
+        "col": 6,
+        "row": 54
+      },
+      {
+        "col": 6,
+        "row": 78
+      },
+      {
+        "col": 6,
+        "row": 102
+      },
+      {
+        "col": 30,
+        "row": 6
+      },
+      {
+        "col": 30,
+        "row": 30
+      },
+      {
+        "col": 30,
+        "row": 54
+      },
+      {
+        "col": 30,
+        "row": 78
+      },
+      {
+        "col": 30,
+        "row": 102
+      },
+      {
+        "col": 54,
+        "row": 6
+      },
+      {
+        "col": 54,
+        "row": 30
+      },
+      {
+        "col": 54,
+        "row": 54
+      },
+      {
+        "col": 54,
+        "row": 78
+      },
+      {
+        "col": 54,
+        "row": 102
+      },
+      {
+        "col": 78,
+        "row": 6
+      },
+      {
+        "col": 78,
+        "row": 30
+      },
+      {
+        "col": 78,
+        "row": 54
+      },
+      {
+        "col": 78,
+        "row": 78
+      },
+      {
+        "col": 78,
+        "row": 102
+      },
+      {
+        "col": 102,
+        "row": 6
+      },
+      {
+        "col": 102,
+        "row": 30
+      },
+      {
+        "col": 102,
+        "row": 54
+      },
+      {
+        "col": 102,
+        "row": 78
+      },
+      {
+        "col": 102,
+        "row": 102
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -2032,11 +3175,113 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 10916
+    ]
   },
   "24": {
     "number": 24,
+    "length": 11796,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 28
+      },
+      {
+        "col": 6,
+        "row": 54
+      },
+      {
+        "col": 6,
+        "row": 80
+      },
+      {
+        "col": 6,
+        "row": 106
+      },
+      {
+        "col": 28,
+        "row": 6
+      },
+      {
+        "col": 28,
+        "row": 28
+      },
+      {
+        "col": 28,
+        "row": 54
+      },
+      {
+        "col": 28,
+        "row": 80
+      },
+      {
+        "col": 28,
+        "row": 106
+      },
+      {
+        "col": 54,
+        "row": 6
+      },
+      {
+        "col": 54,
+        "row": 28
+      },
+      {
+        "col": 54,
+        "row": 54
+      },
+      {
+        "col": 54,
+        "row": 80
+      },
+      {
+        "col": 54,
+        "row": 106
+      },
+      {
+        "col": 80,
+        "row": 6
+      },
+      {
+        "col": 80,
+        "row": 28
+      },
+      {
+        "col": 80,
+        "row": 54
+      },
+      {
+        "col": 80,
+        "row": 80
+      },
+      {
+        "col": 80,
+        "row": 106
+      },
+      {
+        "col": 106,
+        "row": 6
+      },
+      {
+        "col": 106,
+        "row": 28
+      },
+      {
+        "col": 106,
+        "row": 54
+      },
+      {
+        "col": 106,
+        "row": 80
+      },
+      {
+        "col": 106,
+        "row": 106
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -2126,11 +3371,113 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 11796
+    ]
   },
   "25": {
     "number": 25,
+    "length": 12708,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 32
+      },
+      {
+        "col": 6,
+        "row": 58
+      },
+      {
+        "col": 6,
+        "row": 84
+      },
+      {
+        "col": 6,
+        "row": 110
+      },
+      {
+        "col": 32,
+        "row": 6
+      },
+      {
+        "col": 32,
+        "row": 32
+      },
+      {
+        "col": 32,
+        "row": 58
+      },
+      {
+        "col": 32,
+        "row": 84
+      },
+      {
+        "col": 32,
+        "row": 110
+      },
+      {
+        "col": 58,
+        "row": 6
+      },
+      {
+        "col": 58,
+        "row": 32
+      },
+      {
+        "col": 58,
+        "row": 58
+      },
+      {
+        "col": 58,
+        "row": 84
+      },
+      {
+        "col": 58,
+        "row": 110
+      },
+      {
+        "col": 84,
+        "row": 6
+      },
+      {
+        "col": 84,
+        "row": 32
+      },
+      {
+        "col": 84,
+        "row": 58
+      },
+      {
+        "col": 84,
+        "row": 84
+      },
+      {
+        "col": 84,
+        "row": 110
+      },
+      {
+        "col": 110,
+        "row": 6
+      },
+      {
+        "col": 110,
+        "row": 32
+      },
+      {
+        "col": 110,
+        "row": 58
+      },
+      {
+        "col": 110,
+        "row": 84
+      },
+      {
+        "col": 110,
+        "row": 110
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -2220,11 +3567,113 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 12708
+    ]
   },
   "26": {
     "number": 26,
+    "length": 13652,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 30
+      },
+      {
+        "col": 6,
+        "row": 58
+      },
+      {
+        "col": 6,
+        "row": 86
+      },
+      {
+        "col": 6,
+        "row": 114
+      },
+      {
+        "col": 30,
+        "row": 6
+      },
+      {
+        "col": 30,
+        "row": 30
+      },
+      {
+        "col": 30,
+        "row": 58
+      },
+      {
+        "col": 30,
+        "row": 86
+      },
+      {
+        "col": 30,
+        "row": 114
+      },
+      {
+        "col": 58,
+        "row": 6
+      },
+      {
+        "col": 58,
+        "row": 30
+      },
+      {
+        "col": 58,
+        "row": 58
+      },
+      {
+        "col": 58,
+        "row": 86
+      },
+      {
+        "col": 58,
+        "row": 114
+      },
+      {
+        "col": 86,
+        "row": 6
+      },
+      {
+        "col": 86,
+        "row": 30
+      },
+      {
+        "col": 86,
+        "row": 58
+      },
+      {
+        "col": 86,
+        "row": 86
+      },
+      {
+        "col": 86,
+        "row": 114
+      },
+      {
+        "col": 114,
+        "row": 6
+      },
+      {
+        "col": 114,
+        "row": 30
+      },
+      {
+        "col": 114,
+        "row": 58
+      },
+      {
+        "col": 114,
+        "row": 86
+      },
+      {
+        "col": 114,
+        "row": 114
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -2314,11 +3763,113 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 13652
+    ]
   },
   "27": {
     "number": 27,
+    "length": 14628,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 34
+      },
+      {
+        "col": 6,
+        "row": 62
+      },
+      {
+        "col": 6,
+        "row": 90
+      },
+      {
+        "col": 6,
+        "row": 118
+      },
+      {
+        "col": 34,
+        "row": 6
+      },
+      {
+        "col": 34,
+        "row": 34
+      },
+      {
+        "col": 34,
+        "row": 62
+      },
+      {
+        "col": 34,
+        "row": 90
+      },
+      {
+        "col": 34,
+        "row": 118
+      },
+      {
+        "col": 62,
+        "row": 6
+      },
+      {
+        "col": 62,
+        "row": 34
+      },
+      {
+        "col": 62,
+        "row": 62
+      },
+      {
+        "col": 62,
+        "row": 90
+      },
+      {
+        "col": 62,
+        "row": 118
+      },
+      {
+        "col": 90,
+        "row": 6
+      },
+      {
+        "col": 90,
+        "row": 34
+      },
+      {
+        "col": 90,
+        "row": 62
+      },
+      {
+        "col": 90,
+        "row": 90
+      },
+      {
+        "col": 90,
+        "row": 118
+      },
+      {
+        "col": 118,
+        "row": 6
+      },
+      {
+        "col": 118,
+        "row": 34
+      },
+      {
+        "col": 118,
+        "row": 62
+      },
+      {
+        "col": 118,
+        "row": 90
+      },
+      {
+        "col": 118,
+        "row": 118
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -2408,11 +3959,157 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 14628
+    ]
   },
   "28": {
     "number": 28,
+    "length": 15371,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 26
+      },
+      {
+        "col": 6,
+        "row": 50
+      },
+      {
+        "col": 6,
+        "row": 74
+      },
+      {
+        "col": 6,
+        "row": 98
+      },
+      {
+        "col": 6,
+        "row": 122
+      },
+      {
+        "col": 26,
+        "row": 6
+      },
+      {
+        "col": 26,
+        "row": 26
+      },
+      {
+        "col": 26,
+        "row": 50
+      },
+      {
+        "col": 26,
+        "row": 74
+      },
+      {
+        "col": 26,
+        "row": 98
+      },
+      {
+        "col": 26,
+        "row": 122
+      },
+      {
+        "col": 50,
+        "row": 6
+      },
+      {
+        "col": 50,
+        "row": 26
+      },
+      {
+        "col": 50,
+        "row": 50
+      },
+      {
+        "col": 50,
+        "row": 74
+      },
+      {
+        "col": 50,
+        "row": 98
+      },
+      {
+        "col": 50,
+        "row": 122
+      },
+      {
+        "col": 74,
+        "row": 6
+      },
+      {
+        "col": 74,
+        "row": 26
+      },
+      {
+        "col": 74,
+        "row": 50
+      },
+      {
+        "col": 74,
+        "row": 74
+      },
+      {
+        "col": 74,
+        "row": 98
+      },
+      {
+        "col": 74,
+        "row": 122
+      },
+      {
+        "col": 98,
+        "row": 6
+      },
+      {
+        "col": 98,
+        "row": 26
+      },
+      {
+        "col": 98,
+        "row": 50
+      },
+      {
+        "col": 98,
+        "row": 74
+      },
+      {
+        "col": 98,
+        "row": 98
+      },
+      {
+        "col": 98,
+        "row": 122
+      },
+      {
+        "col": 122,
+        "row": 6
+      },
+      {
+        "col": 122,
+        "row": 26
+      },
+      {
+        "col": 122,
+        "row": 50
+      },
+      {
+        "col": 122,
+        "row": 74
+      },
+      {
+        "col": 122,
+        "row": 98
+      },
+      {
+        "col": 122,
+        "row": 122
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -2502,11 +4199,157 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 15371
+    ]
   },
   "29": {
     "number": 29,
+    "length": 16411,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 30
+      },
+      {
+        "col": 6,
+        "row": 54
+      },
+      {
+        "col": 6,
+        "row": 78
+      },
+      {
+        "col": 6,
+        "row": 102
+      },
+      {
+        "col": 6,
+        "row": 126
+      },
+      {
+        "col": 30,
+        "row": 6
+      },
+      {
+        "col": 30,
+        "row": 30
+      },
+      {
+        "col": 30,
+        "row": 54
+      },
+      {
+        "col": 30,
+        "row": 78
+      },
+      {
+        "col": 30,
+        "row": 102
+      },
+      {
+        "col": 30,
+        "row": 126
+      },
+      {
+        "col": 54,
+        "row": 6
+      },
+      {
+        "col": 54,
+        "row": 30
+      },
+      {
+        "col": 54,
+        "row": 54
+      },
+      {
+        "col": 54,
+        "row": 78
+      },
+      {
+        "col": 54,
+        "row": 102
+      },
+      {
+        "col": 54,
+        "row": 126
+      },
+      {
+        "col": 78,
+        "row": 6
+      },
+      {
+        "col": 78,
+        "row": 30
+      },
+      {
+        "col": 78,
+        "row": 54
+      },
+      {
+        "col": 78,
+        "row": 78
+      },
+      {
+        "col": 78,
+        "row": 102
+      },
+      {
+        "col": 78,
+        "row": 126
+      },
+      {
+        "col": 102,
+        "row": 6
+      },
+      {
+        "col": 102,
+        "row": 30
+      },
+      {
+        "col": 102,
+        "row": 54
+      },
+      {
+        "col": 102,
+        "row": 78
+      },
+      {
+        "col": 102,
+        "row": 102
+      },
+      {
+        "col": 102,
+        "row": 126
+      },
+      {
+        "col": 126,
+        "row": 6
+      },
+      {
+        "col": 126,
+        "row": 30
+      },
+      {
+        "col": 126,
+        "row": 54
+      },
+      {
+        "col": 126,
+        "row": 78
+      },
+      {
+        "col": 126,
+        "row": 102
+      },
+      {
+        "col": 126,
+        "row": 126
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -2596,11 +4439,157 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 16411
+    ]
   },
   "30": {
     "number": 30,
+    "length": 17483,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 26
+      },
+      {
+        "col": 6,
+        "row": 52
+      },
+      {
+        "col": 6,
+        "row": 78
+      },
+      {
+        "col": 6,
+        "row": 104
+      },
+      {
+        "col": 6,
+        "row": 130
+      },
+      {
+        "col": 26,
+        "row": 6
+      },
+      {
+        "col": 26,
+        "row": 26
+      },
+      {
+        "col": 26,
+        "row": 52
+      },
+      {
+        "col": 26,
+        "row": 78
+      },
+      {
+        "col": 26,
+        "row": 104
+      },
+      {
+        "col": 26,
+        "row": 130
+      },
+      {
+        "col": 52,
+        "row": 6
+      },
+      {
+        "col": 52,
+        "row": 26
+      },
+      {
+        "col": 52,
+        "row": 52
+      },
+      {
+        "col": 52,
+        "row": 78
+      },
+      {
+        "col": 52,
+        "row": 104
+      },
+      {
+        "col": 52,
+        "row": 130
+      },
+      {
+        "col": 78,
+        "row": 6
+      },
+      {
+        "col": 78,
+        "row": 26
+      },
+      {
+        "col": 78,
+        "row": 52
+      },
+      {
+        "col": 78,
+        "row": 78
+      },
+      {
+        "col": 78,
+        "row": 104
+      },
+      {
+        "col": 78,
+        "row": 130
+      },
+      {
+        "col": 104,
+        "row": 6
+      },
+      {
+        "col": 104,
+        "row": 26
+      },
+      {
+        "col": 104,
+        "row": 52
+      },
+      {
+        "col": 104,
+        "row": 78
+      },
+      {
+        "col": 104,
+        "row": 104
+      },
+      {
+        "col": 104,
+        "row": 130
+      },
+      {
+        "col": 130,
+        "row": 6
+      },
+      {
+        "col": 130,
+        "row": 26
+      },
+      {
+        "col": 130,
+        "row": 52
+      },
+      {
+        "col": 130,
+        "row": 78
+      },
+      {
+        "col": 130,
+        "row": 104
+      },
+      {
+        "col": 130,
+        "row": 130
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -2690,11 +4679,157 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 17483
+    ]
   },
   "31": {
     "number": 31,
+    "length": 18587,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 30
+      },
+      {
+        "col": 6,
+        "row": 56
+      },
+      {
+        "col": 6,
+        "row": 82
+      },
+      {
+        "col": 6,
+        "row": 108
+      },
+      {
+        "col": 6,
+        "row": 134
+      },
+      {
+        "col": 30,
+        "row": 6
+      },
+      {
+        "col": 30,
+        "row": 30
+      },
+      {
+        "col": 30,
+        "row": 56
+      },
+      {
+        "col": 30,
+        "row": 82
+      },
+      {
+        "col": 30,
+        "row": 108
+      },
+      {
+        "col": 30,
+        "row": 134
+      },
+      {
+        "col": 56,
+        "row": 6
+      },
+      {
+        "col": 56,
+        "row": 30
+      },
+      {
+        "col": 56,
+        "row": 56
+      },
+      {
+        "col": 56,
+        "row": 82
+      },
+      {
+        "col": 56,
+        "row": 108
+      },
+      {
+        "col": 56,
+        "row": 134
+      },
+      {
+        "col": 82,
+        "row": 6
+      },
+      {
+        "col": 82,
+        "row": 30
+      },
+      {
+        "col": 82,
+        "row": 56
+      },
+      {
+        "col": 82,
+        "row": 82
+      },
+      {
+        "col": 82,
+        "row": 108
+      },
+      {
+        "col": 82,
+        "row": 134
+      },
+      {
+        "col": 108,
+        "row": 6
+      },
+      {
+        "col": 108,
+        "row": 30
+      },
+      {
+        "col": 108,
+        "row": 56
+      },
+      {
+        "col": 108,
+        "row": 82
+      },
+      {
+        "col": 108,
+        "row": 108
+      },
+      {
+        "col": 108,
+        "row": 134
+      },
+      {
+        "col": 134,
+        "row": 6
+      },
+      {
+        "col": 134,
+        "row": 30
+      },
+      {
+        "col": 134,
+        "row": 56
+      },
+      {
+        "col": 134,
+        "row": 82
+      },
+      {
+        "col": 134,
+        "row": 108
+      },
+      {
+        "col": 134,
+        "row": 134
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -2784,11 +4919,157 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 18587
+    ]
   },
   "32": {
     "number": 32,
+    "length": 19723,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 34
+      },
+      {
+        "col": 6,
+        "row": 60
+      },
+      {
+        "col": 6,
+        "row": 86
+      },
+      {
+        "col": 6,
+        "row": 112
+      },
+      {
+        "col": 6,
+        "row": 138
+      },
+      {
+        "col": 34,
+        "row": 6
+      },
+      {
+        "col": 34,
+        "row": 34
+      },
+      {
+        "col": 34,
+        "row": 60
+      },
+      {
+        "col": 34,
+        "row": 86
+      },
+      {
+        "col": 34,
+        "row": 112
+      },
+      {
+        "col": 34,
+        "row": 138
+      },
+      {
+        "col": 60,
+        "row": 6
+      },
+      {
+        "col": 60,
+        "row": 34
+      },
+      {
+        "col": 60,
+        "row": 60
+      },
+      {
+        "col": 60,
+        "row": 86
+      },
+      {
+        "col": 60,
+        "row": 112
+      },
+      {
+        "col": 60,
+        "row": 138
+      },
+      {
+        "col": 86,
+        "row": 6
+      },
+      {
+        "col": 86,
+        "row": 34
+      },
+      {
+        "col": 86,
+        "row": 60
+      },
+      {
+        "col": 86,
+        "row": 86
+      },
+      {
+        "col": 86,
+        "row": 112
+      },
+      {
+        "col": 86,
+        "row": 138
+      },
+      {
+        "col": 112,
+        "row": 6
+      },
+      {
+        "col": 112,
+        "row": 34
+      },
+      {
+        "col": 112,
+        "row": 60
+      },
+      {
+        "col": 112,
+        "row": 86
+      },
+      {
+        "col": 112,
+        "row": 112
+      },
+      {
+        "col": 112,
+        "row": 138
+      },
+      {
+        "col": 138,
+        "row": 6
+      },
+      {
+        "col": 138,
+        "row": 34
+      },
+      {
+        "col": 138,
+        "row": 60
+      },
+      {
+        "col": 138,
+        "row": 86
+      },
+      {
+        "col": 138,
+        "row": 112
+      },
+      {
+        "col": 138,
+        "row": 138
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -2871,11 +5152,157 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 19723
+    ]
   },
   "33": {
     "number": 33,
+    "length": 20891,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 30
+      },
+      {
+        "col": 6,
+        "row": 58
+      },
+      {
+        "col": 6,
+        "row": 86
+      },
+      {
+        "col": 6,
+        "row": 114
+      },
+      {
+        "col": 6,
+        "row": 142
+      },
+      {
+        "col": 30,
+        "row": 6
+      },
+      {
+        "col": 30,
+        "row": 30
+      },
+      {
+        "col": 30,
+        "row": 58
+      },
+      {
+        "col": 30,
+        "row": 86
+      },
+      {
+        "col": 30,
+        "row": 114
+      },
+      {
+        "col": 30,
+        "row": 142
+      },
+      {
+        "col": 58,
+        "row": 6
+      },
+      {
+        "col": 58,
+        "row": 30
+      },
+      {
+        "col": 58,
+        "row": 58
+      },
+      {
+        "col": 58,
+        "row": 86
+      },
+      {
+        "col": 58,
+        "row": 114
+      },
+      {
+        "col": 58,
+        "row": 142
+      },
+      {
+        "col": 86,
+        "row": 6
+      },
+      {
+        "col": 86,
+        "row": 30
+      },
+      {
+        "col": 86,
+        "row": 58
+      },
+      {
+        "col": 86,
+        "row": 86
+      },
+      {
+        "col": 86,
+        "row": 114
+      },
+      {
+        "col": 86,
+        "row": 142
+      },
+      {
+        "col": 114,
+        "row": 6
+      },
+      {
+        "col": 114,
+        "row": 30
+      },
+      {
+        "col": 114,
+        "row": 58
+      },
+      {
+        "col": 114,
+        "row": 86
+      },
+      {
+        "col": 114,
+        "row": 114
+      },
+      {
+        "col": 114,
+        "row": 142
+      },
+      {
+        "col": 142,
+        "row": 6
+      },
+      {
+        "col": 142,
+        "row": 30
+      },
+      {
+        "col": 142,
+        "row": 58
+      },
+      {
+        "col": 142,
+        "row": 86
+      },
+      {
+        "col": 142,
+        "row": 114
+      },
+      {
+        "col": 142,
+        "row": 142
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -2965,11 +5392,157 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 20891
+    ]
   },
   "34": {
     "number": 34,
+    "length": 22091,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 34
+      },
+      {
+        "col": 6,
+        "row": 62
+      },
+      {
+        "col": 6,
+        "row": 90
+      },
+      {
+        "col": 6,
+        "row": 118
+      },
+      {
+        "col": 6,
+        "row": 146
+      },
+      {
+        "col": 34,
+        "row": 6
+      },
+      {
+        "col": 34,
+        "row": 34
+      },
+      {
+        "col": 34,
+        "row": 62
+      },
+      {
+        "col": 34,
+        "row": 90
+      },
+      {
+        "col": 34,
+        "row": 118
+      },
+      {
+        "col": 34,
+        "row": 146
+      },
+      {
+        "col": 62,
+        "row": 6
+      },
+      {
+        "col": 62,
+        "row": 34
+      },
+      {
+        "col": 62,
+        "row": 62
+      },
+      {
+        "col": 62,
+        "row": 90
+      },
+      {
+        "col": 62,
+        "row": 118
+      },
+      {
+        "col": 62,
+        "row": 146
+      },
+      {
+        "col": 90,
+        "row": 6
+      },
+      {
+        "col": 90,
+        "row": 34
+      },
+      {
+        "col": 90,
+        "row": 62
+      },
+      {
+        "col": 90,
+        "row": 90
+      },
+      {
+        "col": 90,
+        "row": 118
+      },
+      {
+        "col": 90,
+        "row": 146
+      },
+      {
+        "col": 118,
+        "row": 6
+      },
+      {
+        "col": 118,
+        "row": 34
+      },
+      {
+        "col": 118,
+        "row": 62
+      },
+      {
+        "col": 118,
+        "row": 90
+      },
+      {
+        "col": 118,
+        "row": 118
+      },
+      {
+        "col": 118,
+        "row": 146
+      },
+      {
+        "col": 146,
+        "row": 6
+      },
+      {
+        "col": 146,
+        "row": 34
+      },
+      {
+        "col": 146,
+        "row": 62
+      },
+      {
+        "col": 146,
+        "row": 90
+      },
+      {
+        "col": 146,
+        "row": 118
+      },
+      {
+        "col": 146,
+        "row": 146
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -3059,11 +5632,209 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 22091
+    ]
   },
   "35": {
     "number": 35,
+    "length": 23008,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 30
+      },
+      {
+        "col": 6,
+        "row": 54
+      },
+      {
+        "col": 6,
+        "row": 78
+      },
+      {
+        "col": 6,
+        "row": 102
+      },
+      {
+        "col": 6,
+        "row": 126
+      },
+      {
+        "col": 6,
+        "row": 150
+      },
+      {
+        "col": 30,
+        "row": 6
+      },
+      {
+        "col": 30,
+        "row": 30
+      },
+      {
+        "col": 30,
+        "row": 54
+      },
+      {
+        "col": 30,
+        "row": 78
+      },
+      {
+        "col": 30,
+        "row": 102
+      },
+      {
+        "col": 30,
+        "row": 126
+      },
+      {
+        "col": 30,
+        "row": 150
+      },
+      {
+        "col": 54,
+        "row": 6
+      },
+      {
+        "col": 54,
+        "row": 30
+      },
+      {
+        "col": 54,
+        "row": 54
+      },
+      {
+        "col": 54,
+        "row": 78
+      },
+      {
+        "col": 54,
+        "row": 102
+      },
+      {
+        "col": 54,
+        "row": 126
+      },
+      {
+        "col": 54,
+        "row": 150
+      },
+      {
+        "col": 78,
+        "row": 6
+      },
+      {
+        "col": 78,
+        "row": 30
+      },
+      {
+        "col": 78,
+        "row": 54
+      },
+      {
+        "col": 78,
+        "row": 78
+      },
+      {
+        "col": 78,
+        "row": 102
+      },
+      {
+        "col": 78,
+        "row": 126
+      },
+      {
+        "col": 78,
+        "row": 150
+      },
+      {
+        "col": 102,
+        "row": 6
+      },
+      {
+        "col": 102,
+        "row": 30
+      },
+      {
+        "col": 102,
+        "row": 54
+      },
+      {
+        "col": 102,
+        "row": 78
+      },
+      {
+        "col": 102,
+        "row": 102
+      },
+      {
+        "col": 102,
+        "row": 126
+      },
+      {
+        "col": 102,
+        "row": 150
+      },
+      {
+        "col": 126,
+        "row": 6
+      },
+      {
+        "col": 126,
+        "row": 30
+      },
+      {
+        "col": 126,
+        "row": 54
+      },
+      {
+        "col": 126,
+        "row": 78
+      },
+      {
+        "col": 126,
+        "row": 102
+      },
+      {
+        "col": 126,
+        "row": 126
+      },
+      {
+        "col": 126,
+        "row": 150
+      },
+      {
+        "col": 150,
+        "row": 6
+      },
+      {
+        "col": 150,
+        "row": 30
+      },
+      {
+        "col": 150,
+        "row": 54
+      },
+      {
+        "col": 150,
+        "row": 78
+      },
+      {
+        "col": 150,
+        "row": 102
+      },
+      {
+        "col": 150,
+        "row": 126
+      },
+      {
+        "col": 150,
+        "row": 150
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -3153,11 +5924,209 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 23008
+    ]
   },
   "36": {
     "number": 36,
+    "length": 24272,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 24
+      },
+      {
+        "col": 6,
+        "row": 50
+      },
+      {
+        "col": 6,
+        "row": 76
+      },
+      {
+        "col": 6,
+        "row": 102
+      },
+      {
+        "col": 6,
+        "row": 128
+      },
+      {
+        "col": 6,
+        "row": 154
+      },
+      {
+        "col": 24,
+        "row": 6
+      },
+      {
+        "col": 24,
+        "row": 24
+      },
+      {
+        "col": 24,
+        "row": 50
+      },
+      {
+        "col": 24,
+        "row": 76
+      },
+      {
+        "col": 24,
+        "row": 102
+      },
+      {
+        "col": 24,
+        "row": 128
+      },
+      {
+        "col": 24,
+        "row": 154
+      },
+      {
+        "col": 50,
+        "row": 6
+      },
+      {
+        "col": 50,
+        "row": 24
+      },
+      {
+        "col": 50,
+        "row": 50
+      },
+      {
+        "col": 50,
+        "row": 76
+      },
+      {
+        "col": 50,
+        "row": 102
+      },
+      {
+        "col": 50,
+        "row": 128
+      },
+      {
+        "col": 50,
+        "row": 154
+      },
+      {
+        "col": 76,
+        "row": 6
+      },
+      {
+        "col": 76,
+        "row": 24
+      },
+      {
+        "col": 76,
+        "row": 50
+      },
+      {
+        "col": 76,
+        "row": 76
+      },
+      {
+        "col": 76,
+        "row": 102
+      },
+      {
+        "col": 76,
+        "row": 128
+      },
+      {
+        "col": 76,
+        "row": 154
+      },
+      {
+        "col": 102,
+        "row": 6
+      },
+      {
+        "col": 102,
+        "row": 24
+      },
+      {
+        "col": 102,
+        "row": 50
+      },
+      {
+        "col": 102,
+        "row": 76
+      },
+      {
+        "col": 102,
+        "row": 102
+      },
+      {
+        "col": 102,
+        "row": 128
+      },
+      {
+        "col": 102,
+        "row": 154
+      },
+      {
+        "col": 128,
+        "row": 6
+      },
+      {
+        "col": 128,
+        "row": 24
+      },
+      {
+        "col": 128,
+        "row": 50
+      },
+      {
+        "col": 128,
+        "row": 76
+      },
+      {
+        "col": 128,
+        "row": 102
+      },
+      {
+        "col": 128,
+        "row": 128
+      },
+      {
+        "col": 128,
+        "row": 154
+      },
+      {
+        "col": 154,
+        "row": 6
+      },
+      {
+        "col": 154,
+        "row": 24
+      },
+      {
+        "col": 154,
+        "row": 50
+      },
+      {
+        "col": 154,
+        "row": 76
+      },
+      {
+        "col": 154,
+        "row": 102
+      },
+      {
+        "col": 154,
+        "row": 128
+      },
+      {
+        "col": 154,
+        "row": 154
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -3247,11 +6216,209 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 24272
+    ]
   },
   "37": {
     "number": 37,
+    "length": 25568,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 28
+      },
+      {
+        "col": 6,
+        "row": 54
+      },
+      {
+        "col": 6,
+        "row": 80
+      },
+      {
+        "col": 6,
+        "row": 106
+      },
+      {
+        "col": 6,
+        "row": 132
+      },
+      {
+        "col": 6,
+        "row": 158
+      },
+      {
+        "col": 28,
+        "row": 6
+      },
+      {
+        "col": 28,
+        "row": 28
+      },
+      {
+        "col": 28,
+        "row": 54
+      },
+      {
+        "col": 28,
+        "row": 80
+      },
+      {
+        "col": 28,
+        "row": 106
+      },
+      {
+        "col": 28,
+        "row": 132
+      },
+      {
+        "col": 28,
+        "row": 158
+      },
+      {
+        "col": 54,
+        "row": 6
+      },
+      {
+        "col": 54,
+        "row": 28
+      },
+      {
+        "col": 54,
+        "row": 54
+      },
+      {
+        "col": 54,
+        "row": 80
+      },
+      {
+        "col": 54,
+        "row": 106
+      },
+      {
+        "col": 54,
+        "row": 132
+      },
+      {
+        "col": 54,
+        "row": 158
+      },
+      {
+        "col": 80,
+        "row": 6
+      },
+      {
+        "col": 80,
+        "row": 28
+      },
+      {
+        "col": 80,
+        "row": 54
+      },
+      {
+        "col": 80,
+        "row": 80
+      },
+      {
+        "col": 80,
+        "row": 106
+      },
+      {
+        "col": 80,
+        "row": 132
+      },
+      {
+        "col": 80,
+        "row": 158
+      },
+      {
+        "col": 106,
+        "row": 6
+      },
+      {
+        "col": 106,
+        "row": 28
+      },
+      {
+        "col": 106,
+        "row": 54
+      },
+      {
+        "col": 106,
+        "row": 80
+      },
+      {
+        "col": 106,
+        "row": 106
+      },
+      {
+        "col": 106,
+        "row": 132
+      },
+      {
+        "col": 106,
+        "row": 158
+      },
+      {
+        "col": 132,
+        "row": 6
+      },
+      {
+        "col": 132,
+        "row": 28
+      },
+      {
+        "col": 132,
+        "row": 54
+      },
+      {
+        "col": 132,
+        "row": 80
+      },
+      {
+        "col": 132,
+        "row": 106
+      },
+      {
+        "col": 132,
+        "row": 132
+      },
+      {
+        "col": 132,
+        "row": 158
+      },
+      {
+        "col": 158,
+        "row": 6
+      },
+      {
+        "col": 158,
+        "row": 28
+      },
+      {
+        "col": 158,
+        "row": 54
+      },
+      {
+        "col": 158,
+        "row": 80
+      },
+      {
+        "col": 158,
+        "row": 106
+      },
+      {
+        "col": 158,
+        "row": 132
+      },
+      {
+        "col": 158,
+        "row": 158
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -3341,11 +6508,209 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 25568
+    ]
   },
   "38": {
     "number": 38,
+    "length": 26896,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 32
+      },
+      {
+        "col": 6,
+        "row": 58
+      },
+      {
+        "col": 6,
+        "row": 84
+      },
+      {
+        "col": 6,
+        "row": 110
+      },
+      {
+        "col": 6,
+        "row": 136
+      },
+      {
+        "col": 6,
+        "row": 162
+      },
+      {
+        "col": 32,
+        "row": 6
+      },
+      {
+        "col": 32,
+        "row": 32
+      },
+      {
+        "col": 32,
+        "row": 58
+      },
+      {
+        "col": 32,
+        "row": 84
+      },
+      {
+        "col": 32,
+        "row": 110
+      },
+      {
+        "col": 32,
+        "row": 136
+      },
+      {
+        "col": 32,
+        "row": 162
+      },
+      {
+        "col": 58,
+        "row": 6
+      },
+      {
+        "col": 58,
+        "row": 32
+      },
+      {
+        "col": 58,
+        "row": 58
+      },
+      {
+        "col": 58,
+        "row": 84
+      },
+      {
+        "col": 58,
+        "row": 110
+      },
+      {
+        "col": 58,
+        "row": 136
+      },
+      {
+        "col": 58,
+        "row": 162
+      },
+      {
+        "col": 84,
+        "row": 6
+      },
+      {
+        "col": 84,
+        "row": 32
+      },
+      {
+        "col": 84,
+        "row": 58
+      },
+      {
+        "col": 84,
+        "row": 84
+      },
+      {
+        "col": 84,
+        "row": 110
+      },
+      {
+        "col": 84,
+        "row": 136
+      },
+      {
+        "col": 84,
+        "row": 162
+      },
+      {
+        "col": 110,
+        "row": 6
+      },
+      {
+        "col": 110,
+        "row": 32
+      },
+      {
+        "col": 110,
+        "row": 58
+      },
+      {
+        "col": 110,
+        "row": 84
+      },
+      {
+        "col": 110,
+        "row": 110
+      },
+      {
+        "col": 110,
+        "row": 136
+      },
+      {
+        "col": 110,
+        "row": 162
+      },
+      {
+        "col": 136,
+        "row": 6
+      },
+      {
+        "col": 136,
+        "row": 32
+      },
+      {
+        "col": 136,
+        "row": 58
+      },
+      {
+        "col": 136,
+        "row": 84
+      },
+      {
+        "col": 136,
+        "row": 110
+      },
+      {
+        "col": 136,
+        "row": 136
+      },
+      {
+        "col": 136,
+        "row": 162
+      },
+      {
+        "col": 162,
+        "row": 6
+      },
+      {
+        "col": 162,
+        "row": 32
+      },
+      {
+        "col": 162,
+        "row": 58
+      },
+      {
+        "col": 162,
+        "row": 84
+      },
+      {
+        "col": 162,
+        "row": 110
+      },
+      {
+        "col": 162,
+        "row": 136
+      },
+      {
+        "col": 162,
+        "row": 162
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -3435,11 +6800,209 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 26896
+    ]
   },
   "39": {
     "number": 39,
+    "length": 28256,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 26
+      },
+      {
+        "col": 6,
+        "row": 54
+      },
+      {
+        "col": 6,
+        "row": 82
+      },
+      {
+        "col": 6,
+        "row": 110
+      },
+      {
+        "col": 6,
+        "row": 138
+      },
+      {
+        "col": 6,
+        "row": 166
+      },
+      {
+        "col": 26,
+        "row": 6
+      },
+      {
+        "col": 26,
+        "row": 26
+      },
+      {
+        "col": 26,
+        "row": 54
+      },
+      {
+        "col": 26,
+        "row": 82
+      },
+      {
+        "col": 26,
+        "row": 110
+      },
+      {
+        "col": 26,
+        "row": 138
+      },
+      {
+        "col": 26,
+        "row": 166
+      },
+      {
+        "col": 54,
+        "row": 6
+      },
+      {
+        "col": 54,
+        "row": 26
+      },
+      {
+        "col": 54,
+        "row": 54
+      },
+      {
+        "col": 54,
+        "row": 82
+      },
+      {
+        "col": 54,
+        "row": 110
+      },
+      {
+        "col": 54,
+        "row": 138
+      },
+      {
+        "col": 54,
+        "row": 166
+      },
+      {
+        "col": 82,
+        "row": 6
+      },
+      {
+        "col": 82,
+        "row": 26
+      },
+      {
+        "col": 82,
+        "row": 54
+      },
+      {
+        "col": 82,
+        "row": 82
+      },
+      {
+        "col": 82,
+        "row": 110
+      },
+      {
+        "col": 82,
+        "row": 138
+      },
+      {
+        "col": 82,
+        "row": 166
+      },
+      {
+        "col": 110,
+        "row": 6
+      },
+      {
+        "col": 110,
+        "row": 26
+      },
+      {
+        "col": 110,
+        "row": 54
+      },
+      {
+        "col": 110,
+        "row": 82
+      },
+      {
+        "col": 110,
+        "row": 110
+      },
+      {
+        "col": 110,
+        "row": 138
+      },
+      {
+        "col": 110,
+        "row": 166
+      },
+      {
+        "col": 138,
+        "row": 6
+      },
+      {
+        "col": 138,
+        "row": 26
+      },
+      {
+        "col": 138,
+        "row": 54
+      },
+      {
+        "col": 138,
+        "row": 82
+      },
+      {
+        "col": 138,
+        "row": 110
+      },
+      {
+        "col": 138,
+        "row": 138
+      },
+      {
+        "col": 138,
+        "row": 166
+      },
+      {
+        "col": 166,
+        "row": 6
+      },
+      {
+        "col": 166,
+        "row": 26
+      },
+      {
+        "col": 166,
+        "row": 54
+      },
+      {
+        "col": 166,
+        "row": 82
+      },
+      {
+        "col": 166,
+        "row": 110
+      },
+      {
+        "col": 166,
+        "row": 138
+      },
+      {
+        "col": 166,
+        "row": 166
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -3529,11 +7092,209 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 28256
+    ]
   },
   "40": {
     "number": 40,
+    "length": 29648,
+    "aligns": [
+      {
+        "col": 6,
+        "row": 6
+      },
+      {
+        "col": 6,
+        "row": 30
+      },
+      {
+        "col": 6,
+        "row": 58
+      },
+      {
+        "col": 6,
+        "row": 86
+      },
+      {
+        "col": 6,
+        "row": 114
+      },
+      {
+        "col": 6,
+        "row": 142
+      },
+      {
+        "col": 6,
+        "row": 170
+      },
+      {
+        "col": 30,
+        "row": 6
+      },
+      {
+        "col": 30,
+        "row": 30
+      },
+      {
+        "col": 30,
+        "row": 58
+      },
+      {
+        "col": 30,
+        "row": 86
+      },
+      {
+        "col": 30,
+        "row": 114
+      },
+      {
+        "col": 30,
+        "row": 142
+      },
+      {
+        "col": 30,
+        "row": 170
+      },
+      {
+        "col": 58,
+        "row": 6
+      },
+      {
+        "col": 58,
+        "row": 30
+      },
+      {
+        "col": 58,
+        "row": 58
+      },
+      {
+        "col": 58,
+        "row": 86
+      },
+      {
+        "col": 58,
+        "row": 114
+      },
+      {
+        "col": 58,
+        "row": 142
+      },
+      {
+        "col": 58,
+        "row": 170
+      },
+      {
+        "col": 86,
+        "row": 6
+      },
+      {
+        "col": 86,
+        "row": 30
+      },
+      {
+        "col": 86,
+        "row": 58
+      },
+      {
+        "col": 86,
+        "row": 86
+      },
+      {
+        "col": 86,
+        "row": 114
+      },
+      {
+        "col": 86,
+        "row": 142
+      },
+      {
+        "col": 86,
+        "row": 170
+      },
+      {
+        "col": 114,
+        "row": 6
+      },
+      {
+        "col": 114,
+        "row": 30
+      },
+      {
+        "col": 114,
+        "row": 58
+      },
+      {
+        "col": 114,
+        "row": 86
+      },
+      {
+        "col": 114,
+        "row": 114
+      },
+      {
+        "col": 114,
+        "row": 142
+      },
+      {
+        "col": 114,
+        "row": 170
+      },
+      {
+        "col": 142,
+        "row": 6
+      },
+      {
+        "col": 142,
+        "row": 30
+      },
+      {
+        "col": 142,
+        "row": 58
+      },
+      {
+        "col": 142,
+        "row": 86
+      },
+      {
+        "col": 142,
+        "row": 114
+      },
+      {
+        "col": 142,
+        "row": 142
+      },
+      {
+        "col": 142,
+        "row": 170
+      },
+      {
+        "col": 170,
+        "row": 6
+      },
+      {
+        "col": 170,
+        "row": 30
+      },
+      {
+        "col": 170,
+        "row": 58
+      },
+      {
+        "col": 170,
+        "row": 86
+      },
+      {
+        "col": 170,
+        "row": 114
+      },
+      {
+        "col": 170,
+        "row": 142
+      },
+      {
+        "col": 170,
+        "row": 170
+      }
+    ],
     "levels": [
       {
         "words": {
@@ -3623,7 +7384,6 @@ export const versions: Record<string, VersionInfo> = {
           }
         ]
       }
-    ],
-    "length": 29648
+    ]
   }
 }
