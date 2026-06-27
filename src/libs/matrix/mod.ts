@@ -12,16 +12,16 @@ export class Uint8Matrix<T extends ArrayBufferLike = ArrayBufferLike> {
     this.#array = new Uint8Array(buffer)
   }
 
-  get(x: number, y: number) {
-    return this.#array[(y * this.length) + x]
+  get(col: number, row: number) {
+    return this.#array[(row * this.length) + col]
   }
 
-  set(x: number, y: number, value: number) {
-    this.#array[(y * this.length) + x] = value
+  set(col: number, row: number, value: number) {
+    this.#array[(row * this.length) + col] = value
   }
 
-  subarray(x: number, y: number) {
-    return this.#array.subarray((y * this.length) + x, ((y + 1) * this.length))
+  subarray(col: number, row: number) {
+    return this.#array.subarray((row * this.length) + col, ((row + 1) * this.length))
   }
 
 }

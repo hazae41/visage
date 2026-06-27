@@ -139,8 +139,8 @@ export namespace Mask0 {
   export function write(matrix: Uint8Matrix) {
     const { length } = matrix
 
-    for (let row = 0; row < length; row++) {
-      for (let col = 0; col < length; col++) {
+    for (let col = 0; col < length; col++) {
+      for (let row = 0; row < length; row++) {
         const value = matrix.get(col, row)
 
         if (value > 1)
