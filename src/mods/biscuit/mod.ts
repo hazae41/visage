@@ -6,7 +6,7 @@ import { Caterpillar } from "@/mods/caterpillar/mod.ts";
 import { Content } from "@/mods/content/mod.ts";
 import { Finder } from "@/mods/finder/mod.ts";
 import { Timing } from "@/mods/timing/mod.ts";
-import { Version } from "@/mods/version/mod.ts";
+import { PointInfo, Version, VersionInfo } from "@/mods/version/mod.ts";
 import { Cursor } from "@hazae41/cursor";
 
 export class Biscuit {
@@ -23,18 +23,20 @@ export class Biscuit {
     const result = new Uint8Array(length * length)
     const matrix = new Uint8Matrix(result.buffer, length)
 
+    Dark.write(matrix)
+
     Finder.TopLeft.write(matrix)
     Finder.TopRight.write(matrix)
     Finder.BottomLeft.write(matrix)
 
-    Timing.Horizontal.write(matrix)
-    Timing.Vertical.write(matrix)
-
-    Dot.write(matrix)
-
     Preformat.write(matrix)
 
     new Version(version).write(matrix)
+
+    new Alignment(version).write(matrix)
+
+    Timing.Horizontal.write(matrix)
+    Timing.Vertical.write(matrix)
 
     new Caterpillar(this.content).write(matrix)
 
@@ -47,10 +49,45 @@ export class Biscuit {
 
 }
 
-export namespace Dot {
+export namespace Dark {
 
   export function write(matrix: Uint8Matrix) {
     matrix.set(8, matrix.length - 8, 3)
+  }
+
+}
+
+export class Alignment {
+
+  constructor(
+    readonly version: VersionInfo
+  ) { }
+
+  write(matrix: Uint8Matrix) {
+    const { aligns } = this.version
+
+    const check = (center: PointInfo) => {
+      for (let col = center.col - 2; col <= center.col + 2; col++)
+        for (let row = center.row - 2; row <= center.row + 2; row++)
+          if (matrix.get(col, row) > 1)
+            return false
+      return true
+    }
+
+    for (const center of aligns) {
+      if (!check(center))
+        continue
+
+      matrix.subarray(center.col - 2, center.row - 2).set(new Uint8Array([3, 3, 3, 3, 3]))
+      matrix.subarray(center.col - 2, center.row - 1).set(new Uint8Array([3, 2, 2, 2, 3]))
+      matrix.subarray(center.col - 2, center.row + 0).set(new Uint8Array([3, 2, 3, 2, 3]))
+      matrix.subarray(center.col - 2, center.row + 1).set(new Uint8Array([3, 2, 2, 2, 3]))
+      matrix.subarray(center.col - 2, center.row + 2).set(new Uint8Array([3, 3, 3, 3, 3]))
+
+      continue
+    }
+
+    return
   }
 
 }

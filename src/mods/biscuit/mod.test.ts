@@ -1,8 +1,10 @@
+// deno-lint-ignore-file no-unused-vars
+
 import { Uint8Matrix } from "@/libs/matrix/mod.ts";
 import { Biscuit } from "@/mods/biscuit/mod.ts";
 import { Content } from "@/mods/content/mod.ts";
 import { versions } from "@/mods/version/mod.ts";
-import { test } from "@hazae41/phobos";
+import { assert, test } from "@hazae41/phobos";
 import { binarize, Decoder, Detector, grayscale } from "@nuintun/qrcode";
 
 function print(matrix: Uint8Matrix) {
@@ -52,18 +54,21 @@ function f(biscuit: Biscuit) {
   const bits = biscuit.encode()
   const rgba = colorize(bits)
 
-  print(bits)
+  // print(bits)
 
   const next = new Detector().detect(binarize(grayscale(rgba), bits.length, bits.length)).next()
 
   if (next.done)
     throw new Error("No QR code found")
 
-  console.log(new Decoder().decode(next.value.matrix).content)
-
-  return
+  return new Decoder().decode(next.value.matrix).content
 }
 
 test("biscuit", () => {
-  f(new Biscuit(new Content.Byte(new TextEncoder().encode("Hello world"), versions[1], 0)))
+  for (const version in versions) {
+    const encoded = "Hello world"
+    const decoded = f(new Biscuit(new Content.Byte(new TextEncoder().encode(encoded), versions[version], 0)))
+
+    assert(encoded === decoded, version)
+  }
 })
