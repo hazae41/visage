@@ -14,12 +14,12 @@ export class Caterpillar {
   write(matrix: Uint8Matrix) {
     const cursor = new Cursor(new Mixture(this.content).encode())
 
-    for (const { x, y } of Caterpillar.walk(matrix)) {
+    for (const { col, row } of Caterpillar.walk(matrix)) {
       if (cursor.offset === cursor.length)
         break
 
-      if (matrix.get(x, y) < 2)
-        matrix.set(x, y, cursor.readUint8())
+      if (matrix.get(col, row) < 2)
+        matrix.set(col, row, cursor.readUint8())
 
       continue
     }
@@ -52,7 +52,7 @@ export namespace Caterpillar {
           const x = col - i
           const y = (((col + 1) % 4) < 2) ? ((matrix.length - 1) - row) : row
 
-          yield { x, y }
+          yield { col: x, row: y }
 
           continue
         }
