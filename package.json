@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@hazae41/visage",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "QR code encoding for the web",
   "homepage": "https://github.com/hazae41/visage",
   "repository": "github:hazae41/visage",
