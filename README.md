@@ -26,15 +26,15 @@ npm install @hazae41/visage
 #### Bytes
 
 ```tsx
-const buffer = new Uint8Array(...)
-const matrix = new QrEncoder("byte").encode(buffer)
+const source = new Uint8Array(...)
+const matrix = new QrEncoder("byte").encode(source)
 ```
 
 #### Bytes (UTF-8)
 
 ```tsx
-const buffer = new TextEncoder().encode("Hello world!")
-const matrix = new QrEncoder("byte").encode(buffer)
+const source = new TextEncoder().encode("Hello world!")
+const matrix = new QrEncoder("byte").encode(source)
 ```
 
 #### Alphanumeric
@@ -67,7 +67,7 @@ const bitset = new Array(...matrix.array)
 console.log()
 
 for (let row = 0; row < matrix.width; row++)
-  console.log(buffer.slice(row * matrix.width, (row + 1) * matrix.width).map(b => b % 2 ? "██" : "  ").join(""))
+  console.log(bitset.slice(row * matrix.width, (row + 1) * matrix.width).map(b => b % 2 ? "██" : "  ").join(""))
 
 console.log()
 ```
