@@ -8,6 +8,10 @@ npm install @hazae41/visage
 
 [**📦 NPM**](https://www.npmjs.com/package/@hazae41/visage)
 
+## Etymology 
+
+"Visage" is a French noun meaning "face", elements are placed on specific places, and if something is slightly off, the whole face can't be recognized
+
 ## Features
 
 ### Current features
