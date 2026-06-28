@@ -5,6 +5,7 @@ import { Caterpillar } from "@/mods/caterpillar/mod.ts";
 import { Content } from "@/mods/content/mod.ts";
 import { Finder } from "@/mods/finder/mod.ts";
 import { Format, Preformat } from "@/mods/format/mod.ts";
+import { Mask } from "@/mods/mask/mod.ts";
 import { Timing } from "@/mods/timing/mod.ts";
 import { Version } from "@/mods/version/mod.ts";
 
@@ -39,9 +40,11 @@ export class Biscuit {
 
     new Caterpillar(this.content).write(matrix)
 
-    Mask0.write(matrix)
+    Mask.Zero.write(matrix)
 
     new Format(correct, 0).write(matrix)
+
+    // new MaskAndFormat(correct).write(matrix)
 
     return matrix
   }
@@ -52,32 +55,6 @@ export namespace Dark {
 
   export function write(matrix: Uint8Matrix) {
     matrix.set(8, matrix.length - 8, 3)
-  }
-
-}
-
-export namespace Mask0 {
-
-  export const pattern = 0
-
-  export function write(matrix: Uint8Matrix) {
-    const { length } = matrix
-
-    for (let col = 0; col < length; col++) {
-      for (let row = 0; row < length; row++) {
-        const value = matrix.get(col, row)
-
-        if (value > 1)
-          continue
-
-        if (((row + col) % 2) !== 0)
-          continue
-
-        matrix.set(col, row, value === 1 ? 0 : 1)
-      }
-    }
-
-    return
   }
 
 }

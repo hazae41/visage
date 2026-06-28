@@ -32,7 +32,7 @@ export class Format {
 
   constructor(
     readonly correct: 0 | 1 | 2 | 3,
-    readonly pattern: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7
+    readonly pattern: number
   ) { }
 
   write(matrix: Uint8Matrix) {

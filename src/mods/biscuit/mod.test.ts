@@ -3,6 +3,7 @@
 import { Uint8Matrix } from "@/libs/matrix/mod.ts";
 import { Biscuit } from "@/mods/biscuit/mod.ts";
 import { Content } from "@/mods/content/mod.ts";
+import { Score } from "@/mods/score/mod.ts";
 import { versions } from "@/mods/version/mod.ts";
 import { assert, test } from "@hazae41/phobos";
 import { binarize, Decoder, Detector, grayscale } from "@nuintun/qrcode";
@@ -72,5 +73,9 @@ test("biscuit", () => {
     assert(encoded === decoded, version)
   }
 
-  print(new Biscuit(new Content.Byte(new TextEncoder().encode("Test"), versions[7], 0)).encode())
+  const m = new Biscuit(new Content.Byte(new TextEncoder().encode("Test"), versions[7], 0)).encode()
+
+  print(m)
+
+  console.log(Score.Zero.score(m))
 })
