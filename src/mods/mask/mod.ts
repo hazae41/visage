@@ -222,12 +222,12 @@ export class MaskAndFormat {
       const c = Score.Three.score(dummy)
       const d = Score.Four.score(dummy)
 
-      const s = a + b + c + d
+      const score = a + b + c + d
 
       if (best == null)
-        best = s, mask = dummy
-      if (s < best)
-        best = s, mask = dummy
+        best = score, mask = dummy
+      if (score < best)
+        best = score, mask = dummy
 
       continue
     }
