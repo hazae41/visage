@@ -73,9 +73,12 @@ test("biscuit", () => {
     assert(encoded === decoded, version)
   }
 
-  const m = new Biscuit(new Content.Byte(new TextEncoder().encode("Test"), versions[7], 0)).encode()
+  const m = new Biscuit(new Content.Byte(new TextEncoder().encode("Test"), versions[1], 0)).encode()
 
   print(m)
 
-  console.log(Score.Zero.score(m))
+  console.log("#1", Score.One.score(m))
+  console.log("#2", Score.Two.score(m))
+  console.log("#3", Score.Three.score(m))
+  console.log("#4", Score.Four.score(m))
 })

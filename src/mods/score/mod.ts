@@ -4,7 +4,7 @@ import { Uint8Matrix } from "@/libs/matrix/mod.ts";
 
 export namespace Score {
 
-  export namespace Zero {
+  export namespace One {
 
     export function score(matrix: Uint8Matrix) {
       let score = 0
@@ -61,6 +61,108 @@ export namespace Score {
       }
 
       score += count >= 5 ? (3 + (count - 5)) : 0
+
+      return score
+    }
+
+  }
+
+  export namespace Two {
+
+    export function score(matrix: Uint8Matrix) {
+      let score = 0
+
+      for (let row = 0; row < matrix.length - 1; row++) {
+        for (let col = 0; col < matrix.length - 1; col++) {
+          const a = matrix.get(col + 0, row + 0) % 2
+          const b = matrix.get(col + 1, row + 0) % 2
+          const c = matrix.get(col + 0, row + 1) % 2
+          const d = matrix.get(col + 1, row + 1) % 2
+
+          if (a === b && a === c && a === d)
+            score += 3
+
+          continue
+        }
+      }
+
+      return score
+    }
+
+  }
+
+  export namespace Three {
+
+    export function score(matrix: Uint8Matrix) {
+      let score = 0
+
+      /**
+       * Vertical
+       */
+
+      for (let col = 0; col < matrix.length; col++) {
+        for (let row = 0; row < matrix.length - 6; row++) {
+          const a = matrix.get(col, row + 0) % 2
+          const b = matrix.get(col, row + 1) % 2
+          const c = matrix.get(col, row + 2) % 2
+          const d = matrix.get(col, row + 3) % 2
+          const e = matrix.get(col, row + 4) % 2
+          const f = matrix.get(col, row + 5) % 2
+          const g = matrix.get(col, row + 6) % 2
+
+          if (a === 1 && b === 0 && c === 1 && d === 1 && e === 1 && f === 0 && g === 1)
+            score += 40
+
+          continue
+        }
+      }
+
+      /**
+       * Horizontal
+       */
+
+      for (let row = 0; row < matrix.length; row++) {
+        for (let col = 0; col < matrix.length - 6; col++) {
+          const a = matrix.get(col + 0, row) % 2
+          const b = matrix.get(col + 1, row) % 2
+          const c = matrix.get(col + 2, row) % 2
+          const d = matrix.get(col + 3, row) % 2
+          const e = matrix.get(col + 4, row) % 2
+          const f = matrix.get(col + 5, row) % 2
+          const g = matrix.get(col + 6, row) % 2
+
+          if (a === 1 && b === 0 && c === 1 && d === 1 && e === 1 && f === 0 && g === 1)
+            score += 40
+
+          continue
+        }
+      }
+
+      return score
+    }
+
+  }
+
+  export namespace Four {
+
+    export function score(matrix: Uint8Matrix) {
+      let count = 0
+
+      for (let col = 0; col < matrix.length; col++) {
+        for (let row = 0; row < matrix.length; row++) {
+          const value = matrix.get(col, row) % 2
+
+          if (value === 1)
+            count++
+
+          continue
+        }
+      }
+
+      const total = matrix.length * matrix.length
+      const ratio = Math.floor((count * 100) / total)
+      const delta = Math.abs(ratio - 50)
+      const score = Math.floor(delta / 5) * 10
 
       return score
     }

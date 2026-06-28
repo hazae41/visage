@@ -4,8 +4,8 @@ import { Alignment } from "@/mods/alignment/mod.ts";
 import { Caterpillar } from "@/mods/caterpillar/mod.ts";
 import { Content } from "@/mods/content/mod.ts";
 import { Finder } from "@/mods/finder/mod.ts";
-import { Format, Preformat } from "@/mods/format/mod.ts";
-import { Mask } from "@/mods/mask/mod.ts";
+import { Preformat } from "@/mods/format/mod.ts";
+import { MaskAndFormat } from "@/mods/mask/mod.ts";
 import { Timing } from "@/mods/timing/mod.ts";
 import { Version } from "@/mods/version/mod.ts";
 
@@ -40,11 +40,7 @@ export class Biscuit {
 
     new Caterpillar(this.content).write(matrix)
 
-    Mask.Zero.write(matrix)
-
-    new Format(correct, 0).write(matrix)
-
-    // new MaskAndFormat(correct).write(matrix)
+    new MaskAndFormat(correct).write(matrix)
 
     return matrix
   }

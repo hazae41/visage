@@ -1,6 +1,8 @@
 // deno-lint-ignore-file no-namespace
 
 import { Uint8Matrix } from "@/libs/matrix/mod.ts";
+import { Format } from "@/mods/format/mod.ts";
+import { Score } from "@/mods/score/mod.ts";
 
 export namespace Mask {
 
@@ -198,10 +200,6 @@ export namespace Mask {
 
 }
 
-export const masks = [
-  Mask.Zero
-]
-
 export class MaskAndFormat {
 
   constructor(
@@ -209,17 +207,47 @@ export class MaskAndFormat {
   ) { }
 
   write(matrix: Uint8Matrix) {
-    // deno-lint-ignore prefer-const no-unused-vars
-    let score = 0
+    let best: number | null = null
+    let mask: Uint8Matrix | null = null
 
-    for (let i = 0; i < masks.length; i++) {
+    for (let i = 0; i < MaskAndFormat.masks.length; i++) {
       const dummy = new Uint8Matrix(matrix.buffer.slice(0), matrix.length)
 
-      masks[i].write(dummy)
+      new Format(this.correct, i).write(dummy)
 
+      MaskAndFormat.masks[i].write(dummy)
+
+      const a = Score.One.score(dummy)
+      const b = Score.Two.score(dummy)
+      const c = Score.Three.score(dummy)
+      const d = Score.Four.score(dummy)
+
+      const s = a + b + c + d
+
+      if (best == null)
+        best = s, mask = dummy
+      if (s < best)
+        best = s, mask = dummy
+
+      continue
     }
 
-    // new Format(this.correct, i).write(dummy)
+    new Uint8Array(matrix.buffer).set(new Uint8Array(mask!.buffer))
   }
+
+}
+
+export namespace MaskAndFormat {
+
+  export const masks = [
+    Mask.Zero,
+    Mask.One,
+    Mask.Two,
+    Mask.Three,
+    Mask.Four,
+    Mask.Five,
+    Mask.Six,
+    Mask.Seven
+  ]
 
 }
