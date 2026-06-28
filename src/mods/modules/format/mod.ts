@@ -18,9 +18,9 @@ export namespace Preformat {
     for (let row = 5; row >= 0; row--)
       matrix.set(8, row, 3)
 
-    for (let row = matrix.length - 1; row > matrix.length - 8; row--)
+    for (let row = matrix.width - 1; row > matrix.width - 8; row--)
       matrix.set(8, row, 3)
-    for (let col = matrix.length - 8; col < matrix.length; col++)
+    for (let col = matrix.width - 8; col < matrix.width; col++)
       matrix.set(col, 8, 3)
 
     return
@@ -72,9 +72,9 @@ export class Format {
 
     cursor.offset = 0
 
-    for (let row = matrix.length - 1; row > matrix.length - 8; row--)
+    for (let row = matrix.width - 1; row > matrix.width - 8; row--)
       matrix.set(8, row, cursor.readUint8() === 1 ? 3 : 2)
-    for (let col = matrix.length - 8; col < matrix.length; col++)
+    for (let col = matrix.width - 8; col < matrix.width; col++)
       matrix.set(col, 8, cursor.readUint8() === 1 ? 3 : 2)
 
     return

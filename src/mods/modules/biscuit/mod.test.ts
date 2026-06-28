@@ -8,16 +8,16 @@ import { assert, test } from "@hazae41/phobos";
 import { binarize, Decoder, Detector, grayscale } from "@nuintun/qrcode";
 
 function fullprint(matrix: Uint8Matrix) {
-  const bitset = new Array(...new Uint8Array(matrix.buffer))
+  const bitset = new Array(...matrix.array)
 
   console.log()
   console.log()
 
-  const digits = Math.floor(Math.log10(matrix.length)) + 1
+  const digits = Math.floor(Math.log10(matrix.width)) + 1
 
   for (let dig = 0; dig < digits; dig++) {
     const spc = new Array(digits).fill(" ")
-    const idx = new Array(matrix.length).fill(0).map((_, x) => Math.floor(x / (10 ** (digits - dig - 1))) % 10)
+    const idx = new Array(matrix.width).fill(0).map((_, x) => Math.floor(x / (10 ** (digits - dig - 1))) % 10)
 
     console.log(spc.join(""), "", "", "", idx.join(" "))
   }
@@ -25,9 +25,9 @@ function fullprint(matrix: Uint8Matrix) {
   console.log()
   console.log()
 
-  for (let row = 0; row < matrix.length; row++) {
+  for (let row = 0; row < matrix.width; row++) {
     const idx = new Array(digits).fill(0).map((_, i) => Math.floor(row / (10 ** (digits - i - 1))) % 10)
-    const val = bitset.slice(row * matrix.length, (row + 1) * matrix.length).map(b => b % 2 ? "██" : "  ")
+    const val = bitset.slice(row * matrix.width, (row + 1) * matrix.width).map(b => b % 2 ? "██" : "  ")
 
     console.log(idx.join(""), "", "", "", val.join(""))
   }
@@ -37,24 +37,23 @@ function fullprint(matrix: Uint8Matrix) {
 }
 
 function fastprint(matrix: Uint8Matrix) {
-  const bitset = new Array(...new Uint8Array(matrix.buffer))
+  const bitset = new Array(...matrix.array)
 
   console.log()
 
-  for (let row = 0; row < matrix.length; row++)
-    console.log(bitset.slice(row * matrix.length, (row + 1) * matrix.length).map(b => b % 2 ? "██" : "  ").join(""))
+  for (let row = 0; row < matrix.width; row++)
+    console.log(bitset.slice(row * matrix.width, (row + 1) * matrix.width).map(b => b % 2 ? "██" : "  ").join(""))
 
   console.log()
 }
 
 function colorize(matrix: Uint8Matrix) {
-  const bits = new Uint8Array(matrix.buffer)
-  const rgba = new ImageData(matrix.length, matrix.length)
+  const rgba = new ImageData(matrix.width, matrix.width)
 
-  for (let i = 0; i < bits.length; i++) {
-    rgba.data[i * 4 + 0] = bits[i] % 2 ? 0 : 255
-    rgba.data[i * 4 + 1] = bits[i] % 2 ? 0 : 255
-    rgba.data[i * 4 + 2] = bits[i] % 2 ? 0 : 255
+  for (let i = 0; i < matrix.array.length; i++) {
+    rgba.data[i * 4 + 0] = matrix.array[i] % 2 ? 0 : 255
+    rgba.data[i * 4 + 1] = matrix.array[i] % 2 ? 0 : 255
+    rgba.data[i * 4 + 2] = matrix.array[i] % 2 ? 0 : 255
     rgba.data[i * 4 + 3] = 255
   }
 
@@ -63,7 +62,7 @@ function colorize(matrix: Uint8Matrix) {
 
 function decode(matrix: Uint8Matrix) {
   const rgba = colorize(matrix)
-  const next = new Detector().detect(binarize(grayscale(rgba), matrix.length, matrix.length)).next()
+  const next = new Detector().detect(binarize(grayscale(rgba), matrix.width, matrix.width)).next()
 
   if (next.done)
     throw new Error("No QR code found")

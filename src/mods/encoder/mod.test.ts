@@ -6,24 +6,23 @@ import { assert, test } from "@hazae41/phobos";
 import { Decoder, Detector, binarize, grayscale } from "@nuintun/qrcode";
 
 function fastprint(matrix: Uint8Matrix) {
-  const bitset = new Array(...new Uint8Array(matrix.buffer))
+  const bitset = new Array(...matrix.array)
 
   console.log()
 
-  for (let row = 0; row < matrix.length; row++)
-    console.log(bitset.slice(row * matrix.length, (row + 1) * matrix.length).map(b => b % 2 ? "██" : "  ").join(""))
+  for (let row = 0; row < matrix.width; row++)
+    console.log(bitset.slice(row * matrix.width, (row + 1) * matrix.width).map(b => b % 2 ? "██" : "  ").join(""))
 
   console.log()
 }
 
 function colorize(matrix: Uint8Matrix) {
-  const bits = new Uint8Array(matrix.buffer)
-  const rgba = new ImageData(matrix.length, matrix.length)
+  const rgba = new ImageData(matrix.width, matrix.width)
 
-  for (let i = 0; i < bits.length; i++) {
-    rgba.data[i * 4 + 0] = bits[i] % 2 ? 0 : 255
-    rgba.data[i * 4 + 1] = bits[i] % 2 ? 0 : 255
-    rgba.data[i * 4 + 2] = bits[i] % 2 ? 0 : 255
+  for (let i = 0; i < matrix.array.length; i++) {
+    rgba.data[i * 4 + 0] = matrix.array[i] % 2 ? 0 : 255
+    rgba.data[i * 4 + 1] = matrix.array[i] % 2 ? 0 : 255
+    rgba.data[i * 4 + 2] = matrix.array[i] % 2 ? 0 : 255
     rgba.data[i * 4 + 3] = 255
   }
 
@@ -32,14 +31,13 @@ function colorize(matrix: Uint8Matrix) {
 
 function decode(matrix: Uint8Matrix) {
   const rgba = colorize(matrix)
-  const next = new Detector().detect(binarize(grayscale(rgba), matrix.length, matrix.length)).next()
+  const next = new Detector().detect(binarize(grayscale(rgba), matrix.width, matrix.width)).next()
 
   if (next.done)
     throw new Error("No QR code found")
 
   return new Decoder().decode(next.value.matrix).content
 }
-
 
 test("encoder", () => {
   fastprint(new QrEncoder("byte").encode(new TextEncoder().encode("Yes it works")))

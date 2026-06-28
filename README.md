@@ -62,12 +62,12 @@ const matrix = new QrEncoder("kanji").encode([...])
 Draw the matrix line by line using modulo two to convert bits into black or empty squares
 
 ```tsx
-const bitset = new Array(...new Uint8Array(matrix.buffer))
+const bitset = new Array(...matrix.array)
 
 console.log()
 
-for (let row = 0; row < matrix.length; row++)
-  console.log(buffer.slice(row * matrix.length, (row + 1) * matrix.length).map(b => b % 2 ? "██" : "  ").join(""))
+for (let row = 0; row < matrix.width; row++)
+  console.log(buffer.slice(row * matrix.width, (row + 1) * matrix.width).map(b => b % 2 ? "██" : "  ").join(""))
 
 console.log()
 ```
@@ -100,18 +100,17 @@ Something like this should be displayed
 
 #### Canvas
 
-Create an image of width/height `matrix.length`, convert the bits to rgba using modulo two, and then put them on the image
+Create an image of width/height `matrix.width`, convert the bits to rgba using modulo two, and then put them on the image
 
 ```tsx
-const image = new OffscreenCanvas(matrix.length, matrix.length)
+const image = new OffscreenCanvas(matrix.width, matrix.width)
 
-const rgba = new ImageData(matrix.length, matrix.length)
-const bits = new Uint8Array(matrix.buffer)
+const rgba = new ImageData(matrix.width, matrix.width)
 
-for (let i = 0; i < bits.length; i++) {
-  rgba.data[i * 4 + 0] = bits[i] % 2 ? 0 : 255
-  rgba.data[i * 4 + 1] = bits[i] % 2 ? 0 : 255
-  rgba.data[i * 4 + 2] = bits[i] % 2 ? 0 : 255
+for (let i = 0; i < matrix.array.length; i++) {
+  rgba.data[i * 4 + 0] = matrix.array[i] % 2 ? 0 : 255
+  rgba.data[i * 4 + 1] = matrix.array[i] % 2 ? 0 : 255
+  rgba.data[i * 4 + 2] = matrix.array[i] % 2 ? 0 : 255
   rgba.data[i * 4 + 3] = 255
 }
 
@@ -127,7 +126,7 @@ canvas.width = 300
 canvas.height = 300
 
 canvas.getContext("2d").imageSmoothingEnabled = false
-canvas.getContext("2d").drawImage(image, 0, 0, matrix.length, matrix.length, 0, 0, canvas.width, canvas.height)
+canvas.getContext("2d").drawImage(image, 0, 0, matrix.width, matrix.width, 0, 0, canvas.width, canvas.height)
 
 document.body.append(canvas)
 ```

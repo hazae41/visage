@@ -3,25 +3,21 @@
  */
 export class Uint8Matrix<T extends ArrayBufferLike = ArrayBufferLike> {
 
-  readonly #array: Uint8Array
-
   constructor(
-    readonly buffer: T,
-    readonly length: number
-  ) {
-    this.#array = new Uint8Array(buffer)
-  }
+    readonly array: Uint8Array<T>,
+    readonly width: number
+  ) { }
 
   subarray(col: number, row: number) {
-    return this.#array.subarray((row * this.length) + col, ((row + 1) * this.length))
+    return this.array.subarray((row * this.width) + col, ((row + 1) * this.width))
   }
 
   get(col: number, row: number) {
-    return this.#array[(row * this.length) + col]
+    return this.array[(row * this.width) + col]
   }
 
   set(col: number, row: number, value: number) {
-    this.#array[(row * this.length) + col] = value
+    this.array[(row * this.width) + col] = value
   }
 
 }

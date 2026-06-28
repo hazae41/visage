@@ -40,17 +40,17 @@ export namespace Caterpillar {
     /**
      * Columns are walked from right to left in pairs and skip the 6th column
      */
-    for (let col = matrix.length - 1; col > 0; col = col === 8 ? 5 : col - 2) {
+    for (let col = matrix.width - 1; col > 0; col = col === 8 ? 5 : col - 2) {
       /**
        * Rows are walked down or up depending on the column pair
        */
-      for (let row = 0; row < matrix.length; row++) {
+      for (let row = 0; row < matrix.width; row++) {
         /**
          * Walk each element of the column pair and yield its coordinates
          */
         for (let i = 0; i < 2; i++) {
           const x = col - i
-          const y = (((col + 1) % 4) < 2) ? ((matrix.length - 1) - row) : row
+          const y = (((col + 1) % 4) < 2) ? ((matrix.width - 1) - row) : row
 
           yield { col: x, row: y }
 

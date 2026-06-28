@@ -16,8 +16,8 @@ export namespace Score {
 
       count = 1
 
-      for (let col = 0; col < matrix.length; col++) {
-        for (let row = 1; row < matrix.length; row++) {
+      for (let col = 0; col < matrix.width; col++) {
+        for (let row = 1; row < matrix.width; row++) {
           const prev = matrix.get(col, row - 1) % 2
           const curr = matrix.get(col, row - 0) % 2
 
@@ -42,8 +42,8 @@ export namespace Score {
 
       count = 1
 
-      for (let row = 0; row < matrix.length; row++) {
-        for (let col = 1; col < matrix.length; col++) {
+      for (let row = 0; row < matrix.width; row++) {
+        for (let col = 1; col < matrix.width; col++) {
           const prev = matrix.get(col - 1, row) % 2
           const curr = matrix.get(col - 0, row) % 2
 
@@ -72,8 +72,8 @@ export namespace Score {
     export function score(matrix: Uint8Matrix) {
       let score = 0
 
-      for (let row = 0; row < matrix.length - 1; row++) {
-        for (let col = 0; col < matrix.length - 1; col++) {
+      for (let row = 0; row < matrix.width - 1; row++) {
+        for (let col = 0; col < matrix.width - 1; col++) {
           const a = matrix.get(col + 0, row + 0) % 2
           const b = matrix.get(col + 1, row + 0) % 2
           const c = matrix.get(col + 0, row + 1) % 2
@@ -100,8 +100,8 @@ export namespace Score {
        * Vertical
        */
 
-      for (let col = 0; col < matrix.length; col++) {
-        for (let row = 0; row < matrix.length - 6; row++) {
+      for (let col = 0; col < matrix.width; col++) {
+        for (let row = 0; row < matrix.width - 6; row++) {
           const a = matrix.get(col, row + 0) % 2
           const b = matrix.get(col, row + 1) % 2
           const c = matrix.get(col, row + 2) % 2
@@ -121,8 +121,8 @@ export namespace Score {
        * Horizontal
        */
 
-      for (let row = 0; row < matrix.length; row++) {
-        for (let col = 0; col < matrix.length - 6; col++) {
+      for (let row = 0; row < matrix.width; row++) {
+        for (let col = 0; col < matrix.width - 6; col++) {
           const a = matrix.get(col + 0, row) % 2
           const b = matrix.get(col + 1, row) % 2
           const c = matrix.get(col + 2, row) % 2
@@ -148,8 +148,8 @@ export namespace Score {
     export function score(matrix: Uint8Matrix) {
       let count = 0
 
-      for (let col = 0; col < matrix.length; col++) {
-        for (let row = 0; row < matrix.length; row++) {
+      for (let col = 0; col < matrix.width; col++) {
+        for (let row = 0; row < matrix.width; row++) {
           const value = matrix.get(col, row) % 2
 
           if (value === 1)
@@ -159,7 +159,7 @@ export namespace Score {
         }
       }
 
-      const total = matrix.length * matrix.length
+      const total = matrix.width * matrix.width
       const ratio = Math.floor((count * 100) / total)
       const delta = Math.abs(ratio - 50)
       const score = Math.floor(delta / 5) * 10

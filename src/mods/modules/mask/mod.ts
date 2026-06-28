@@ -9,7 +9,7 @@ export namespace Mask {
   export namespace Zero {
 
     export function write(matrix: Uint8Matrix) {
-      const { length } = matrix
+      const { width: length } = matrix
 
       for (let col = 0; col < length; col++) {
         for (let row = 0; row < length; row++) {
@@ -33,7 +33,7 @@ export namespace Mask {
   export namespace One {
 
     export function write(matrix: Uint8Matrix) {
-      const { length } = matrix
+      const { width: length } = matrix
 
       for (let col = 0; col < length; col++) {
         for (let row = 0; row < length; row++) {
@@ -57,7 +57,7 @@ export namespace Mask {
   export namespace Two {
 
     export function write(matrix: Uint8Matrix) {
-      const { length } = matrix
+      const { width: length } = matrix
 
       for (let col = 0; col < length; col++) {
         for (let row = 0; row < length; row++) {
@@ -81,7 +81,7 @@ export namespace Mask {
   export namespace Three {
 
     export function write(matrix: Uint8Matrix) {
-      const { length } = matrix
+      const { width: length } = matrix
 
       for (let col = 0; col < length; col++) {
         for (let row = 0; row < length; row++) {
@@ -105,7 +105,7 @@ export namespace Mask {
   export namespace Four {
 
     export function write(matrix: Uint8Matrix) {
-      const { length } = matrix
+      const { width: length } = matrix
 
       for (let col = 0; col < length; col++) {
         for (let row = 0; row < length; row++) {
@@ -129,7 +129,7 @@ export namespace Mask {
   export namespace Five {
 
     export function write(matrix: Uint8Matrix) {
-      const { length } = matrix
+      const { width: length } = matrix
 
       for (let col = 0; col < length; col++) {
         for (let row = 0; row < length; row++) {
@@ -153,7 +153,7 @@ export namespace Mask {
   export namespace Six {
 
     export function write(matrix: Uint8Matrix) {
-      const { length } = matrix
+      const { width: length } = matrix
 
       for (let col = 0; col < length; col++) {
         for (let row = 0; row < length; row++) {
@@ -177,7 +177,7 @@ export namespace Mask {
   export namespace Seven {
 
     export function write(matrix: Uint8Matrix) {
-      const { length } = matrix
+      const { width: length } = matrix
 
       for (let col = 0; col < length; col++) {
         for (let row = 0; row < length; row++) {
@@ -211,7 +211,7 @@ export class MaskAndFormat {
     let mask: Uint8Matrix | null = null
 
     for (let i = 0; i < MaskAndFormat.masks.length; i++) {
-      const dummy = new Uint8Matrix(matrix.buffer.slice(0), matrix.length)
+      const dummy = new Uint8Matrix(matrix.array.slice(0), matrix.width)
 
       new Format(this.correct, i).write(dummy)
 
@@ -232,7 +232,7 @@ export class MaskAndFormat {
       continue
     }
 
-    new Uint8Array(matrix.buffer).set(new Uint8Array(mask!.buffer))
+    matrix.array.set(mask!.array)
   }
 
 }

@@ -23,13 +23,13 @@ export class Version {
 
     for (let subrow = 0; subrow < 6; subrow++)
       for (let subcol = 0; subcol < 3; subcol++)
-        matrix.set(matrix.length - 9 - subcol, 5 - subrow, cursor.readUint8() === 1 ? 3 : 2)
+        matrix.set(matrix.width - 9 - subcol, 5 - subrow, cursor.readUint8() === 1 ? 3 : 2)
 
     cursor.offset = 0
 
     for (let subcol = 0; subcol < 6; subcol++)
       for (let subrow = 0; subrow < 3; subrow++)
-        matrix.set(5 - subcol, matrix.length - 9 - subrow, cursor.readUint8() === 1 ? 3 : 2)
+        matrix.set(5 - subcol, matrix.width - 9 - subrow, cursor.readUint8() === 1 ? 3 : 2)
 
     return
   }

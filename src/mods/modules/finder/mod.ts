@@ -26,7 +26,7 @@ export namespace Finder {
   export namespace TopRight {
 
     export function write(matrix: Uint8Matrix) {
-      let col = matrix.length - 8, row = 0
+      let col = matrix.width - 8, row = 0
 
       matrix.subarray(col, row++).set(new Uint8Array([2, 3, 3, 3, 3, 3, 3, 3]))
       matrix.subarray(col, row++).set(new Uint8Array([2, 3, 2, 2, 2, 2, 2, 3]))
@@ -45,7 +45,7 @@ export namespace Finder {
   export namespace BottomLeft {
 
     export function write(matrix: Uint8Matrix) {
-      let col = 0, row = matrix.length - 8
+      let col = 0, row = matrix.width - 8
 
       matrix.subarray(col, row++).set(new Uint8Array([2, 2, 2, 2, 2, 2, 2, 2]))
       matrix.subarray(col, row++).set(new Uint8Array([3, 3, 3, 3, 3, 3, 3, 2]))

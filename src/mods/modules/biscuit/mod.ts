@@ -18,10 +18,10 @@ export class Biscuit {
   encode() {
     const { version, correct } = this.content
 
-    const length = 17 + (version.number * 4)
+    const width = 17 + (version.number * 4)
 
-    const result = new Uint8Array(length * length)
-    const matrix = new Uint8Matrix(result.buffer, length)
+    const result = new Uint8Array(width * width)
+    const matrix = new Uint8Matrix(result, width)
 
     Dark.write(matrix)
 
@@ -50,7 +50,7 @@ export class Biscuit {
 export namespace Dark {
 
   export function write(matrix: Uint8Matrix) {
-    matrix.set(8, matrix.length - 8, 3)
+    matrix.set(8, matrix.width - 8, 3)
   }
 
 }
