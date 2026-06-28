@@ -9,7 +9,7 @@ import { assert, test } from "@hazae41/phobos";
 import { binarize, Decoder, Detector, grayscale } from "@nuintun/qrcode";
 
 function print(matrix: Uint8Matrix) {
-  const bits = new Uint8Array(matrix.buffer)
+  const bitset = new Array(...new Uint8Array(matrix.buffer))
 
   console.log()
   console.log()
@@ -28,13 +28,22 @@ function print(matrix: Uint8Matrix) {
 
   for (let row = 0; row < matrix.length; row++) {
     const idx = new Array(digits).fill(0).map((_, i) => Math.floor(row / (10 ** (digits - i - 1))) % 10)
-    const val = new Array(...bits).slice(row * matrix.length, (row + 1) * matrix.length).map(b => b % 2 ? "██" : "  ")
+    const val = bitset.slice(row * matrix.length, (row + 1) * matrix.length).map(b => b % 2 ? "██" : "  ")
 
     console.log(idx.join(""), "", "", "", val.join(""))
   }
 
   console.log()
   console.log()
+}
+
+function print2(matrix: Uint8Matrix) {
+  const bitset = new Array(...new Uint8Array(matrix.buffer))
+
+  for (let row = 0; row < matrix.length; row++)
+    console.log(bitset.slice(row * matrix.length, (row + 1) * matrix.length).map(b => b % 2 ? "██" : "  ").join(""))
+
+  return
 }
 
 function colorize(matrix: Uint8Matrix) {
@@ -70,6 +79,5 @@ test("biscuit", () => {
     assert(message === decoded, version)
   }
 
-  const random = new TextEncoder().encode(crypto.getRandomValues(new Uint8Array(2 ** 8)).toHex())
-  print(new QrEncoder("byte").encode(random))
+  print2(new QrEncoder("byte").encode(new TextEncoder().encode("Yes it works")))
 })
