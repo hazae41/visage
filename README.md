@@ -105,8 +105,8 @@ Create an image of width/height `matrix.length`, convert the bits to rgba using 
 ```tsx
 const image = new OffscreenCanvas(matrix.length, matrix.length)
 
-const bits = new Uint8Array(matrix.buffer)
 const rgba = new ImageData(matrix.length, matrix.length)
+const bits = new Uint8Array(matrix.buffer)
 
 for (let i = 0; i < bits.length; i++) {
   rgba.data[i * 4 + 0] = bits[i] % 2 ? 0 : 255
