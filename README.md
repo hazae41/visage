@@ -125,7 +125,7 @@ canvas.width = 300
 canvas.height = 300
 
 canvas.getContext("2d").imageSmoothingEnabled = false
-canvas.getContext("2d").drawImage(image, 0, 0, matrix.width, matrix.width, 0, 0, canvas.width, canvas.width)
+canvas.getContext("2d").drawImage(code, 0, 0, matrix.width, matrix.width, 0, 0, canvas.width, canvas.width)
 
 document.body.append(canvas)
 ```
