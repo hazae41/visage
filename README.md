@@ -103,8 +103,7 @@ Something like this should be displayed
 Create an image of width/height `matrix.width`, convert the bits to rgba using modulo two, and then put them on the image
 
 ```tsx
-const image = new OffscreenCanvas(matrix.width, matrix.width)
-
+const code = new OffscreenCanvas(matrix.width, matrix.width)
 const rgba = new ImageData(matrix.width, matrix.width)
 
 for (let i = 0; i < matrix.array.length; i++) {
@@ -114,7 +113,7 @@ for (let i = 0; i < matrix.array.length; i++) {
   rgba.data[i * 4 + 3] = 255
 }
 
-image.getContext("2d").putImageData(rgba, 0, 0)
+code.getContext("2d").putImageData(rgba, 0, 0)
 ```
 
 Create a destination canvas of desired width/height, disable smoothing, and draw the image on the canvas
@@ -126,7 +125,7 @@ canvas.width = 300
 canvas.height = 300
 
 canvas.getContext("2d").imageSmoothingEnabled = false
-canvas.getContext("2d").drawImage(image, 0, 0, matrix.width, matrix.width, 0, 0, canvas.width, canvas.height)
+canvas.getContext("2d").drawImage(image, 0, 0, matrix.width, matrix.width, 0, 0, canvas.width, canvas.width)
 
 document.body.append(canvas)
 ```
