@@ -20,6 +20,7 @@
     }
   },
   "devDependencies": {
+    "@hazae41/binary": "^2.1.1",
     "@hazae41/phobos": "^2.0.16",
     "@hazae41/tscousin": "^1.0.28",
     "@nuintun/qrcode": "^5.0.3",
@@ -34,7 +35,6 @@
     "unit-tested"
   ],
   "dependencies": {
-    "@hazae41/binary": "^2.1.1",
     "@hazae41/cursor": "^2.2.0"
   }
 }
