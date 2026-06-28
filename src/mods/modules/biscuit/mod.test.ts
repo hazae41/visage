@@ -52,9 +52,9 @@ function colorize(matrix: Uint8Matrix) {
   const rgba = new ImageData(matrix.length, matrix.length)
 
   for (let i = 0; i < bits.length; i++) {
-    rgba.data[i * 4 + 0] = bits[i] % 2 === 1 ? 0 : 255
-    rgba.data[i * 4 + 1] = bits[i] % 2 === 1 ? 0 : 255
-    rgba.data[i * 4 + 2] = bits[i] % 2 === 1 ? 0 : 255
+    rgba.data[i * 4 + 0] = bits[i] % 2 ? 0 : 255
+    rgba.data[i * 4 + 1] = bits[i] % 2 ? 0 : 255
+    rgba.data[i * 4 + 2] = bits[i] % 2 ? 0 : 255
     rgba.data[i * 4 + 3] = 255
   }
 

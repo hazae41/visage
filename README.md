@@ -55,6 +55,8 @@ const matrix = new QrEncoder("kanji").encode([...])
 
 #### Console
 
+Draw the matrix line by line using modulo two to convert bits into black or empty squares
+
 ```tsx
 const bitset = new Array(...new Uint8Array(matrix.buffer))
 
@@ -65,6 +67,8 @@ for (let row = 0; row < matrix.length; row++)
 
 console.log()
 ```
+
+Something like this should be displayed
 
 ```
 ██████████████  ██          ██████████████
@@ -89,3 +93,39 @@ console.log()
 ██          ██    ██████    ████  ████████
 ██████████████  ████      ██████          
 ```
+
+#### Canvas
+
+Create an image of width/height `matrix.length`, convert the bits to rgba using modulo two, and then put them on the image
+
+```tsx
+const image = new OffscreenCanvas(matrix.length, matrix.length)
+
+const bits = new Uint8Array(matrix.buffer)
+const rgba = new ImageData(matrix.length, matrix.length)
+
+for (let i = 0; i < bits.length; i++) {
+  rgba.data[i * 4 + 0] = bits[i] % 2 ? 0 : 255
+  rgba.data[i * 4 + 1] = bits[i] % 2 ? 0 : 255
+  rgba.data[i * 4 + 2] = bits[i] % 2 ? 0 : 255
+  rgba.data[i * 4 + 3] = 255
+}
+
+image.getContext("2d").putImageData(rgba, 0, 0)
+```
+
+Create a destination canvas of desired width/height, disable smoothing, and draw the image on the canvas
+
+```tsx
+const canvas = document.createElement("canvas")
+
+canvas.width = 300
+canvas.height = 300
+
+canvas.getContext("2d").imageSmoothingEnabled = false
+canvas.getContext("2d").drawImage(image, 0, 0, matrix.length, matrix.length, 0, 0, canvas.width, canvas.height)
+
+document.body.append(canvas)
+```
+
+You can invert 0 and 255 in the rgba to invert colors for dark mode
