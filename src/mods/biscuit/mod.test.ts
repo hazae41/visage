@@ -8,7 +8,7 @@ import { versions } from "@/mods/version/mod.ts";
 import { assert, test } from "@hazae41/phobos";
 import { binarize, Decoder, Detector, grayscale } from "@nuintun/qrcode";
 
-function print(matrix: Uint8Matrix) {
+function fullprint(matrix: Uint8Matrix) {
   const bitset = new Array(...new Uint8Array(matrix.buffer))
 
   console.log()
@@ -37,7 +37,7 @@ function print(matrix: Uint8Matrix) {
   console.log()
 }
 
-function print2(matrix: Uint8Matrix) {
+function fastprint(matrix: Uint8Matrix) {
   const bitset = new Array(...new Uint8Array(matrix.buffer))
 
   for (let row = 0; row < matrix.length; row++)
@@ -79,5 +79,5 @@ test("biscuit", () => {
     assert(message === decoded, version)
   }
 
-  print2(new QrEncoder("byte").encode(new TextEncoder().encode("Yes it works")))
+  fastprint(new QrEncoder("byte").encode(new TextEncoder().encode("Yes it works")))
 })
