@@ -1,6 +1,6 @@
 // deno-lint-ignore-file no-namespace
 
-import { Uint8Matrix } from "@/libs/matrix/mod.ts";
+import { Uint8Matrix } from "@/mods/matrix/mod.ts";
 
 export namespace Timing {
 

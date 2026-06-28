@@ -1,5 +1,5 @@
 // deno-lint-ignore-file no-namespace
-import { Uint8Matrix } from "@/libs/matrix/mod.ts";
+import { Uint8Matrix } from "@/mods/matrix/mod.ts";
 import { Alignment } from "@/mods/modules/alignment/mod.ts";
 import { Caterpillar } from "@/mods/modules/caterpillar/mod.ts";
 import { Content } from "@/mods/modules/content/mod.ts";

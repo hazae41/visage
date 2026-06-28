@@ -1,4 +1,4 @@
-import { Uint8Matrix } from "@/libs/matrix/mod.ts";
+import { Uint8Matrix } from "@/mods/matrix/mod.ts";
 import { Biscuit } from "@/mods/modules/biscuit/mod.ts";
 import { Content } from "@/mods/modules/content/mod.ts";
 

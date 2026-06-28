@@ -2,7 +2,7 @@
 
 import { BCH } from "@/libs/bch/mod.ts";
 import { Bitset } from "@/libs/bitset/mod.ts";
-import { Uint8Matrix } from "@/libs/matrix/mod.ts";
+import { Uint8Matrix } from "@/mods/matrix/mod.ts";
 import { Cursor } from "@hazae41/cursor";
 
 export namespace Preformat {

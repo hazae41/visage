@@ -1,7 +1,6 @@
 // deno-lint-ignore-file no-unused-vars ban-unused-ignore
 
-import { Uint8Matrix } from "@/libs/matrix/mod.ts";
-import { QrEncoder } from "@/mods/encoder/mod.ts";
+import { Uint8Matrix } from "@/mods/matrix/mod.ts";
 import { Biscuit } from "@/mods/modules/biscuit/mod.ts";
 import { Content } from "@/mods/modules/content/mod.ts";
 import { versions } from "@/mods/modules/version/mod.ts";
@@ -74,12 +73,11 @@ function decode(matrix: Uint8Matrix) {
 
 test("biscuit", () => {
   for (const version in versions) {
-    const message = "Hello world"
+    const message = crypto.getRandomValues(new Uint8Array(1024)).toHex()
+
     const encoded = new Biscuit(new Content.Byte(new TextEncoder().encode(message), versions[version], 0)).encode()
     const decoded = decode(encoded)
 
     assert(message === decoded, version)
   }
-
-  fastprint(new QrEncoder("byte").encode(new TextEncoder().encode("Yes it works")))
 })
