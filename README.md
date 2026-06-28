@@ -17,6 +17,36 @@ npm install @hazae41/visage
 
 ## Usage 
 
+### Encoding
+
+#### Bytes
+
 ```tsx
-new Biscuit(Content.Byte.from(new Uint8Array(...))).encode()
+const buffer = new Uint8Array(...)
+const matrix = new QrEncoder("byte").encode(buffer)
+```
+
+#### Bytes (UTF-8)
+
+```tsx
+const buffer = new TextEncoder().encode("Hello world!")
+const matrix = new QrEncoder("byte").encode(buffer)
+```
+
+#### Alphanumeric
+
+```tsx
+const matrix = new QrEncoder("alphanumeric").encode("HELLO WORLD 123")
+```
+
+#### Numeric
+
+```tsx
+const matrix = new QrEncoder("numeric").encode("123456")
+```
+
+#### Kanji
+
+```tsx
+const matrix = new QrEncoder("kanji").encode([...])
 ```

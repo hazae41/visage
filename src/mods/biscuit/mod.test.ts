@@ -3,6 +3,7 @@
 import { Uint8Matrix } from "@/libs/matrix/mod.ts";
 import { Biscuit } from "@/mods/biscuit/mod.ts";
 import { Content } from "@/mods/content/mod.ts";
+import { QrEncoder } from "@/mods/encoder/mod.ts";
 import { versions } from "@/mods/version/mod.ts";
 import { assert, test } from "@hazae41/phobos";
 import { binarize, Decoder, Detector, grayscale } from "@nuintun/qrcode";
@@ -62,12 +63,13 @@ function decode(matrix: Uint8Matrix) {
 
 test("biscuit", () => {
   for (const version in versions) {
-    const encoded = "Hello world"
-    const decoded = decode(new Biscuit(new Content.Byte(new TextEncoder().encode(encoded), versions[version], 0)).encode())
+    const message = "Hello world"
+    const encoded = new Biscuit(new Content.Byte(new TextEncoder().encode(message), versions[version], 0)).encode()
+    const decoded = decode(encoded)
 
-    assert(encoded === decoded, version)
+    assert(message === decoded, version)
   }
 
   const random = new TextEncoder().encode(crypto.getRandomValues(new Uint8Array(2 ** 8)).toHex())
-  print(new Biscuit(Content.Byte.from(random)).encode())
+  print(new QrEncoder("byte").encode(random))
 })

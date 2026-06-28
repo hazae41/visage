@@ -20,7 +20,7 @@ export namespace Content {
       readonly correct: 0 | 1 | 2 | 3
     ) { }
 
-    static from(content: string, correct: 0 | 1 | 2 | 3 = 1) {
+    static from(content: string, correct: 0 | 1 | 2 | 3) {
       /**
        * Bruteforce to find the smallest version that can encode the content
        */
@@ -118,7 +118,7 @@ export namespace Content {
       readonly correct: 0 | 1 | 2 | 3
     ) { }
 
-    static from(content: string, correct: 0 | 1 | 2 | 3 = 1) {
+    static from(content: string, correct: 0 | 1 | 2 | 3) {
       /**
        * Bruteforce to find the smallest version that can encode the content
        */
@@ -206,7 +206,7 @@ export namespace Content {
       readonly correct: 0 | 1 | 2 | 3
     ) { }
 
-    static from(content: Uint8Array, correct: 0 | 1 | 2 | 3 = 1) {
+    static from(content: Uint8Array, correct: 0 | 1 | 2 | 3) {
       /**
        * Bruteforce to find the smallest version that can encode the content
        */
@@ -266,7 +266,7 @@ export namespace Content {
       readonly correct: 0 | 1 | 2 | 3
     ) { }
 
-    static from(content: Array<number>, correct: 0 | 1 | 2 | 3 = 1) {
+    static from(content: Array<number>, correct: 0 | 1 | 2 | 3) {
       /**
        * Bruteforce to find the smallest version that can encode the content
        */
