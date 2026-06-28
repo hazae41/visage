@@ -53,13 +53,17 @@ const matrix = new QrEncoder("kanji").encode([...])
 
 ### Printing
 
+#### Console
+
 ```tsx
 const bitset = new Array(...new Uint8Array(matrix.buffer))
+
+console.log()
 
 for (let row = 0; row < matrix.length; row++)
   console.log(buffer.slice(row * matrix.length, (row + 1) * matrix.length).map(b => b % 2 ? "██" : "  ").join(""))
 
-console.log(bitset.length)
+console.log()
 ```
 
 ```
