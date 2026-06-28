@@ -1,8 +1,8 @@
 // deno-lint-ignore-file no-namespace
 
 import { Uint8Matrix } from "@/libs/matrix/mod.ts";
-import { Content } from "@/mods/content/mod.ts";
-import { Mixture } from "@/mods/mixture/mod.ts";
+import { Content } from "@/mods/modules/content/mod.ts";
+import { Mixture } from "@/mods/modules/mixture/mod.ts";
 import { Cursor } from "@hazae41/cursor";
 
 export class Caterpillar {

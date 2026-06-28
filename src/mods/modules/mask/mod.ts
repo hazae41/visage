@@ -1,8 +1,8 @@
 // deno-lint-ignore-file no-namespace
 
 import { Uint8Matrix } from "@/libs/matrix/mod.ts";
-import { Format } from "@/mods/format/mod.ts";
-import { Score } from "@/mods/score/mod.ts";
+import { Format } from "@/mods/modules/format/mod.ts";
+import { Score } from "@/mods/modules/score/mod.ts";
 
 export namespace Mask {
 

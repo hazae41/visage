@@ -1,6 +1,6 @@
-import { Content } from "@/mods/content/mod.ts";
-import { Mixture } from "@/mods/mixture/mod.ts";
-import { versions } from "@/mods/version/mod.ts";
+import { Content } from "@/mods/modules/content/mod.ts";
+import { Mixture } from "@/mods/modules/mixture/mod.ts";
+import { versions } from "@/mods/modules/version/mod.ts";
 import { test } from "@hazae41/phobos";
 
 // test("numeric", () => {

@@ -1,6 +1,6 @@
 import { Uint8Matrix } from "@/libs/matrix/mod.ts";
-import { Biscuit } from "@/mods/biscuit/mod.ts";
-import { Content } from "@/mods/content/mod.ts";
+import { Biscuit } from "@/mods/modules/biscuit/mod.ts";
+import { Content } from "@/mods/modules/content/mod.ts";
 
 export class QrEncoder<T extends "numeric" | "alphanumeric" | "byte" | "kanji" = "byte"> {
 

@@ -1,10 +1,10 @@
 // deno-lint-ignore-file no-unused-vars ban-unused-ignore
 
 import { Uint8Matrix } from "@/libs/matrix/mod.ts";
-import { Biscuit } from "@/mods/biscuit/mod.ts";
-import { Content } from "@/mods/content/mod.ts";
 import { QrEncoder } from "@/mods/encoder/mod.ts";
-import { versions } from "@/mods/version/mod.ts";
+import { Biscuit } from "@/mods/modules/biscuit/mod.ts";
+import { Content } from "@/mods/modules/content/mod.ts";
+import { versions } from "@/mods/modules/version/mod.ts";
 import { assert, test } from "@hazae41/phobos";
 import { binarize, Decoder, Detector, grayscale } from "@nuintun/qrcode";
 

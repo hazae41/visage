@@ -1,4 +1,4 @@
-import { versions } from "@/mods/version/mod.ts";
+import { versions } from "@/mods/modules/version/mod.ts";
 import { test } from "@hazae41/phobos";
 import { Content } from "./mod.ts";
 

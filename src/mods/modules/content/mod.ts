@@ -1,7 +1,7 @@
 // deno-lint-ignore-file no-namespace
 
 import { Bitset } from "@/libs/bitset/mod.ts";
-import { VersionInfo, versions } from "@/mods/version/mod.ts";
+import { VersionInfo, versions } from "@/mods/modules/version/mod.ts";
 import { Cursor } from "@hazae41/cursor";
 
 export type Content =

@@ -1,7 +1,7 @@
 import { Bitset } from "@/libs/bitset/mod.ts";
 import { deflate } from "@/libs/deflate/mod.ts";
 import { ReedSolomon } from "@/libs/reed/mod.ts";
-import { Content } from "@/mods/content/mod.ts";
+import { Content } from "@/mods/modules/content/mod.ts";
 import { Cursor } from "@hazae41/cursor";
 
 export class Mixture {

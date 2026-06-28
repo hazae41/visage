@@ -1,5 +1,5 @@
 import { Uint8Matrix } from "@/libs/matrix/mod.ts";
-import { PointInfo, VersionInfo } from "@/mods/version/mod.ts";
+import { PointInfo, VersionInfo } from "@/mods/modules/version/mod.ts";
 
 export class Alignment {
 

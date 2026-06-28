@@ -1,13 +1,13 @@
 // deno-lint-ignore-file no-namespace
 import { Uint8Matrix } from "@/libs/matrix/mod.ts";
-import { Alignment } from "@/mods/alignment/mod.ts";
-import { Caterpillar } from "@/mods/caterpillar/mod.ts";
-import { Content } from "@/mods/content/mod.ts";
-import { Finder } from "@/mods/finder/mod.ts";
-import { Preformat } from "@/mods/format/mod.ts";
-import { MaskAndFormat } from "@/mods/mask/mod.ts";
-import { Timing } from "@/mods/timing/mod.ts";
-import { Version } from "@/mods/version/mod.ts";
+import { Alignment } from "@/mods/modules/alignment/mod.ts";
+import { Caterpillar } from "@/mods/modules/caterpillar/mod.ts";
+import { Content } from "@/mods/modules/content/mod.ts";
+import { Finder } from "@/mods/modules/finder/mod.ts";
+import { Preformat } from "@/mods/modules/format/mod.ts";
+import { MaskAndFormat } from "@/mods/modules/mask/mod.ts";
+import { Timing } from "@/mods/modules/timing/mod.ts";
+import { Version } from "@/mods/modules/version/mod.ts";
 
 export class Biscuit {
 
