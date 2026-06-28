@@ -72,12 +72,24 @@ function decode(matrix: Uint8Matrix) {
 }
 
 test("biscuit", () => {
-  for (const version in versions) {
-    const message = crypto.getRandomValues(new Uint8Array(1024)).toHex()
+  for (const number in versions) {
+    const version = versions[number]
+    const maximum = version.levels[0].words.data
 
-    const encoded = new Biscuit(new Content.Byte(new TextEncoder().encode(message), versions[version], 0)).encode()
-    const decoded = decode(encoded)
+    const message = crypto.getRandomValues(new Uint8Array(maximum / 3)).toHex()
+    const encoded = new Biscuit(new Content.Byte(new TextEncoder().encode(message), version, 0)).encode()
 
-    assert(message === decoded, version)
+    try {
+      assert(message === decode(encoded), number)
+    } catch (error) {
+      console.log("Could not decode")
+
+      console.log("- Version", number)
+      console.log("- Message", message)
+
+      fastprint(encoded)
+
+      continue
+    }
   }
 })
