@@ -3,7 +3,6 @@
 import { Uint8Matrix } from "@/libs/matrix/mod.ts";
 import { Biscuit } from "@/mods/biscuit/mod.ts";
 import { Content } from "@/mods/content/mod.ts";
-import { Score } from "@/mods/score/mod.ts";
 import { versions } from "@/mods/version/mod.ts";
 import { assert, test } from "@hazae41/phobos";
 import { binarize, Decoder, Detector, grayscale } from "@nuintun/qrcode";
@@ -51,13 +50,9 @@ function colorize(matrix: Uint8Matrix) {
   return rgba
 }
 
-function f(biscuit: Biscuit) {
-  const bits = biscuit.encode()
-  const rgba = colorize(bits)
-
-  // print(bits)
-
-  const next = new Detector().detect(binarize(grayscale(rgba), bits.length, bits.length)).next()
+function decode(matrix: Uint8Matrix) {
+  const rgba = colorize(matrix)
+  const next = new Detector().detect(binarize(grayscale(rgba), matrix.length, matrix.length)).next()
 
   if (next.done)
     throw new Error("No QR code found")
@@ -68,17 +63,11 @@ function f(biscuit: Biscuit) {
 test("biscuit", () => {
   for (const version in versions) {
     const encoded = "Hello world"
-    const decoded = f(new Biscuit(new Content.Byte(new TextEncoder().encode(encoded), versions[version], 0)))
+    const decoded = decode(new Biscuit(new Content.Byte(new TextEncoder().encode(encoded), versions[version], 0)).encode())
 
     assert(encoded === decoded, version)
   }
 
-  const m = new Biscuit(new Content.Byte(new TextEncoder().encode("Test"), versions[1], 0)).encode()
-
-  print(m)
-
-  console.log("#1", Score.One.score(m))
-  console.log("#2", Score.Two.score(m))
-  console.log("#3", Score.Three.score(m))
-  console.log("#4", Score.Four.score(m))
+  const random = new TextEncoder().encode(crypto.getRandomValues(new Uint8Array(2 ** 8)).toHex())
+  print(new Biscuit(Content.Byte.from(random)).encode())
 })

@@ -1,7 +1,7 @@
 // deno-lint-ignore-file no-namespace
 
 import { Bitset } from "@/libs/bitset/mod.ts";
-import { VersionInfo } from "@/mods/version/mod.ts";
+import { VersionInfo, versions } from "@/mods/version/mod.ts";
 import { Cursor } from "@hazae41/cursor";
 
 export type Content =
@@ -19,6 +19,27 @@ export namespace Content {
       readonly version: VersionInfo,
       readonly correct: 0 | 1 | 2 | 3
     ) { }
+
+    static from(content: string, correct: 0 | 1 | 2 | 3 = 1) {
+      /**
+       * Bruteforce to find the smallest version that can encode the content
+       */
+
+      for (const number in versions) {
+        const version = versions[number]
+        const encoder = new Numeric(content, version, correct)
+
+        try {
+          encoder.encode()
+        } catch {
+          continue
+        }
+
+        return encoder
+      }
+
+      throw new Error("Content too long for any version")
+    }
 
     encode() {
       const { content, version, correct } = this
@@ -97,6 +118,27 @@ export namespace Content {
       readonly correct: 0 | 1 | 2 | 3
     ) { }
 
+    static from(content: string, correct: 0 | 1 | 2 | 3 = 1) {
+      /**
+       * Bruteforce to find the smallest version that can encode the content
+       */
+
+      for (const number in versions) {
+        const version = versions[number]
+        const encoder = new Alphanumeric(content, version, correct)
+
+        try {
+          encoder.encode()
+        } catch {
+          continue
+        }
+
+        return encoder
+      }
+
+      throw new Error("Content too long for any version")
+    }
+
     encode() {
       const { alphabet, content, version, correct } = this
 
@@ -164,6 +206,27 @@ export namespace Content {
       readonly correct: 0 | 1 | 2 | 3
     ) { }
 
+    static from(content: Uint8Array, correct: 0 | 1 | 2 | 3 = 1) {
+      /**
+       * Bruteforce to find the smallest version that can encode the content
+       */
+
+      for (const number in versions) {
+        const version = versions[number]
+        const encoder = new Byte(content, version, correct)
+
+        try {
+          encoder.encode()
+        } catch {
+          continue
+        }
+
+        return encoder
+      }
+
+      throw new Error("Content too long for any version")
+    }
+
     encode() {
       const { content, version, correct } = this
 
@@ -202,6 +265,27 @@ export namespace Content {
       readonly version: VersionInfo,
       readonly correct: 0 | 1 | 2 | 3
     ) { }
+
+    static from(content: Array<number>, correct: 0 | 1 | 2 | 3 = 1) {
+      /**
+       * Bruteforce to find the smallest version that can encode the content
+       */
+
+      for (const number in versions) {
+        const version = versions[number]
+        const encoder = new Kanji(content, version, correct)
+
+        try {
+          encoder.encode()
+        } catch {
+          continue
+        }
+
+        return encoder
+      }
+
+      throw new Error("Content too long for any version")
+    }
 
     encode() {
       const { content, version, correct } = this
